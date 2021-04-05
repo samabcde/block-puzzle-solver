@@ -1,4 +1,4 @@
-package com.samabcde.puzzlesolver;
+package com.samabcde.puzzlesolver.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 
-class BlockPosition implements Comparable<BlockPosition> {
+public class BlockPosition implements Comparable<BlockPosition> {
     private static final Logger logger = LoggerFactory.getLogger(BlockPosition.class);
     final int id;
     final Block block;

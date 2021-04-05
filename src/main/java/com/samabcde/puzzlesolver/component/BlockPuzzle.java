@@ -1,9 +1,9 @@
-package com.samabcde.puzzlesolver;
+package com.samabcde.puzzlesolver.component;
 
 import java.util.*;
 
 public class BlockPuzzle {
-    int blockCount = 0;
+    int blockCount;
     int positionCount = 0;
     int[][] pointFillablePositionId;
     final int puzzleWidth;
@@ -84,7 +84,7 @@ public class BlockPuzzle {
         return this.blocksById[id];
     }
 
-    BlockPosition getBlockPositionById(int id) {
+    public BlockPosition getBlockPositionById(int id) {
         return this.blockPositionsById[id];
     }
 

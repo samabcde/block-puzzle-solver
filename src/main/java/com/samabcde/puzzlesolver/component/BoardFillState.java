@@ -1,16 +1,13 @@
-package com.samabcde.puzzlesolver;
+package com.samabcde.puzzlesolver.component;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.samabcde.puzzlesolver.PointFillState.PointFillStateComparator;
+import com.samabcde.puzzlesolver.component.PointFillState.PointFillStateComparator;
 
 public class BoardFillState {
 	private final Logger logger = LoggerFactory.getLogger(BoardFillState.class);

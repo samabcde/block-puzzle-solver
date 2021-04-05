@@ -1,10 +1,6 @@
-package com.samabcde.puzzlesolver;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.samabcde.puzzlesolver.component;
 
 class Position {
-	final Logger logger = LoggerFactory.getLogger(Position.class);
 	final int x;
 	final int y;
 

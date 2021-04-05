@@ -1,4 +1,4 @@
-package com.samabcde.puzzlesolver;
+package com.samabcde.puzzlesolver.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,32 +9,27 @@ public class BlockPuzzleSolver {
     private final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
     private final BlockPuzzle blockPuzzle;
     private final List<Block> blocks;
-    private Deque<BlockPosition> solutions = new LinkedList<BlockPosition>();
+    private final Deque<BlockPosition> solutions = new LinkedList<>();
     private final BlockPossiblePosition blockPossiblePosition;
     private final BoardFillState boardFillState;
 
-    private long[] noPossiblePositionCount;
-    private long[] noFillablePointCount;
-    private long[] pTfFCount;
-    private long[] pFfTCount;
-
-    private List<Block> getAddedBlocks() {
-        return blocks.subList(0, solutions.size());
-    }
+    private final long[] noPossiblePositionCount;
+    private final long[] noFillablePointCount;
+    private final long[] pTfFCount;
+    private final long[] pFfTCount;
+    List<Long> executeTime = new ArrayList<>();
 
     private List<Block> getRemainingBlocks() {
         return blocks.subList(solutions.size(), blocks.size());
     }
-
-    List<Long> executeTime = new ArrayList<Long>();
 
     public BlockPuzzleSolver(BlockPuzzle blockPuzzle) {
 
         executeTime.add(new Date().getTime());
         this.blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
         this.blockPuzzle = blockPuzzle;
-        this.blocks = new ArrayList<Block>(this.blockPuzzle.getBlocks());
-        Collections.sort(blocks, new BlockComparator());
+        this.blocks = new ArrayList<>(this.blockPuzzle.getBlocks());
+        blocks.sort(new BlockComparator());
         for (int i = 0; i < this.blocks.size(); i++) {
             Block block = this.blocks.get(i);
             block.setPriority(i);
@@ -52,7 +47,7 @@ public class BlockPuzzleSolver {
         BlockPuzzleSolver.BlockPositionComparator blockPositionComparator = new BlockPuzzleSolver.BlockPositionComparator();
         for (Block block : this.blockPuzzle.getBlocks()) {
             List<BlockPosition> blockPositions = block.getBlockPositions();
-            Collections.sort(blockPositions, blockPositionComparator);
+            blockPositions.sort(blockPositionComparator);
             for (int i = 0; i < blockPositions.size(); i++) {
                 blockPositions.get(i).setPriority(i);
             }
@@ -63,8 +58,9 @@ public class BlockPuzzleSolver {
 
         @Override
         public int compare(BlockPosition arg0, BlockPosition arg1) {
-            if (Integer.compare(arg0.getIntersectScore(), arg1.getIntersectScore()) != 0) {
-                return Integer.compare(arg0.getIntersectScore(), arg1.getIntersectScore());
+            int compareIntersectScore = Integer.compare(arg0.getIntersectScore(), arg1.getIntersectScore());
+            if (compareIntersectScore != 0) {
+                return compareIntersectScore;
             }
             return Integer.compare(arg0.id, arg1.id);
         }
@@ -75,10 +71,10 @@ public class BlockPuzzleSolver {
     }
 
     void updateBlockOrder() {
-        Collections.sort(getRemainingBlocks(), this.blockPossiblePosition.getBlockPrioriyComparator());
+        getRemainingBlocks().sort(this.blockPossiblePosition.getBlockPrioriyComparator());
     }
 
-    Collection<BlockPosition> solve() {
+    public Collection<BlockPosition> solve() {
         long iterateCount = 0;
         while (!isSolved()) {
             iterateCount++;
@@ -142,9 +138,6 @@ public class BlockPuzzleSolver {
     }
 
     private boolean isCurrentBoardSolvable(Block block) {
-        boolean isSolvable = false;
-        boolean p = false;
-        boolean f = false;
         List<Block> remainingBlocks = getRemainingBlocks();
         BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition.clone();
         BoardFillState cloneBoardFillState = this.boardFillState.clone();
@@ -177,7 +170,6 @@ public class BlockPuzzleSolver {
             for (int i = 0; i < remainingBlocksBlockPositions.size(); i++) {
                 BitSet commonIntersectBlockBlockPositions = getCommonIntersectBlockPositions(
                         remainingBlocksBlockPositions.get(i));
-                // commonIntersectBlocksBlockPositions.get(i);
                 if (commonIntersectBlockBlockPositions.cardinality() == 0) {
                     continue;
                 }
@@ -201,10 +193,9 @@ public class BlockPuzzleSolver {
                 }
             }
             List<PointFillState> emptyPoints = cloneBoardFillState.getEmptyPoints();
-            List<PointFillState> remainOneBlockEmptyPoints = new ArrayList<PointFillState>();
+            List<PointFillState> remainOneBlockEmptyPoints = new ArrayList<>();
 
             for (PointFillState emptyPoint : emptyPoints) {
-
                 if (emptyPoint.getFillableBlockIds().size() == 1) {
                     remainOneBlockEmptyPoints.add(emptyPoint);
                 }
@@ -236,7 +227,6 @@ public class BlockPuzzleSolver {
                     }
                     if (remainingBlockBlockPositions.isEmpty()) {
                         return false;
-
                     }
                 }
             }

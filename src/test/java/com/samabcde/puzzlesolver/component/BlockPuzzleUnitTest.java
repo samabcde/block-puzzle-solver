@@ -1,4 +1,4 @@
-package com.samabcde.puzzlesolver;
+package com.samabcde.puzzlesolver.component;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,11 +12,6 @@ public class BlockPuzzleUnitTest {
 
 	@Test
 	public void testBlockPuzzle() {
-		// blockPuzzle = new BlockPuzzle(4, 2, new String[] { "111", "1,1111"
-		// });
-		// assertTrue(blockPuzzle.getBlocks().size() == 2);
-		// assertTrue(blockPuzzle.getIntersectBlockPositionPairs().size()==3);
-		// assertTrue(blockPuzzle.getBlockPositionsOfBlock().keySet().size()==2);
 		blockPuzzle = new BlockPuzzle(4, 3, new String[] { "001,111", "1,1111", "111" });
 		assertTrue(blockPuzzle.getBlocks().size() == 3);
 
