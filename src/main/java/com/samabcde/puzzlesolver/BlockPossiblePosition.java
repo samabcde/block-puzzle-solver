@@ -103,8 +103,8 @@ public class BlockPossiblePosition {
 			if (arg0.getWeight() != arg1.getWeight()) {
 				return -Integer.compare(arg0.getWeight(), arg1.getWeight());
 			}
-			if (arg0.getRelativeSize() != arg1.getRelativeSize()) {
-				return -Integer.compare(arg0.getRelativeSize(), arg1.getRelativeSize());
+			if (arg0.getSize() != arg1.getSize()) {
+				return -Integer.compare(arg0.getSize(), arg1.getSize());
 			}
 			return Integer.compare(arg0.id, arg1.id);
 		}

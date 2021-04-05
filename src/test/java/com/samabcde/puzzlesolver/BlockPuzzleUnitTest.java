@@ -20,9 +20,9 @@ public class BlockPuzzleUnitTest {
 		blockPuzzle = new BlockPuzzle(4, 3, new String[] { "001,111", "1,1111", "111" });
 		assertTrue(blockPuzzle.getBlocks().size() == 3);
 
-		BlockPosition p1 = blockPuzzle.getBlockPositionsOfBlock().get(0).get(0);
-		BlockPosition p2 = blockPuzzle.getBlockPositionsOfBlock().get(1).get(0);
-		BlockPosition p3 = blockPuzzle.getBlockPositionsOfBlock().get(2).get(0);
+		BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
+		BlockPosition p2 = blockPuzzle.getBlockIdToBlockPositionsMap().get(1).get(0);
+		BlockPosition p3 = blockPuzzle.getBlockIdToBlockPositionsMap().get(2).get(0);
 		assertTrue(p1.isIntersect(p2));
 		assertTrue(p1.isIntersect(p3));
 
@@ -33,8 +33,8 @@ public class BlockPuzzleUnitTest {
 		blockPuzzle = new BlockPuzzle(2, 2, new String[] { "1,1", "1,1" });
 		assertTrue(blockPuzzle.getBlocks().size() == 2);
 
-		BlockPosition p1 = blockPuzzle.getBlockPositionsOfBlock().get(0).get(0);
-		BlockPosition p2 = blockPuzzle.getBlockPositionsOfBlock().get(0).get(1);
+		BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
+		BlockPosition p2 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(1);
 
 	}
 
@@ -55,14 +55,7 @@ public class BlockPuzzleUnitTest {
 			}
 		}
 		long endTime = new Date().getTime();
-		for (int k = 0; k < 5; k++) {
-			for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
-				for (int j = i + 1; j < blockPuzzle.getPositionCount(); j++) {
-					blockPuzzle.getBlockPositionById(i).isPositionIntersect2(j);
-					blockPuzzle.getBlockPositionById(j).isPositionIntersect2(i);
-				}
-			}
-		}
+
 		long endTime2 = new Date().getTime();
 		System.out.println("alg 1 time :" + (endTime - startTime));
 		System.out.println("alg 2 time :" + (endTime2 - endTime));
