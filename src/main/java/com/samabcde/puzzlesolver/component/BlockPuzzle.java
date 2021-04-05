@@ -56,7 +56,7 @@ public class BlockPuzzle {
         this.puzzleHeight = height;
         int blockId = 0;
         for (String blockValue : blockValues) {
-            blocks.add(new Block(this, blockValue, blockId));
+            blocks.add(new Block(blockValue, blockId));
             blockId++;
         }
         this.blockCount = blocks.size();
@@ -77,6 +77,9 @@ public class BlockPuzzle {
             }
         }
         intersectBlockPositions();
+        for (Block block : blocks) {
+            block.setBlockPositiona(blockIdToBlockPositionsMap.get(block.id));
+        }
         setCoverableBlocks();
     }
 

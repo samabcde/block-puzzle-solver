@@ -1,15 +1,11 @@
 package com.samabcde.puzzlesolver.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 
 public class BlockPosition implements Comparable<BlockPosition> {
-    private static final Logger logger = LoggerFactory.getLogger(BlockPosition.class);
     final int id;
     final Block block;
     private final BlockPuzzle blockPuzzle;
@@ -18,10 +14,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     private final Position position;
     int intersectCount;
     private int intersectScore = Integer.MIN_VALUE;
-    private int intersectScore2 = Integer.MIN_VALUE;
     List<Integer> intersectPositionIds = new ArrayList<Integer>();
-    int iterateCount = 0;
-    int equalsCount = 0;
     int[] fillablePoints;
     private int priority;
     int hashCode = -1;
@@ -46,8 +39,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         if (intersectScore != Integer.MIN_VALUE) {
             return intersectScore;
         }
-        intersectScore = this.intersectCount;
-
+        intersectScore = 0;
         for (int i = 0; i < this.blockPuzzle.positionCount; i++) {
             if (!this.isPositionIdIntersect[i]) {
                 continue;
@@ -159,7 +151,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
 
     @Override
     public boolean equals(Object obj) {
-        equalsCount++;
         if (this == obj) {
             return true;
         }

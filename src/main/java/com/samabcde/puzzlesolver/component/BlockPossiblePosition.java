@@ -90,7 +90,6 @@ public class BlockPossiblePosition {
 
 		@Override
 		public int compare(Block arg0, Block arg1) {
-			// logger.info("compare: arg0" + arg0.id + " arg1:" + arg1.id);
 			BlockPossiblePosition blockPossiblePosition = BlockPossiblePosition.this;
 			if (blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg0.id] != blockPossiblePosition
 					.getPossiblePositionCountOfBlocks()[arg1.id]) {

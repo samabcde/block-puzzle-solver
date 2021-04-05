@@ -116,19 +116,14 @@ public class BlockPuzzleSolver {
         return solutions;
     }
 
-    private static BitSet isCommonPositionIntersectBitSet = new BitSet();
+    private BitSet isCommonPositionIntersectBitSet = new BitSet();
 
     private BitSet getCommonIntersectBlockPositions(List<BlockPosition> blockPositions) {
         if (isCommonPositionIntersectBitSet != null) {
             isCommonPositionIntersectBitSet.clear();
             isCommonPositionIntersectBitSet.flip(0, isCommonPositionIntersectBitSet.size());
         }
-
         for (BlockPosition blockPosition : blockPositions) {
-            if (isCommonPositionIntersectBitSet == null) {
-                isCommonPositionIntersectBitSet = (BitSet) blockPosition.isPositionIdIntersectBitSet.clone();
-                continue;
-            }
             isCommonPositionIntersectBitSet.and(blockPosition.isPositionIdIntersectBitSet);
             if (isCommonPositionIntersectBitSet.cardinality() == 0) {
                 return isCommonPositionIntersectBitSet;
@@ -147,23 +142,12 @@ public class BlockPuzzleSolver {
         if (cloneBoardFillState.existNotFillablePoint()) {
             return false;
         }
-        List<List<BlockPosition>> remainingBlocksBlockPositions = new ArrayList<List<BlockPosition>>();
+        List<List<BlockPosition>> remainingBlocksBlockPositions = getRemainingBlocksBlockPositions(remainingBlocks, cloneBlockPossiblePosition);
+        return extracted(cloneBoardFillState, remainingBlocksBlockPositions);
+    }
 
-        boolean[] isBlocksSkippable = new boolean[blocks.size()];
-        for (Block remainingBlock : remainingBlocks) {
-            if (isBlocksSkippable[remainingBlock.id]) {
-                continue;
-            }
-            List<BlockPosition> possibleBlockPositions = cloneBlockPossiblePosition
-                    .getPossibleBlockPosition(remainingBlock);
-            if (possibleBlockPositions.size() > 1) {
-                for (Integer coverableBlockId : remainingBlock.getCoverableBlockIds()) {
-                    isBlocksSkippable[coverableBlockId] = true;
-                }
-            }
-            remainingBlocksBlockPositions.add(possibleBlockPositions);
-        }
-        boolean hasChange = false;
+    private boolean extracted(BoardFillState cloneBoardFillState, List<List<BlockPosition>> remainingBlocksBlockPositions) {
+        boolean hasChange;
         do {
             hasChange = false;
 
@@ -198,9 +182,6 @@ public class BlockPuzzleSolver {
             for (PointFillState emptyPoint : emptyPoints) {
                 if (emptyPoint.getFillableBlockIds().size() == 1) {
                     remainOneBlockEmptyPoints.add(emptyPoint);
-                }
-                if (emptyPoint.getFillableBlockIds().size() > 1) {
-                    break;
                 }
             }
 
@@ -237,6 +218,26 @@ public class BlockPuzzleSolver {
         return true;
     }
 
+    private List<List<BlockPosition>> getRemainingBlocksBlockPositions(List<Block> remainingBlocks, BlockPossiblePosition cloneBlockPossiblePosition) {
+        List<List<BlockPosition>> remainingBlocksBlockPositions = new ArrayList<>();
+
+        boolean[] isBlocksSkippable = new boolean[blocks.size()];
+        for (Block remainingBlock : remainingBlocks) {
+            if (isBlocksSkippable[remainingBlock.id]) {
+                continue;
+            }
+            List<BlockPosition> possibleBlockPositions = cloneBlockPossiblePosition
+                    .getPossibleBlockPosition(remainingBlock);
+            if (possibleBlockPositions.size() > 1) {
+                for (Integer coverableBlockId : remainingBlock.getCoverableBlockIds()) {
+                    isBlocksSkippable[coverableBlockId] = true;
+                }
+            }
+            remainingBlocksBlockPositions.add(possibleBlockPositions);
+        }
+        return remainingBlocksBlockPositions;
+    }
+
     private boolean existNotFillablePoint() {
         return this.boardFillState.existNotFillablePoint();
     }
@@ -255,7 +256,17 @@ public class BlockPuzzleSolver {
             }
         }
         for (char[] solutionRowView : solutionView) {
-            logger.info(Arrays.toString(solutionRowView));
+            StringBuilder stringBuilder = new StringBuilder("");
+            for (int i = 0; i < solutionRowView.length; i++) {
+                char c = solutionRowView[i];
+                if (c == 0) {
+                    stringBuilder.append(" ");
+                } else {
+                    stringBuilder.append(c);
+                }
+            }
+            logger.info(stringBuilder.toString());
+            //logger.info(Arrays.toString(solutionRowView));
         }
     }
 
@@ -335,7 +346,6 @@ public class BlockPuzzleSolver {
                     if (!isInSolution) {
                         boardFillState
                                 .removeFillableBlockPosition(blockPuzzle.getBlockPositionById(intersectPositionId));
-
                     }
                     blockPossiblePosition.getPossiblePositionCountOfBlocks()[blockPuzzle
                             .getBlockIdByBlockPositionId(intersectPositionId)]--;

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 class Block {
-    private final BlockPuzzle blockPuzzle;
     final int id;
     // store the 2D block in 1D array with true as present
     private boolean[] value;
@@ -18,9 +17,9 @@ class Block {
     int positionIdTo;
     private String valueView;
     int priority;
+    private List<BlockPosition> blockPositions;
 
-    Block(BlockPuzzle blockPuzzle, String value, int blockId) {
-        this.blockPuzzle = blockPuzzle;
+    Block(String value, int blockId) {
         this.id = blockId;
         String[] rows = value.split(",");
         initializeSize(rows);
@@ -48,7 +47,7 @@ class Block {
     }
 
     public int getAverageIntersectCount() {
-        return totalIntersectCount / this.blockPuzzle.getBlockPositionsByBlockId(this.id).size();
+        return totalIntersectCount / this.blockPositions.size();
     }
 
     public int getHeight() {
@@ -75,8 +74,13 @@ class Block {
         this.priority = priority;
     }
 
+    public void setBlockPositiona(List<BlockPosition> blockPositions) {
+        this.blockPositions = blockPositions;
+    }
+
     public List<BlockPosition> getBlockPositions() {
-        return this.blockPuzzle.getBlockPositionsByBlockId(this.id);
+        return this.blockPositions;
+        //return this.blockPuzzle.getBlockPositionsByBlockId(this.id);
     }
 
     @Override
