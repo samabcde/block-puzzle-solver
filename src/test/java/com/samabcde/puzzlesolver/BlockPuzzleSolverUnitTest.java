@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BlockPuzzleSolverUnitTest {
-	BlockPuzzle blockPuzzle;
+	BlockPuzzle blockPuzzle ;
 
 	@Test
 	public void testSolve() {
 		blockPuzzle = new BlockPuzzle(4, 4, new String[] { "1111", "111", "001,111", "1,1111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -23,7 +23,7 @@ public class BlockPuzzleSolverUnitTest {
 				new String[] { "1111", "111", "001,111", "1,1111", "111", "01,01,01,11,01" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1,11,01,01", "101,111", "011,01,11", "1,1,1,1,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class BlockPuzzleSolverUnitTest {
 		});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -98,10 +98,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -113,10 +110,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -130,7 +124,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -143,7 +137,7 @@ public class BlockPuzzleSolverUnitTest {
 						"1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -159,32 +153,8 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
-
+		assertFalse(solutions.isEmpty());
 	}
-
-	// @Test
-	// public void testSolve12b() {
-	// blockPuzzle = new BlockPuzzle(13, 13,
-	// new String[] { "1", "11", "1,1", "111", "1,1,1", "01,11", "11,1",
-	// "11,01", "11,11", "1111", "1,1,1,1",
-	// "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011",
-	// "011,11", "1,11,1",
-	// "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1",
-	// "1111,01", "1111,001",
-	// "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111",
-	// "011,111", "111,1"
-	// ,"1,111,1","1,11,11", "1,11101", "1,111,001", "11,11,1",});
-	// BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
-	// Collection<BlockPosition> solutions = solver.solve();
-	// assertTrue(!solutions.isEmpty());
-	// for (BlockPosition solution : solutions) {
-	//
-	// }
-	// }
 
 	@Test
 	@Disabled
@@ -199,10 +169,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -218,10 +185,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -238,10 +202,7 @@ public class BlockPuzzleSolverUnitTest {
 						"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -254,10 +215,7 @@ public class BlockPuzzleSolverUnitTest {
 						"11", "11", "11", "11", "11", "11", "11", "11", "11" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -271,10 +229,7 @@ public class BlockPuzzleSolverUnitTest {
 						"1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -289,10 +244,7 @@ public class BlockPuzzleSolverUnitTest {
 						"11", "11", "11", "11", "11", "11", "11", "11", "11" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -304,10 +256,7 @@ public class BlockPuzzleSolverUnitTest {
 						"1", "1", "1", "1", "1", "1", "1", "1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -323,10 +272,7 @@ public class BlockPuzzleSolverUnitTest {
 				});
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -335,10 +281,7 @@ public class BlockPuzzleSolverUnitTest {
 				"001,111", "1111", "001,001,111", "00111,111,1", });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -347,10 +290,7 @@ public class BlockPuzzleSolverUnitTest {
 				"11,11", "111,11", "001,111,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
-		for (BlockPosition solution : solutions) {
-
-		}
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -359,7 +299,7 @@ public class BlockPuzzleSolverUnitTest {
 				"01,01,11", "11111", "01,11,01", "011,11111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -369,7 +309,7 @@ public class BlockPuzzleSolverUnitTest {
 				"01,011,11", "11,11,01", "11,01,011", "1,1,1,1,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -379,7 +319,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1111", "11,11", "01,111", "01,11111,0001" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -389,7 +329,7 @@ public class BlockPuzzleSolverUnitTest {
 				"11,11", "11,0111,001", "1,11,111", "1111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -399,7 +339,7 @@ public class BlockPuzzleSolverUnitTest {
 				new String[] { "1,1", "111", "01,11", "11,11", "11,011", "111,01", "001,111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -409,7 +349,7 @@ public class BlockPuzzleSolverUnitTest {
 				new String[] { "11", "1,1,1", "01,11", "11,11", "1,11,01", "1,11,1", "01,01,11" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -419,7 +359,7 @@ public class BlockPuzzleSolverUnitTest {
 				"11,11", "1111", "1111,0001", "01,111111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -429,7 +369,7 @@ public class BlockPuzzleSolverUnitTest {
 				"011,11,01", "1,11,0111", "11,0111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 
 	}
 
@@ -439,7 +379,7 @@ public class BlockPuzzleSolverUnitTest {
 				"01,111,01", "1,1,1,1", "01,01,01,11", "01,01,11,01" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -448,7 +388,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1,1,1,1", "1111,01", "111,1,1", "11,1,1,1", "11111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -457,7 +397,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1,1,1,1", "1,111,1", "1,1,1,11", "01,111,01", "11,01,11", "11,011,01" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -466,7 +406,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1,1,11", "1,11,011", "1,111,001", "11,01,11", "1001,11111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -475,7 +415,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1111,1", "111,0011", "1,1,111", "1,1111,0001", "1111,00011", "111111" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -484,7 +424,7 @@ public class BlockPuzzleSolverUnitTest {
 				"101,111", "1,111,1", "111,1,1", "11,11,01", "11111", "001,001,1111,1" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -493,7 +433,7 @@ public class BlockPuzzleSolverUnitTest {
 				"01,11,11", "011,11,01", "01,01,11,01", "11,01,01,011", "11,1,11,01" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -502,7 +442,7 @@ public class BlockPuzzleSolverUnitTest {
 				"111,101", "01,1111", "001,111,001", "111,0011", "1,111,001" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -511,7 +451,7 @@ public class BlockPuzzleSolverUnitTest {
 				"11,11", "1,1,1,1", "1,1,1,11", "111,01,01", "1,111,001", "01,111,0011" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -520,7 +460,7 @@ public class BlockPuzzleSolverUnitTest {
 				"1,1111", "111,011", "111,1,1", "001,111,1", "01,011,11" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -529,7 +469,7 @@ public class BlockPuzzleSolverUnitTest {
 				"01,01,11", "1,11,11", "1,111,01", "01,01,11,01", "11,01,011" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 
 	@Test
@@ -538,6 +478,6 @@ public class BlockPuzzleSolverUnitTest {
 				"1,1,1,1", "01,01,111", "11111", "01,11,11", "01,1111", "111,0011" });
 		BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
 		Collection<BlockPosition> solutions = solver.solve();
-		assertTrue(!solutions.isEmpty());
+		assertFalse(solutions.isEmpty());
 	}
 }
