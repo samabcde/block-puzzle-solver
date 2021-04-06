@@ -51,7 +51,7 @@ public class BlockPuzzle {
         return this.puzzleHeight * this.puzzleWidth;
     }
 
-    BlockPuzzle(int width, int height, String[] blockValues) {
+    public BlockPuzzle(int width, int height, String[] blockValues) {
         this.puzzleWidth = width;
         this.puzzleHeight = height;
         int blockId = 0;

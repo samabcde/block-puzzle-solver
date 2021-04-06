@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 public class BlockPuzzleSolver {
-    private final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
     private final BlockPuzzle blockPuzzle;
     private final List<Block> blocks;
     private final Deque<BlockPosition> solutions = new LinkedList<>();
@@ -98,20 +98,20 @@ public class BlockPuzzleSolver {
         executeTime.add(new Date().getTime());
         if (isSolved()) {
             logger.info("Solved");
-            logger.info("iterate Count:" + iterateCount);
-            logger.info("No Possible Position Count:" + Arrays.toString(noPossiblePositionCount));
-            logger.info("Can not fill all points Count:" + Arrays.toString(noFillablePointCount));
-            logger.info("Position false point true:" + Arrays.toString(pFfTCount));
-            logger.info("Position true point false:" + Arrays.toString(pTfFCount));
+            logger.info("iterate Count: " + iterateCount);
+            logger.info("No Possible Position Count: " + Arrays.toString(noPossiblePositionCount));
+            logger.info("Can not fill all points Count: " + Arrays.toString(noFillablePointCount));
+            logger.info("Position false point true: " + Arrays.toString(pFfTCount));
+            logger.info("Position true point false: " + Arrays.toString(pTfFCount));
 
             printSolution();
         } else {
             logger.info("Cannot solve");
-            logger.info("iterate Count:" + iterateCount);
+            logger.info("iterate Count: " + iterateCount);
         }
         executeTime.add(new Date().getTime());
         for (int i = 0; i < executeTime.size() - 1; i++) {
-            logger.info("Step " + i + "time:" + (executeTime.get(i + 1) - executeTime.get(i)));
+            logger.info("Step " + i + " time: " + (executeTime.get(i + 1) - executeTime.get(i)));
         }
         return solutions;
     }
@@ -238,10 +238,6 @@ public class BlockPuzzleSolver {
         return remainingBlocksBlockPositions;
     }
 
-    private boolean existNotFillablePoint() {
-        return this.boardFillState.existNotFillablePoint();
-    }
-
     private void printSolution() {
         char[][] solutionView = new char[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
         for (BlockPosition blockPosition : solutions) {
@@ -257,8 +253,7 @@ public class BlockPuzzleSolver {
         }
         for (char[] solutionRowView : solutionView) {
             StringBuilder stringBuilder = new StringBuilder("");
-            for (int i = 0; i < solutionRowView.length; i++) {
-                char c = solutionRowView[i];
+            for (char c : solutionRowView) {
                 if (c == 0) {
                     stringBuilder.append(" ");
                 } else {
@@ -266,7 +261,6 @@ public class BlockPuzzleSolver {
                 }
             }
             logger.info(stringBuilder.toString());
-            //logger.info(Arrays.toString(solutionRowView));
         }
     }
 
@@ -300,9 +294,7 @@ public class BlockPuzzleSolver {
                 }
             }
             if (!isInSolution) {
-
                 boardFillState.addFillableBlockPosition(intersectBlockPosition);
-
             }
             blockPossiblePosition.getPossiblePositionCountOfBlocks()[blockPuzzle
                     .getBlockIdByBlockPositionId(intersectPositionId)]++;
