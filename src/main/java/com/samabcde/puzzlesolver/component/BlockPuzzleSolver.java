@@ -143,10 +143,10 @@ public class BlockPuzzleSolver {
             return false;
         }
         List<List<BlockPosition>> remainingBlocksBlockPositions = getRemainingBlocksBlockPositions(remainingBlocks, cloneBlockPossiblePosition);
-        return extracted(cloneBoardFillState, remainingBlocksBlockPositions);
+        return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlocksBlockPositions);
     }
 
-    private boolean extracted(BoardFillState cloneBoardFillState, List<List<BlockPosition>> remainingBlocksBlockPositions) {
+    private boolean isRemainingBlockPositionsSolvable(BoardFillState cloneBoardFillState, List<List<BlockPosition>> remainingBlocksBlockPositions) {
         boolean hasChange;
         do {
             hasChange = false;

@@ -141,18 +141,6 @@ public class BlockPuzzleSolverUnitTest {
         assertPuzzleSolvable(blockPuzzle);
     }
 
-    @Test
-    public void testSolve20() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
-                new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",
-                        "0111,01,01,01,01,01,11,11,1,1,1", "11,11,11,11,1,1,1", "111111,1,111,001", "111,11111",
-                        "1,111111", "1,1,1,1,1,1", "0111111,11", "111111", "01,11", "1,11,11", "11,11,01", "01,011,111",
-                        "111,111111", "0000001,0000001,0000001,0000001,0000011,1111110", "01,11",
-                        "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
-
-                });
-        assertPuzzleSolvable(blockPuzzle);
-    }
 
     @Test
     public void testSolve13() {
@@ -216,6 +204,7 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
+    @Disabled
     public void testSolve18() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "11", "1,1", "01,11", "11,1", "11,01", "1111", "1,1,1,1", "11,11", "111,1",
@@ -231,6 +220,20 @@ public class BlockPuzzleSolverUnitTest {
     public void testSolve19() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(8, 5, new String[]{"1,1", "1,1,1", "11,01", "11,11", "011,11", "1,11,1",
                 "001,111", "1111", "001,001,111", "00111,111,1",});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
+    @Disabled
+    public void testSolve20() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
+                new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",
+                        "0111,01,01,01,01,01,11,11,1,1,1", "11,11,11,11,1,1,1", "111111,1,111,001", "111,11111",
+                        "1,111111", "1,1,1,1,1,1", "0111111,11", "111111", "01,11", "1,11,11", "11,11,01", "01,011,111",
+                        "111,111111", "0000001,0000001,0000001,0000001,0000011,1111110", "01,11",
+                        "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
+
+                });
         assertPuzzleSolvable(blockPuzzle);
     }
 
