@@ -11,18 +11,19 @@ import picocli.CommandLine.Option;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 
-@Command(name = "solve")
+@Command(name = "solve", mixinStandardHelpOptions = true, version = "0.0.1")
 public class SolverApplication implements Callable<Integer> {
     private static final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
 
-    @Option(names = {"-w", "--width"}, description = "Width of Puzzle")
+    @Option(names = {"-pw", "--puzzle-width"}, description = "Width of Puzzle", required = true)
     private Integer width;
 
-    @Option(names = {"-h", "--height"}, description = "Height of Puzzle")
+    @Option(names = {"-ph", "--puzzle-height"}, description = "Height of Puzzle", required = true)
     private Integer height;
 
     @Option(names = {"-bs", "--blocks"}, description = "The blocks in the puzzle, " +
-            "should contains '0'(empty) ,'1'(block), ','(row separator) and ';'(block separator) only", split = ";")
+            "should contains '0'(empty) ,'1'(point), ','(row separator) and ';'(block separator) only, e.g. the `T` shape " +
+            "is \"111,01\"", split = ";", required = true)
     private String[] blocks;
 
     public static void main(String... args) {

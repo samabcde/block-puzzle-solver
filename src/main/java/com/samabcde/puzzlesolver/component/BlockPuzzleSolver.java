@@ -99,11 +99,11 @@ public class BlockPuzzleSolver {
         if (isSolved()) {
             logger.info("Solved");
             logger.info("iterate Count: " + iterateCount);
-            logger.info("No Possible Position Count: " + Arrays.toString(noPossiblePositionCount));
-            logger.info("Can not fill all points Count: " + Arrays.toString(noFillablePointCount));
-            logger.info("Position false point true: " + Arrays.toString(pFfTCount));
-            logger.info("Position true point false: " + Arrays.toString(pTfFCount));
-
+            logger.debug("No Possible Position Count: " + Arrays.toString(noPossiblePositionCount));
+            logger.debug("Can not fill all points Count: " + Arrays.toString(noFillablePointCount));
+            logger.debug("Position false point true: " + Arrays.toString(pFfTCount));
+            logger.debug("Position true point false: " + Arrays.toString(pTfFCount));
+            logger.info("Solution: ");
             printSolution();
         } else {
             logger.info("Cannot solve");
