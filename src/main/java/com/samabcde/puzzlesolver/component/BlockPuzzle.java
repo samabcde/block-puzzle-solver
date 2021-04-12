@@ -8,7 +8,7 @@ public class BlockPuzzle {
     int[][] pointFillablePositionId;
     final int puzzleWidth;
     final int puzzleHeight;
-    private Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<Integer, List<BlockPosition>>();
+    private Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
     BlockPosition[] blockPositionsById;
     List<Block> blocks = new ArrayList<Block>();

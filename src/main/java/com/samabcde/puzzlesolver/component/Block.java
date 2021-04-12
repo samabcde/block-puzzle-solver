@@ -12,7 +12,7 @@ class Block {
     int width;
     int weight;
     int totalIntersectCount = 0;
-    Set<Integer> coverableBlockIds = new HashSet<Integer>();
+    Set<Integer> coverableBlockIds = new HashSet<>();
     int positionIdFrom;
     int positionIdTo;
     private String valueView;
@@ -80,7 +80,6 @@ class Block {
 
     public List<BlockPosition> getBlockPositions() {
         return this.blockPositions;
-        //return this.blockPuzzle.getBlockPositionsByBlockId(this.id);
     }
 
     @Override

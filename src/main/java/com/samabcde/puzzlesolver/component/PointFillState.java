@@ -75,13 +75,12 @@ public class PointFillState {
         return position;
     }
 
-
     public boolean isFillable() {
         return this.fillableBlockCount > 0;
     }
 
     public List<Integer> getFillableBlockIds() {
-        List<Integer> fillableBlockIds = new LinkedList<Integer>();
+        List<Integer> fillableBlockIds = new LinkedList<>();
         for (int i = 0; i < fillablePositionCountOfBlocks.length; i++) {
             if (fillablePositionCountOfBlocks[i] > 0) {
                 fillableBlockIds.add(i);
@@ -89,7 +88,6 @@ public class PointFillState {
         }
         return fillableBlockIds;
     }
-
 
     public PointFillState clone() {
         return new PointFillState(this);
@@ -109,7 +107,6 @@ public class PointFillState {
             fillableBlockCount++;
             fillableBlockWeight += fillableBlockPosition.getBlock().weight;
         }
-
         fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id]++;
         fillableBlockPositionCount++;
     }
@@ -119,7 +116,6 @@ public class PointFillState {
             fillableBlockCount--;
             fillableBlockWeight -= fillableBlockPosition.getBlock().weight;
         }
-
         fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id]--;
         fillableBlockPositionCount--;
 

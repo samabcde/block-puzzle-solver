@@ -3,6 +3,7 @@ package com.samabcde.puzzlesolver.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.*;
 
 public class BlockPuzzleSolver {
@@ -71,7 +72,7 @@ public class BlockPuzzleSolver {
     }
 
     void updateBlockOrder() {
-        getRemainingBlocks().sort(this.blockPossiblePosition.getBlockPrioriyComparator());
+        getRemainingBlocks().sort(this.blockPossiblePosition.getBlockPriorityComparator());
     }
 
     public Collection<BlockPosition> solve() {
@@ -95,7 +96,7 @@ public class BlockPuzzleSolver {
                 printSolution();
             }
         }
-        executeTime.add(new Date().getTime());
+        executeTime.add(Instant.now().toEpochMilli());
         if (isSolved()) {
             logger.info("Solved");
             logger.info("iterate Count: " + iterateCount);
@@ -109,7 +110,7 @@ public class BlockPuzzleSolver {
             logger.info("Cannot solve");
             logger.info("iterate Count: " + iterateCount);
         }
-        executeTime.add(new Date().getTime());
+        executeTime.add(Instant.now().toEpochMilli());
         for (int i = 0; i < executeTime.size() - 1; i++) {
             logger.info("Step " + i + " time: " + (executeTime.get(i + 1) - executeTime.get(i)));
         }
@@ -152,9 +153,9 @@ public class BlockPuzzleSolver {
             hasChange = false;
 
             for (int i = 0; i < remainingBlocksBlockPositions.size(); i++) {
-                BitSet commonIntersectBlockBlockPositions = getCommonIntersectBlockPositions(
+                BitSet commonIntersectBlockPositions = getCommonIntersectBlockPositions(
                         remainingBlocksBlockPositions.get(i));
-                if (commonIntersectBlockBlockPositions.cardinality() == 0) {
+                if (commonIntersectBlockPositions.cardinality() == 0) {
                     continue;
                 }
                 for (int j = 0; j < remainingBlocksBlockPositions.size(); j++) {
@@ -165,7 +166,7 @@ public class BlockPuzzleSolver {
                     Iterator<BlockPosition> iterator = remainingBlockBlockPositions.iterator();
                     while (iterator.hasNext()) {
                         BlockPosition blockPosition = iterator.next();
-                        if (commonIntersectBlockBlockPositions.get(blockPosition.id)) {
+                        if (commonIntersectBlockPositions.get(blockPosition.id)) {
                             hasChange = true;
                             cloneBoardFillState.removeFillableBlockPosition(blockPosition);
                             iterator.remove();
@@ -336,8 +337,7 @@ public class BlockPuzzleSolver {
                         }
                     }
                     if (!isInSolution) {
-                        boardFillState
-                                .removeFillableBlockPosition(blockPuzzle.getBlockPositionById(intersectPositionId));
+                        boardFillState.removeFillableBlockPosition(intersectBlockPosition);
                     }
                     blockPossiblePosition.getPossiblePositionCountOfBlocks()[blockPuzzle
                             .getBlockIdByBlockPositionId(intersectPositionId)]--;

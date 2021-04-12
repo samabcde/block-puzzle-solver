@@ -26,7 +26,7 @@ public class BoardFillState {
         for (int i = 0; i < pointCount; i++) {
             pointFillStatesOrderByPosition.add(new PointFillState(blockPuzzle, i));
         }
-        this.emptyPoints = new LinkedList<PointFillState>(pointFillStatesOrderByPosition);
+        this.emptyPoints = new LinkedList<>(pointFillStatesOrderByPosition);
     }
 
     private BoardFillState(BoardFillState boardFillState) {
@@ -49,8 +49,6 @@ public class BoardFillState {
     public BoardFillState clone() {
         return new BoardFillState(this);
     }
-
-    private static long count = 0;
 
     public boolean existNotFillablePoint() {
         List<PointFillState> emptyPoints = getEmptyPoints();
