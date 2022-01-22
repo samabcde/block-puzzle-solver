@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BoardFillState {
-    private final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
+    private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
     private final List<PointFillState> emptyPoints;
 
     private final List<PointFillState> pointFillStatesOrderByPosition;
