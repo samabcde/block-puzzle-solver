@@ -7,37 +7,37 @@ import java.util.List;
 
 public class PointFillState {
     private boolean isFilled = false;
-    private int fillableBlockCount = 0;
-    private int fillableBlockPositionCount = 0;
-    private int fillableBlockWeight = 0;
-    private int[] fillablePositionCountOfBlocks;
+    private int canFillBlockCount = 0;
+    private int canFillBlockPositionCount = 0;
+    private int canFillBlockWeight = 0;
+    private int[] canFillPositionCountOfBlocks;
     private final int position;
 
     private PointFillState(PointFillState pointFillState) {
-        this.fillableBlockCount = pointFillState.fillableBlockCount;
-        this.fillableBlockPositionCount = pointFillState.fillableBlockPositionCount;
-        this.fillablePositionCountOfBlocks = Arrays.copyOf(pointFillState.fillablePositionCountOfBlocks,
-                pointFillState.fillablePositionCountOfBlocks.length);
-        this.fillableBlockWeight = pointFillState.fillableBlockWeight;
+        this.canFillBlockCount = pointFillState.canFillBlockCount;
+        this.canFillBlockPositionCount = pointFillState.canFillBlockPositionCount;
+        this.canFillPositionCountOfBlocks = Arrays.copyOf(pointFillState.canFillPositionCountOfBlocks,
+                pointFillState.canFillPositionCountOfBlocks.length);
+        this.canFillBlockWeight = pointFillState.canFillBlockWeight;
         this.isFilled = pointFillState.isFilled;
         this.position = pointFillState.position;
     }
 
     public PointFillState(BlockPuzzle blockPuzzle, int position) {
-        fillablePositionCountOfBlocks = new int[blockPuzzle.getBlocks().size()];
-        Arrays.fill(fillablePositionCountOfBlocks, 0);
+        canFillPositionCountOfBlocks = new int[blockPuzzle.getBlocks().size()];
+        Arrays.fill(canFillPositionCountOfBlocks, 0);
         for (Block block : blockPuzzle.getBlocks()) {
             for (BlockPosition blockPosition : block.getBlockPositions()) {
-                for (int fillablePoint : blockPosition.getFillablePoints()) {
-                    if (fillablePoint != position) {
+                for (int canFillPoint : blockPosition.getCanFillPoints()) {
+                    if (canFillPoint != position) {
                         continue;
                     }
-                    if (fillablePositionCountOfBlocks[block.id] == 0) {
-                        fillableBlockCount++;
-                        fillableBlockWeight += block.weight;
+                    if (canFillPositionCountOfBlocks[block.id] == 0) {
+                        canFillBlockCount++;
+                        canFillBlockWeight += block.weight;
                     }
-                    fillablePositionCountOfBlocks[block.id]++;
-                    fillableBlockPositionCount++;
+                    canFillPositionCountOfBlocks[block.id]++;
+                    canFillBlockPositionCount++;
                 }
             }
         }
@@ -45,8 +45,8 @@ public class PointFillState {
     }
 
 
-    public int getFillableBlockWeight() {
-        return fillableBlockWeight;
+    public int getCanFillBlockWeight() {
+        return canFillBlockWeight;
     }
 
     @Override
@@ -75,18 +75,18 @@ public class PointFillState {
         return position;
     }
 
-    public boolean isFillable() {
-        return this.fillableBlockCount > 0;
+    public boolean canFill() {
+        return this.canFillBlockCount > 0;
     }
 
-    public List<Integer> getFillableBlockIds() {
-        List<Integer> fillableBlockIds = new LinkedList<>();
-        for (int i = 0; i < fillablePositionCountOfBlocks.length; i++) {
-            if (fillablePositionCountOfBlocks[i] > 0) {
-                fillableBlockIds.add(i);
+    public List<Integer> getCanFillBlockIds() {
+        List<Integer> canFillBlockIds = new LinkedList<>();
+        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
+            if (canFillPositionCountOfBlocks[i] > 0) {
+                canFillBlockIds.add(i);
             }
         }
-        return fillableBlockIds;
+        return canFillBlockIds;
     }
 
     public PointFillState clone() {
@@ -102,22 +102,22 @@ public class PointFillState {
         this.isFilled = isFilled;
     }
 
-    public void addFillableBlockPosition(BlockPosition fillableBlockPosition) {
-        if (fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id] == 0) {
-            fillableBlockCount++;
-            fillableBlockWeight += fillableBlockPosition.getBlock().weight;
+    public void addCanFillBlockPosition(BlockPosition canFillBlockPosition) {
+        if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 0) {
+            canFillBlockCount++;
+            canFillBlockWeight += canFillBlockPosition.getBlock().weight;
         }
-        fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id]++;
-        fillableBlockPositionCount++;
+        canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]++;
+        canFillBlockPositionCount++;
     }
 
-    public void removeFillableBlockPosition(BlockPosition fillableBlockPosition) {
-        if (fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id] == 1) {
-            fillableBlockCount--;
-            fillableBlockWeight -= fillableBlockPosition.getBlock().weight;
+    public void removeFillableBlockPosition(BlockPosition canFillBlockPosition) {
+        if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 1) {
+            canFillBlockCount--;
+            canFillBlockWeight -= canFillBlockPosition.getBlock().weight;
         }
-        fillablePositionCountOfBlocks[fillableBlockPosition.getBlock().id]--;
-        fillableBlockPositionCount--;
+        canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]--;
+        canFillBlockPositionCount--;
 
     }
 
@@ -132,9 +132,9 @@ public class PointFillState {
 
     @Override
     public String toString() {
-        return "filled:" + this.isFilled + " position: " + this.position + " fillableBlockCount: "
-                + this.fillableBlockCount + " weight " + fillableBlockWeight
-                + Arrays.toString(this.fillablePositionCountOfBlocks);
+        return "filled:" + this.isFilled + " position: " + this.position + " canFillBlockCount: "
+                + this.canFillBlockCount + " weight " + canFillBlockWeight
+                + Arrays.toString(this.canFillPositionCountOfBlocks);
     }
 
     static int compare(PointFillState arg0, PointFillState arg1) {
@@ -144,11 +144,11 @@ public class PointFillState {
             }
             return 1;
         }
-        if (arg0.fillableBlockCount != arg1.fillableBlockCount) {
-            return arg0.fillableBlockCount - arg1.fillableBlockCount;
+        if (arg0.canFillBlockCount != arg1.canFillBlockCount) {
+            return arg0.canFillBlockCount - arg1.canFillBlockCount;
         }
-        if (arg0.fillableBlockPositionCount != arg1.fillableBlockPositionCount) {
-            return arg0.fillableBlockPositionCount - arg1.fillableBlockPositionCount;
+        if (arg0.canFillBlockPositionCount != arg1.canFillBlockPositionCount) {
+            return arg0.canFillBlockPositionCount - arg1.canFillBlockPositionCount;
         }
         return arg0.position - arg1.position;
     }

@@ -50,10 +50,10 @@ public class BoardFillState {
         return new BoardFillState(this);
     }
 
-    public boolean existNotFillablePoint() {
+    public boolean existCannotFillPoint() {
         List<PointFillState> emptyPoints = getEmptyPoints();
         for (int i = 0; i < emptyPoints.size(); i++) {
-            if (!emptyPoints.get(i).isFillable()) {
+            if (!emptyPoints.get(i).canFill()) {
                 return true;
             }
         }
@@ -65,34 +65,34 @@ public class BoardFillState {
     }
 
     public void addBlockPosition(BlockPosition addBlockPosition) {
-        for (int fillablePoint : addBlockPosition.getFillablePoints()) {
-            pointFillStatesOrderByPosition.get(fillablePoint).setIsFilled(true);
-            emptyPoints.remove(pointFillStatesOrderByPosition.get(fillablePoint));
+        for (int canFillPoint : addBlockPosition.getCanFillPoints()) {
+            pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(true);
+            emptyPoints.remove(pointFillStatesOrderByPosition.get(canFillPoint));
             noOfFillPoint++;
             this.isFillabilityChanged = true;
         }
     }
 
-    public void removeFillableBlockPosition(BlockPosition blockPosition) {
-        for (int fillablePoint : blockPosition.getFillablePoints()) {
-            pointFillStatesOrderByPosition.get(fillablePoint).removeFillableBlockPosition(blockPosition);
+    public void removeCanFillBlockPosition(BlockPosition blockPosition) {
+        for (int canFillPoint : blockPosition.getCanFillPoints()) {
+            pointFillStatesOrderByPosition.get(canFillPoint).removeFillableBlockPosition(blockPosition);
             this.isFillabilityChanged = true;
         }
     }
 
 
     public void removeBlockPosition(BlockPosition removeBlockPosition) {
-        for (int fillablePoint : removeBlockPosition.getFillablePoints()) {
-            pointFillStatesOrderByPosition.get(fillablePoint).setIsFilled(false);
+        for (int canFillPoint : removeBlockPosition.getCanFillPoints()) {
+            pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(false);
             noOfFillPoint--;
-            emptyPoints.add(pointFillStatesOrderByPosition.get(fillablePoint));
+            emptyPoints.add(pointFillStatesOrderByPosition.get(canFillPoint));
             this.isFillabilityChanged = true;
         }
     }
 
-    public void addFillableBlockPosition(BlockPosition blockPosition) {
-        for (int fillablePoint : blockPosition.getFillablePoints()) {
-            pointFillStatesOrderByPosition.get(fillablePoint).addFillableBlockPosition(blockPosition);
+    public void addCanFillBlockPosition(BlockPosition blockPosition) {
+        for (int canFillPoint : blockPosition.getCanFillPoints()) {
+            pointFillStatesOrderByPosition.get(canFillPoint).addCanFillBlockPosition(blockPosition);
             this.isFillabilityChanged = true;
         }
     }

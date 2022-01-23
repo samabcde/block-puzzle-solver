@@ -15,7 +15,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     int intersectCount;
     private int intersectScore = Integer.MIN_VALUE;
     List<Integer> intersectPositionIds = new ArrayList<Integer>();
-    int[] fillablePoints;
+    int[] canFillPoints;
     private int priority;
     int hashCode = -1;
 
@@ -31,8 +31,8 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return intersectPositionIds;
     }
 
-    public int[] getFillablePoints() {
-        return fillablePoints;
+    public int[] getCanFillPoints() {
+        return canFillPoints;
     }
 
     public int getIntersectScore() {
@@ -90,12 +90,12 @@ public class BlockPosition implements Comparable<BlockPosition> {
         this.blockPuzzle.positionCount++;
         this.block = block;
         this.position = position;
-        this.fillablePoints = new int[block.weight];
+        this.canFillPoints = new int[block.weight];
         int pointIndex = 0;
         for (int rowIndex = this.position.y(); rowIndex < this.position.y() + this.block.height; rowIndex++) {
             for (int columnIndex = this.position.x(); columnIndex < this.position.x() + this.block.width; columnIndex++) {
                 if (this.get(rowIndex, columnIndex)) {
-                    this.fillablePoints[pointIndex] = this.blockPuzzle.puzzleWidth * rowIndex + columnIndex;
+                    this.canFillPoints[pointIndex] = this.blockPuzzle.puzzleWidth * rowIndex + columnIndex;
                     pointIndex++;
                 }
             }

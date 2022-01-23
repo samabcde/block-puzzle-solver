@@ -78,7 +78,7 @@ public class BlockPuzzle {
         }
         intersectBlockPositions();
         for (Block block : blocks) {
-            block.setBlockPositiona(blockIdToBlockPositionsMap.get(block.id));
+            block.setBlockPositions(blockIdToBlockPositionsMap.get(block.id));
         }
         setCoverableBlocks();
     }
