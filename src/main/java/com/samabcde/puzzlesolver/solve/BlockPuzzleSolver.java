@@ -1,5 +1,10 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve;
 
+import com.samabcde.puzzlesolver.component.*;
+import com.samabcde.puzzlesolver.solve.priority.BlockComparator;
+import com.samabcde.puzzlesolver.solve.state.BlockPossiblePosition;
+import com.samabcde.puzzlesolver.solve.state.BoardFillState;
+import com.samabcde.puzzlesolver.solve.state.PointFillState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -289,7 +294,7 @@ public class BlockPuzzleSolver {
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
             boolean isInSolution = false;
             for (BlockPosition solution : solutions) {
-                if (solution.block == intersectBlockPosition.block) {
+                if (solution.getBlock() == intersectBlockPosition.getBlock()) {
                     isInSolution = true;
                     break;
                 }
@@ -302,7 +307,7 @@ public class BlockPuzzleSolver {
 
         }
 
-        for (BlockPosition blockPosition : lastBlockPosition.block.getBlockPositions()) {
+        for (BlockPosition blockPosition : lastBlockPosition.getBlock().getBlockPositions()) {
             if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[blockPosition.id] == 0) {
                 boardFillState.addCanFillBlockPosition(blockPosition);
             }
@@ -331,7 +336,7 @@ public class BlockPuzzleSolver {
                     BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
                     boolean isInSolution = false;
                     for (BlockPosition solution : solutions) {
-                        if (solution.block == intersectBlockPosition.block) {
+                        if (solution.getBlock() == intersectBlockPosition.getBlock()) {
                             isInSolution = true;
                             break;
                         }
@@ -346,7 +351,7 @@ public class BlockPuzzleSolver {
             this.blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = i;
             blockPossiblePosition.getPossiblePositionCountOfBlocks()[block.id]--;
             solutions.push(nextPossiblePosition);
-            for (BlockPosition blockPosition : nextPossiblePosition.block.getBlockPositions()) {
+            for (BlockPosition blockPosition : nextPossiblePosition.getBlock().getBlockPositions()) {
                 if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[blockPosition.id] == 0) {
                     boardFillState.removeCanFillBlockPosition(blockPosition);
                 }

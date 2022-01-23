@@ -1,5 +1,7 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve;
 
+import com.samabcde.puzzlesolver.component.BlockPosition;
+import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

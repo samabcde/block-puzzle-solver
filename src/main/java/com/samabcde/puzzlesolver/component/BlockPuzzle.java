@@ -3,17 +3,17 @@ package com.samabcde.puzzlesolver.component;
 import java.util.*;
 
 public class BlockPuzzle {
-    int blockCount;
+    public int blockCount;
     int positionCount = 0;
-    int[][] pointFillablePositionId;
+    int[][] pointCanFillPositionId;
     final int puzzleWidth;
     final int puzzleHeight;
     private Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
-    BlockPosition[] blockPositionsById;
-    List<Block> blocks = new ArrayList<Block>();
+    public BlockPosition[] blockPositionsById;
+    List<Block> blocks = new ArrayList<>();
 
-    int getBlockIdByBlockPositionId(int blockPositionId) {
+    public int getBlockIdByBlockPositionId(int blockPositionId) {
         return this.blockPositionsById[blockPositionId].block.id;
     }
 
@@ -83,7 +83,7 @@ public class BlockPuzzle {
         setCoverableBlocks();
     }
 
-    Block getBlockById(int id) {
+    public Block getBlockById(int id) {
         return this.blocksById[id];
     }
 

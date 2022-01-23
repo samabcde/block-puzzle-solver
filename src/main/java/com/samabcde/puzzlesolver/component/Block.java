@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-class Block {
-    final int id;
+public class Block {
+    public final int id;
     // store the 2D block in 1D array with true as present
     private boolean[] value;
     int height;

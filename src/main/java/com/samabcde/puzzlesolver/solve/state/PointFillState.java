@@ -1,4 +1,8 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve.state;
+
+import com.samabcde.puzzlesolver.component.Block;
+import com.samabcde.puzzlesolver.component.BlockPosition;
+import com.samabcde.puzzlesolver.component.BlockPuzzle;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -34,7 +38,7 @@ public class PointFillState {
                     }
                     if (canFillPositionCountOfBlocks[block.id] == 0) {
                         canFillBlockCount++;
-                        canFillBlockWeight += block.weight;
+                        canFillBlockWeight += block.getWeight();
                     }
                     canFillPositionCountOfBlocks[block.id]++;
                     canFillBlockPositionCount++;
@@ -93,7 +97,6 @@ public class PointFillState {
         return new PointFillState(this);
     }
 
-
     public Boolean getIsFilled() {
         return isFilled;
     }
@@ -105,7 +108,7 @@ public class PointFillState {
     public void addCanFillBlockPosition(BlockPosition canFillBlockPosition) {
         if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 0) {
             canFillBlockCount++;
-            canFillBlockWeight += canFillBlockPosition.getBlock().weight;
+            canFillBlockWeight += canFillBlockPosition.getBlock().getWeight();
         }
         canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]++;
         canFillBlockPositionCount++;
@@ -114,7 +117,7 @@ public class PointFillState {
     public void removeFillableBlockPosition(BlockPosition canFillBlockPosition) {
         if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 1) {
             canFillBlockCount--;
-            canFillBlockWeight -= canFillBlockPosition.getBlock().weight;
+            canFillBlockWeight -= canFillBlockPosition.getBlock().getWeight();
         }
         canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]--;
         canFillBlockPositionCount--;

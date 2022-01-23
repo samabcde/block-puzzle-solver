@@ -1,6 +1,7 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve.state;
 
-import com.samabcde.puzzlesolver.component.PointFillState.PointFillStateComparator;
+import com.samabcde.puzzlesolver.component.BlockPosition;
+import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,14 +14,12 @@ public class BoardFillState {
     private final List<PointFillState> emptyPoints;
 
     private final List<PointFillState> pointFillStatesOrderByPosition;
-    private final PointFillStateComparator pointFillStateComparator;
     private int noOfFillPoint = 0;
     private final BlockPuzzle blockPuzzle;
     private boolean isFillabilityChanged = false;
 
     public BoardFillState(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
-        pointFillStateComparator = new PointFillStateComparator();
         int pointCount = blockPuzzle.getSize();
         pointFillStatesOrderByPosition = new ArrayList<>(pointCount);
         for (int i = 0; i < pointCount; i++) {
@@ -31,8 +30,6 @@ public class BoardFillState {
 
     private BoardFillState(BoardFillState boardFillState) {
         this.blockPuzzle = boardFillState.blockPuzzle;
-
-        this.pointFillStateComparator = new PointFillStateComparator();
         this.noOfFillPoint = boardFillState.noOfFillPoint;
         this.pointFillStatesOrderByPosition = new ArrayList<>();
         for (PointFillState pointFillState : boardFillState.pointFillStatesOrderByPosition) {
@@ -60,7 +57,7 @@ public class BoardFillState {
         return false;
     }
 
-    List<PointFillState> getEmptyPoints() {
+    public List<PointFillState> getEmptyPoints() {
         return this.emptyPoints;
     }
 

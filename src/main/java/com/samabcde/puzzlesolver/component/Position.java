@@ -1,6 +1,6 @@
 package com.samabcde.puzzlesolver.component;
 
-record Position(int x, int y) {
+public record Position(int x, int y) {
 
 	@Override
 	public String toString() {

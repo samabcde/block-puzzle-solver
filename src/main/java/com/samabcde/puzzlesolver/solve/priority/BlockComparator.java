@@ -1,4 +1,6 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve.priority;
+
+import com.samabcde.puzzlesolver.component.Block;
 
 import java.util.Comparator;
 

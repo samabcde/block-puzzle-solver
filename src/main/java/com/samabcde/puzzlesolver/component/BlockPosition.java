@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class BlockPosition implements Comparable<BlockPosition> {
-    final int id;
+    public final int id;
     final Block block;
     private final BlockPuzzle blockPuzzle;
     boolean[] isPositionIdIntersect;
-    BitSet isPositionIdIntersectBitSet;
+    public BitSet isPositionIdIntersectBitSet;
     private final Position position;
     int intersectCount;
     private int intersectScore = Integer.MIN_VALUE;

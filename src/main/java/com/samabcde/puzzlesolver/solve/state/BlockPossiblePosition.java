@@ -1,8 +1,12 @@
-package com.samabcde.puzzlesolver.component;
+package com.samabcde.puzzlesolver.solve.state;
+
+import com.samabcde.puzzlesolver.component.Block;
+import com.samabcde.puzzlesolver.component.BlockPosition;
+import com.samabcde.puzzlesolver.component.BlockPuzzle;
+import com.samabcde.puzzlesolver.solve.priority.BlockPriorityComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class BlockPossiblePosition {
@@ -15,8 +19,8 @@ public class BlockPossiblePosition {
         return blockPriorityComparator;
     }
 
-    BlockPossiblePosition(BlockPuzzle blockPuzzle) {
-        this.blockPriorityComparator = new BlockPriorityComparator();
+    public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
+        this.blockPriorityComparator = new BlockPriorityComparator(this);
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.blockPositionsById.length];
         this.addedPositionPriorityOfBlocks = new int[blockPuzzle.blockCount];
         List<Block> blocks = blockPuzzle.getBlocks();
@@ -29,7 +33,7 @@ public class BlockPossiblePosition {
     }
 
     private BlockPossiblePosition(BlockPossiblePosition blockPossiblePosition) {
-        this.blockPriorityComparator = new BlockPriorityComparator();
+        this.blockPriorityComparator = new BlockPriorityComparator(this);
         this.intersectionCountOfBlockPositions = Arrays.copyOf(blockPossiblePosition.intersectionCountOfBlockPositions,
                 blockPossiblePosition.intersectionCountOfBlockPositions.length);
         this.possiblePositionCountOfBlocks = Arrays.copyOf(blockPossiblePosition.possiblePositionCountOfBlocks,
@@ -38,7 +42,7 @@ public class BlockPossiblePosition {
                 blockPossiblePosition.addedPositionPriorityOfBlocks.length);
     }
 
-    boolean isBlockHasPossibleBlockPosition(Block block) {
+    public boolean isBlockHasPossibleBlockPosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
         int positionPriorityFrom = this.getAddedPositionPriorityOfBlocks()[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
@@ -55,7 +59,7 @@ public class BlockPossiblePosition {
         return false;
     }
 
-    List<BlockPosition> getPossibleBlockPosition(Block block) {
+    public List<BlockPosition> getPossibleBlockPosition(Block block) {
         List<BlockPosition> possibleBlockPositions = new ArrayList<>();
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
@@ -86,26 +90,4 @@ public class BlockPossiblePosition {
         return addedPositionPriorityOfBlocks;
     }
 
-    private class BlockPriorityComparator implements Comparator<Block> {
-
-        @Override
-        public int compare(Block arg0, Block arg1) {
-            BlockPossiblePosition blockPossiblePosition = BlockPossiblePosition.this;
-            if (blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg0.id] != blockPossiblePosition
-                    .getPossiblePositionCountOfBlocks()[arg1.id]) {
-                return Integer.compare(blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg0.id],
-                        blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg1.id]);
-            }
-            if (arg0.getAverageIntersectCount() != arg1.getAverageIntersectCount()) {
-                return -Integer.compare(arg0.getAverageIntersectCount(), arg1.getAverageIntersectCount());
-            }
-            if (arg0.getWeight() != arg1.getWeight()) {
-                return -Integer.compare(arg0.getWeight(), arg1.getWeight());
-            }
-            if (arg0.getSize() != arg1.getSize()) {
-                return -Integer.compare(arg0.getSize(), arg1.getSize());
-            }
-            return Integer.compare(arg0.id, arg1.id);
-        }
-    }
 }

@@ -1,7 +1,7 @@
 package com.samabcde.puzzlesolver.app;
 
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
-import com.samabcde.puzzlesolver.component.BlockPuzzleSolver;
+import com.samabcde.puzzlesolver.solve.BlockPuzzleSolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
