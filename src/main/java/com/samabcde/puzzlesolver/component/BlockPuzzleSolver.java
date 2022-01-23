@@ -247,7 +247,7 @@ public class BlockPuzzleSolver {
             for (int rowIndex = 0; rowIndex < block.getHeight(); rowIndex++) {
                 for (int colIndex = 0; colIndex < block.getWidth(); colIndex++) {
                     if (block.get(rowIndex, colIndex)) {
-                        solutionView[rowIndex + position.y][colIndex + position.x] = (char) (block.getPriority() + 65);
+                        solutionView[rowIndex + position.y()][colIndex + position.x()] = (char) (block.getPriority() + 65);
                     }
                 }
             }

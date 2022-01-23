@@ -92,8 +92,8 @@ public class BlockPosition implements Comparable<BlockPosition> {
         this.position = position;
         this.fillablePoints = new int[block.weight];
         int pointIndex = 0;
-        for (int rowIndex = this.position.y; rowIndex < this.position.y + this.block.height; rowIndex++) {
-            for (int columnIndex = this.position.x; columnIndex < this.position.x + this.block.width; columnIndex++) {
+        for (int rowIndex = this.position.y(); rowIndex < this.position.y() + this.block.height; rowIndex++) {
+            for (int columnIndex = this.position.x(); columnIndex < this.position.x() + this.block.width; columnIndex++) {
                 if (this.get(rowIndex, columnIndex)) {
                     this.fillablePoints[pointIndex] = this.blockPuzzle.puzzleWidth * rowIndex + columnIndex;
                     pointIndex++;
@@ -103,10 +103,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     public boolean isIntersect(BlockPosition other) {
-        int startRow = Math.max(this.position.y, other.position.y);
-        int startCol = Math.max(this.position.x, other.position.x);
-        int endRow = Math.min(this.position.y + this.block.height, other.position.y + other.block.height);
-        int endCol = Math.min(this.position.x + this.block.width, other.position.x + other.block.width);
+        int startRow = Math.max(this.position.y(), other.position.y());
+        int startCol = Math.max(this.position.x(), other.position.x());
+        int endRow = Math.min(this.position.y() + this.block.height, other.position.y() + other.block.height);
+        int endCol = Math.min(this.position.x() + this.block.width, other.position.x() + other.block.width);
         for (int i = startRow; i < endRow; i++) {
             for (int j = startCol; j < endCol; j++) {
                 if (this.get(i, j) && other.get(i, j)) {
@@ -122,13 +122,13 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     public boolean get(int row, int col) {
-        if (row - position.y < 0 || row - position.y > block.height - 1) {
+        if (row - position.y() < 0 || row - position.y() > block.height - 1) {
             return false;
         }
-        if (col - position.x < 0 || col - position.x > block.width - 1) {
+        if (col - position.x() < 0 || col - position.x() > block.width - 1) {
             return false;
         }
-        return block.get(row - position.y, col - position.x);
+        return block.get(row - position.y(), col - position.x());
     }
 
     public void addIntersectPosition(BlockPosition intersect) {
