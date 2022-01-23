@@ -15,7 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="block-puzzle-solver" target="1.8" />
+      <module name="block-puzzle-solver" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
