@@ -1,5 +1,6 @@
 package com.samabcde.puzzlesolver.solve.state;
 
+import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class BoardFillState {
     private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
@@ -57,6 +59,16 @@ public class BoardFillState {
         return false;
     }
 
+    public Optional<Block> getOnlyBlock() {
+        for (PointFillState pointFillState : getEmptyPoints()) {
+            Optional<Block> onlyBlock = pointFillState.onlyBlock();
+            if (onlyBlock.isPresent()) {
+                return onlyBlock;
+            }
+        }
+        return Optional.empty();
+    }
+
     public List<PointFillState> getEmptyPoints() {
         return this.emptyPoints;
     }
@@ -72,7 +84,7 @@ public class BoardFillState {
 
     public void removeCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            pointFillStatesOrderByPosition.get(canFillPoint).removeFillableBlockPosition(blockPosition);
+            pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
             this.isFillabilityChanged = true;
         }
     }

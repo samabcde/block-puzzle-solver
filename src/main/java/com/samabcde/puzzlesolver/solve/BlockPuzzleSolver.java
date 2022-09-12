@@ -1,37 +1,38 @@
 package com.samabcde.puzzlesolver.solve;
 
-import com.samabcde.puzzlesolver.component.*;
+import com.samabcde.puzzlesolver.component.Block;
+import com.samabcde.puzzlesolver.component.BlockPosition;
+import com.samabcde.puzzlesolver.component.BlockPuzzle;
+import com.samabcde.puzzlesolver.performance.PerformanceRecorder;
 import com.samabcde.puzzlesolver.solve.priority.BlockComparator;
+import com.samabcde.puzzlesolver.solve.priority.BlockPriorityComparator;
 import com.samabcde.puzzlesolver.solve.state.BlockPossiblePosition;
 import com.samabcde.puzzlesolver.solve.state.BoardFillState;
 import com.samabcde.puzzlesolver.solve.state.PointFillState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
 import java.util.*;
 
 public class BlockPuzzleSolver {
     private static final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
     private final BlockPuzzle blockPuzzle;
     private final List<Block> blocks;
-    private final Deque<BlockPosition> solutions = new LinkedList<>();
-    private final BlockPossiblePosition blockPossiblePosition;
-    private final BoardFillState boardFillState;
-
+    private final Solution solution;
+    private BlockPossiblePosition blockPossiblePosition;
+    private BoardFillState boardFillState;
     private final long[] noPossiblePositionCount;
     private final long[] noCanFillPointCount;
     private final long[] pTfFCount;
     private final long[] pFfTCount;
-    List<Long> executeTime = new ArrayList<>();
+    private final PerformanceRecorder performanceRecorder = new PerformanceRecorder();
 
     private List<Block> getRemainingBlocks() {
-        return blocks.subList(solutions.size(), blocks.size());
+        return blocks.subList(solution.size(), blocks.size());
     }
 
     public BlockPuzzleSolver(BlockPuzzle blockPuzzle) {
-
-        executeTime.add(new Date().getTime());
+        performanceRecorder.init();
         this.blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
         this.blockPuzzle = blockPuzzle;
         this.blocks = new ArrayList<>(this.blockPuzzle.getBlocks());
@@ -46,7 +47,8 @@ public class BlockPuzzleSolver {
         noCanFillPointCount = new long[blockPuzzle.getBlocks().size()];
         pTfFCount = new long[blockPuzzle.getBlocks().size()];
         pFfTCount = new long[blockPuzzle.getBlocks().size()];
-        executeTime.add(new Date().getTime());
+        this.solution = new Solution(this.blockPuzzle);
+        performanceRecorder.addExecution("Complete initialize block puzzle");
     }
 
     private void sortBlockPositions() {
@@ -77,10 +79,10 @@ public class BlockPuzzleSolver {
     }
 
     void updateBlockOrder() {
-        getRemainingBlocks().sort(this.blockPossiblePosition.getBlockPriorityComparator());
+        getRemainingBlocks().sort(new BlockPriorityComparator(blockPossiblePosition, boardFillState));
     }
 
-    public Collection<BlockPosition> solve() {
+    public Solution solve() {
         long iterateCount = 0;
         while (!isSolved()) {
             iterateCount++;
@@ -98,10 +100,10 @@ public class BlockPuzzleSolver {
             }
             if (iterateCount % 200000 == 0) {
                 logger.info("iterate" + iterateCount);
-                printSolution();
+                solution.print();
             }
         }
-        executeTime.add(Instant.now().toEpochMilli());
+        performanceRecorder.addExecution("Solve complete");
         if (isSolved()) {
             logger.info("Solved");
             logger.info("iterate Count: " + iterateCount);
@@ -110,25 +112,21 @@ public class BlockPuzzleSolver {
             logger.debug("Position false point true: " + Arrays.toString(pFfTCount));
             logger.debug("Position true point false: " + Arrays.toString(pTfFCount));
             logger.info("Solution: ");
-            printSolution();
+            solution.print();
         } else {
             logger.info("Cannot solve");
             logger.info("iterate Count: " + iterateCount);
         }
-        executeTime.add(Instant.now().toEpochMilli());
-        for (int i = 0; i < executeTime.size() - 1; i++) {
-            logger.info("Step " + i + " time: " + (executeTime.get(i + 1) - executeTime.get(i)));
-        }
-        return solutions;
+        performanceRecorder.addExecution("Print solution");
+        performanceRecorder.print();
+        return solution;
     }
 
-    private BitSet isCommonPositionIntersectBitSet = new BitSet();
+    private final BitSet isCommonPositionIntersectBitSet = new BitSet();
 
     private BitSet getCommonIntersectBlockPositions(List<BlockPosition> blockPositions) {
-        if (isCommonPositionIntersectBitSet != null) {
-            isCommonPositionIntersectBitSet.clear();
-            isCommonPositionIntersectBitSet.flip(0, isCommonPositionIntersectBitSet.size());
-        }
+        isCommonPositionIntersectBitSet.clear();
+        isCommonPositionIntersectBitSet.flip(0, isCommonPositionIntersectBitSet.size());
         for (BlockPosition blockPosition : blockPositions) {
             isCommonPositionIntersectBitSet.and(blockPosition.isPositionIdIntersectBitSet);
             if (isCommonPositionIntersectBitSet.cardinality() == 0) {
@@ -149,6 +147,11 @@ public class BlockPuzzleSolver {
             return false;
         }
         List<List<BlockPosition>> remainingBlocksBlockPositions = getRemainingBlocksBlockPositions(remainingBlocks, cloneBlockPossiblePosition);
+        for (List<BlockPosition> p : remainingBlocksBlockPositions) {
+            if (p.isEmpty()) {
+                return false;
+            }
+        }
         return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlocksBlockPositions);
     }
 
@@ -244,42 +247,16 @@ public class BlockPuzzleSolver {
         return remainingBlocksBlockPositions;
     }
 
-    private void printSolution() {
-        char[][] solutionView = new char[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
-        for (BlockPosition blockPosition : solutions) {
-            Position position = blockPosition.getPosition();
-            Block block = blockPosition.getBlock();
-            for (int rowIndex = 0; rowIndex < block.getHeight(); rowIndex++) {
-                for (int colIndex = 0; colIndex < block.getWidth(); colIndex++) {
-                    if (block.get(rowIndex, colIndex)) {
-                        solutionView[rowIndex + position.y()][colIndex + position.x()] = (char) (block.getPriority() + 65);
-                    }
-                }
-            }
-        }
-        for (char[] solutionRowView : solutionView) {
-            StringBuilder stringBuilder = new StringBuilder("");
-            for (char c : solutionRowView) {
-                if (c == 0) {
-                    stringBuilder.append(" ");
-                } else {
-                    stringBuilder.append(c);
-                }
-            }
-            logger.info(stringBuilder.toString());
-        }
-    }
-
     private void setAllBlockPositionsTried(Block block) {
         this.blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = -1;
     }
 
     private boolean isAllBlockTried() {
-        return solutions.isEmpty();
+        return solution.isEmpty();
     }
 
     private BlockPosition removeLastBlockPositionFromSolution(Block block) {
-        BlockPosition lastBlockPosition = solutions.poll();
+        BlockPosition lastBlockPosition = solution.poll();
 
         List<Integer> intersectPositionIds = lastBlockPosition.getIntersectPositionIds();
         for (Integer intersectPositionId : intersectPositionIds) {
@@ -293,8 +270,8 @@ public class BlockPuzzleSolver {
 
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
             boolean isInSolution = false;
-            for (BlockPosition solution : solutions) {
-                if (solution.getBlock() == intersectBlockPosition.getBlock()) {
+            for (BlockPosition blockPosition : solution) {
+                if (blockPosition.getBlock() == intersectBlockPosition.getBlock()) {
                     isInSolution = true;
                     break;
                 }
@@ -335,8 +312,8 @@ public class BlockPuzzleSolver {
 
                     BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
                     boolean isInSolution = false;
-                    for (BlockPosition solution : solutions) {
-                        if (solution.getBlock() == intersectBlockPosition.getBlock()) {
+                    for (BlockPosition blockPosition : solution) {
+                        if (blockPosition.getBlock() == intersectBlockPosition.getBlock()) {
                             isInSolution = true;
                             break;
                         }
@@ -348,9 +325,9 @@ public class BlockPuzzleSolver {
                             .getBlockIdByBlockPositionId(intersectPositionId)]--;
                 }
             }
-            this.blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = i;
+            blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = i;
             blockPossiblePosition.getPossiblePositionCountOfBlocks()[block.id]--;
-            solutions.push(nextPossiblePosition);
+            solution.push(nextPossiblePosition);
             for (BlockPosition blockPosition : nextPossiblePosition.getBlock().getBlockPositions()) {
                 if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[blockPosition.id] == 0) {
                     boardFillState.removeCanFillBlockPosition(blockPosition);
@@ -363,7 +340,7 @@ public class BlockPuzzleSolver {
     }
 
     private boolean isSolved() {
-        return solutions.size() == this.blockPuzzle.blockCount;
+        return solution.size() == this.blockPuzzle.blockCount;
     }
 
     void addBlock(Block block) {

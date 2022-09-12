@@ -1,11 +1,8 @@
 package com.samabcde.puzzlesolver.solve;
 
-import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -107,6 +104,7 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
+    @Disabled
     public void testSolve11() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(12, 12,
                 new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
@@ -131,6 +129,7 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
+    @Disabled
     public void testSolve7() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",
@@ -205,8 +204,7 @@ public class BlockPuzzleSolverUnitTest {
         assertPuzzleSolvable(blockPuzzle);
     }
 
-    @Test
-    @Disabled
+    @Test @Disabled
     public void testSolve18() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "11", "1,1", "01,11", "11,1", "11,01", "1111", "1,1,1,1", "11,11", "111,1",
@@ -388,7 +386,7 @@ public class BlockPuzzleSolverUnitTest {
 
     private void assertPuzzleSolvable(BlockPuzzle blockPuzzle) {
         BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
-        Collection<BlockPosition> solutions = solver.solve();
+        Solution solutions = solver.solve();
         assertFalse(solutions.isEmpty());
     }
 

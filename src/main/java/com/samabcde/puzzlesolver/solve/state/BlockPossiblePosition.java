@@ -13,14 +13,8 @@ public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
     private final int[] addedPositionPriorityOfBlocks;
-    private final BlockPriorityComparator blockPriorityComparator;
-
-    public BlockPriorityComparator getBlockPriorityComparator() {
-        return blockPriorityComparator;
-    }
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
-        this.blockPriorityComparator = new BlockPriorityComparator(this);
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.blockPositionsById.length];
         this.addedPositionPriorityOfBlocks = new int[blockPuzzle.blockCount];
         List<Block> blocks = blockPuzzle.getBlocks();
@@ -33,7 +27,6 @@ public class BlockPossiblePosition {
     }
 
     private BlockPossiblePosition(BlockPossiblePosition blockPossiblePosition) {
-        this.blockPriorityComparator = new BlockPriorityComparator(this);
         this.intersectionCountOfBlockPositions = Arrays.copyOf(blockPossiblePosition.intersectionCountOfBlockPositions,
                 blockPossiblePosition.intersectionCountOfBlockPositions.length);
         this.possiblePositionCountOfBlocks = Arrays.copyOf(blockPossiblePosition.possiblePositionCountOfBlocks,

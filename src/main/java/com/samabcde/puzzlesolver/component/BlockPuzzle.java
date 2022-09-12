@@ -5,13 +5,12 @@ import java.util.*;
 public class BlockPuzzle {
     public int blockCount;
     int positionCount = 0;
-    int[][] pointCanFillPositionId;
     final int puzzleWidth;
     final int puzzleHeight;
     private Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
     public BlockPosition[] blockPositionsById;
-    List<Block> blocks = new ArrayList<>();
+    private final List<Block> blocks = new ArrayList<>();
 
     public int getBlockIdByBlockPositionId(int blockPositionId) {
         return this.blockPositionsById[blockPositionId].block.id;
@@ -125,7 +124,7 @@ public class BlockPuzzle {
     }
 
     private List<BlockPosition> generateBlockPositions(Block block) {
-        List<BlockPosition> blockPositions = new ArrayList<BlockPosition>();
+        List<BlockPosition> blockPositions = new ArrayList<>();
         block.positionIdFrom = this.positionCount;
         for (int i = 0; i < puzzleWidth - block.width + 1; i++) {
             for (int j = 0; j < puzzleHeight - block.height + 1; j++) {

@@ -14,10 +14,9 @@ public class BlockPosition implements Comparable<BlockPosition> {
     private final Position position;
     int intersectCount;
     private int intersectScore = Integer.MIN_VALUE;
-    List<Integer> intersectPositionIds = new ArrayList<Integer>();
+    List<Integer> intersectPositionIds = new ArrayList<>();
     int[] canFillPoints;
     private int priority;
-    int hashCode = -1;
 
     public boolean[] getIsPositionIdIntersect() {
         return isPositionIdIntersect;
@@ -81,7 +80,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-
 
     public BlockPosition(BlockPuzzle blockPuzzle, Block block, Position position) {
         super();
