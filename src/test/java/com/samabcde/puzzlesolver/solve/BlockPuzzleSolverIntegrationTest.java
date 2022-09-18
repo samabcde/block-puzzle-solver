@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class BlockPuzzleSolverUnitTest {
+public class BlockPuzzleSolverIntegrationTest {
     @Test
     public void testSolve() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(4, 4, new String[]{"1111", "111", "001,111", "1,1111"});
@@ -115,7 +115,7 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     public void testSolve12() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "11,1", "1", "1,1", "11", "11", "1", "1", "1",
@@ -182,6 +182,83 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
+    public void testSolve30() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(5, 5,
+                new String[]{
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
+    public void testSolve31() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(7, 7,
+                new String[]{
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "1", "1", "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
+    public void testSolve32() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(7, 7,
+                new String[]{
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "11", "11", "11",
+                        "1", "1", "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
+    public void testSolve33() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(9, 9,
+                new String[]{
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "11", "11", "11", "11",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+
+    @Test
+    public void testSolve34() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(11, 11,
+                new String[]{
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "11", "11", "11", "11", "11",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
     public void testSolve16() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{
@@ -195,16 +272,39 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
+    public void testSolve17a() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(10, 10,
+                new String[]{
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Test
     public void testSolve17() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(8, 8,
-                new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-                        "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                new String[]{
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
+                        "1", "1", "1", "1", "1", "1", "1", "1",
                         "1", "1", "1", "1", "1", "1", "1", "1"});
         assertPuzzleSolvable(blockPuzzle);
     }
 
-    @Test @Disabled
+    @Test
+//    @Disabled
     public void testSolve18() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "11", "1,1", "01,11", "11,1", "11,01", "1111", "1,1,1,1", "11,11", "111,1",
@@ -224,7 +324,7 @@ public class BlockPuzzleSolverUnitTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     public void testSolve20() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",

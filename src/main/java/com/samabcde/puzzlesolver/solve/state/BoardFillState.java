@@ -69,6 +69,16 @@ public class BoardFillState {
         return Optional.empty();
     }
 
+    public Optional<PointFillState> getPointWithOnly1Block() {
+        for (PointFillState pointFillState : getEmptyPoints()) {
+            Optional<Block> onlyBlock = pointFillState.onlyBlock();
+            if (onlyBlock.isPresent()) {
+                return Optional.of(pointFillState);
+            }
+        }
+        return Optional.empty();
+    }
+
     public List<PointFillState> getEmptyPoints() {
         return this.emptyPoints;
     }

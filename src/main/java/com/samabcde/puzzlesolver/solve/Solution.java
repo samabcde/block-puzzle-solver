@@ -7,13 +7,16 @@ import com.samabcde.puzzlesolver.component.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Spliterator;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Solution implements Iterable<BlockPosition> {
+    private static final String display = "0123456789" +
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+            "`~!@#$%^&*()-_=+[]{}\\|:;'\"<>,./?" +
+            "‘’“”•–—˜" +
+            "ÀÁÂÃÄÅáâãäå";
+
     private static final Logger logger = LoggerFactory.getLogger(Solution.class);
     private final BlockPuzzle blockPuzzle;
     private final Deque<BlockPosition> positionSolutions = new LinkedList<>();
@@ -22,15 +25,27 @@ public class Solution implements Iterable<BlockPosition> {
         this.blockPuzzle = blockPuzzle;
     }
 
+    private char[] getVisible(int count) {
+        if (count > display.length()) {
+            throw new RuntimeException("Not enough display, count:%d, available:%d".formatted(count, display.length()));
+        }
+        char[] c = new char[count];
+        for (int i = 0; i < count; i++) {
+            c[i] = display.charAt(i);
+        }
+        return c;
+    }
+
     void print() {
         char[][] solutionView = new char[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
+        char[] visible = getVisible(this.blockPuzzle.blockCount);
         for (BlockPosition blockPosition : positionSolutions) {
             Position position = blockPosition.getPosition();
             Block block = blockPosition.getBlock();
             for (int rowIndex = 0; rowIndex < block.getHeight(); rowIndex++) {
                 for (int colIndex = 0; colIndex < block.getWidth(); colIndex++) {
                     if (block.get(rowIndex, colIndex)) {
-                        solutionView[rowIndex + position.y()][colIndex + position.x()] = (char) (block.getPriority() + 65);
+                        solutionView[rowIndex + position.y()][colIndex + position.x()] = visible[block.getPriority()];
                     }
                 }
             }

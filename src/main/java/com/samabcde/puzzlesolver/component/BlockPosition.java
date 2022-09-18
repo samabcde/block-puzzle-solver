@@ -1,9 +1,8 @@
 package com.samabcde.puzzlesolver.component;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.List;
+import com.samabcde.puzzlesolver.solve.state.PointFillState;
+
+import java.util.*;
 
 public class BlockPosition implements Comparable<BlockPosition> {
     public final int id;
@@ -32,6 +31,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
 
     public int[] getCanFillPoints() {
         return canFillPoints;
+    }
+
+    public boolean canFill(PointFillState point) {
+        return Arrays.stream(canFillPoints).anyMatch(i -> i == point.getPosition());
     }
 
     public int getIntersectScore() {
