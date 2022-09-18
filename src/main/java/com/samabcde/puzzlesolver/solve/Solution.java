@@ -14,9 +14,10 @@ public class Solution implements Iterable<BlockPosition> {
     private static final String display = "0123456789" +
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
             "`~!@#$%^&*()-_=+[]{}\\|:;'\"<>,./?" +
+            "€‚ƒ„…†‡ˆ‰Š‹ŒŽ"+
             "‘’“”•–—˜" +
-            "ÀÁÂÃÄÅáâãäå";
-
+            "™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿" +
+            "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
     private static final Logger logger = LoggerFactory.getLogger(Solution.class);
     private final BlockPuzzle blockPuzzle;
     private final Deque<BlockPosition> positionSolutions = new LinkedList<>();
@@ -25,7 +26,7 @@ public class Solution implements Iterable<BlockPosition> {
         this.blockPuzzle = blockPuzzle;
     }
 
-    private char[] getVisible(int count) {
+    private char[] getDisplay(int count) {
         if (count > display.length()) {
             throw new RuntimeException("Not enough display, count:%d, available:%d".formatted(count, display.length()));
         }
@@ -38,7 +39,7 @@ public class Solution implements Iterable<BlockPosition> {
 
     void print() {
         char[][] solutionView = new char[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
-        char[] visible = getVisible(this.blockPuzzle.blockCount);
+        char[] visible = getDisplay(this.blockPuzzle.blockCount);
         for (BlockPosition blockPosition : positionSolutions) {
             Position position = blockPosition.getPosition();
             Block block = blockPosition.getBlock();
@@ -93,4 +94,5 @@ public class Solution implements Iterable<BlockPosition> {
     public Spliterator<BlockPosition> spliterator() {
         return positionSolutions.spliterator();
     }
+
 }

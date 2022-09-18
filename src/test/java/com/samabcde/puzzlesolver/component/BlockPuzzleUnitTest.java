@@ -2,9 +2,10 @@ package com.samabcde.puzzlesolver.component;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BlockPuzzleUnitTest {
@@ -12,7 +13,7 @@ public class BlockPuzzleUnitTest {
     @Test
     public void testBlockPuzzle() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(4, 3, new String[]{"001,111", "1,1111", "111"});
-        assertTrue(blockPuzzle.getBlocks().size() == 3);
+        assertEquals(3, blockPuzzle.getBlocks().size() );
 
         BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
         BlockPosition p2 = blockPuzzle.getBlockIdToBlockPositionsMap().get(1).get(0);
@@ -39,7 +40,7 @@ public class BlockPuzzleUnitTest {
                         "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
                         "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
                         "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
-        long startTime = new Date().getTime();
+        long startTime = Instant.now().toEpochMilli();
         for (int k = 0; k < 5; k++) {
             for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
                 for (int j = i + 1; j < blockPuzzle.getPositionCount(); j++) {
@@ -48,9 +49,9 @@ public class BlockPuzzleUnitTest {
                 }
             }
         }
-        long endTime = new Date().getTime();
+        long endTime = Instant.now().toEpochMilli();
 
-        long endTime2 = new Date().getTime();
+        long endTime2 = Instant.now().toEpochMilli();
         System.out.println("alg 1 time :" + (endTime - startTime));
         System.out.println("alg 2 time :" + (endTime2 - endTime));
     }
@@ -64,7 +65,7 @@ public class BlockPuzzleUnitTest {
                         "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
         int[] intersectionCountOfBlockPosition = new int[blockPuzzle.getPositionCount()];
         int[] intersectionCountOfBlockPosition2 = new int[blockPuzzle.getPositionCount()];
-        long startTime = new Date().getTime();
+        long startTime = Instant.now().toEpochMilli();
 
         for (int k = 0; k < 200; k++) {
             for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
@@ -77,7 +78,7 @@ public class BlockPuzzleUnitTest {
                 }
             }
         }
-        long endTime = new Date().getTime();
+        long endTime = Instant.now().toEpochMilli();
         for (int k = 0; k < 200; k++) {
             for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
                 List<Integer> intersectPositionIds = blockPuzzle.getBlockPositionById(i).getIntersectPositionIds();
@@ -86,7 +87,7 @@ public class BlockPuzzleUnitTest {
                 }
             }
         }
-        long endTime2 = new Date().getTime();
+        long endTime2 = Instant.now().toEpochMilli();
         System.out.println("alg 1 time :" + (endTime - startTime));
         System.out.println("alg 2 time :" + (endTime2 - endTime));
     }

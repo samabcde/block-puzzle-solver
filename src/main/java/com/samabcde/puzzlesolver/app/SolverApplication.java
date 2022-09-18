@@ -32,7 +32,7 @@ public class SolverApplication implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         logger.info("width:" + width + ", height:" + height + ", blocks:" + Arrays.toString(blocks));
         BlockPuzzle blockPuzzle = new BlockPuzzle(width, height, blocks);
         new BlockPuzzleSolver(blockPuzzle).solve();

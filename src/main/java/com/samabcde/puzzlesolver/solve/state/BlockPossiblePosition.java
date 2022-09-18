@@ -3,7 +3,6 @@ package com.samabcde.puzzlesolver.solve.state;
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
-import com.samabcde.puzzlesolver.solve.priority.BlockPriorityComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +14,7 @@ public class BlockPossiblePosition {
     private final int[] addedPositionPriorityOfBlocks;
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
-        this.intersectionCountOfBlockPositions = new int[blockPuzzle.blockPositionsById.length];
+        this.intersectionCountOfBlockPositions = new int[blockPuzzle.getPositionCount()];
         this.addedPositionPriorityOfBlocks = new int[blockPuzzle.blockCount];
         List<Block> blocks = blockPuzzle.getBlocks();
         this.possiblePositionCountOfBlocks = new int[blocks.size()];

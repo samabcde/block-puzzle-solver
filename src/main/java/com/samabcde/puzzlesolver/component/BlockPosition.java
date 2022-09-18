@@ -9,7 +9,12 @@ public class BlockPosition implements Comparable<BlockPosition> {
     final Block block;
     private final BlockPuzzle blockPuzzle;
     boolean[] isPositionIdIntersect;
-    public BitSet isPositionIdIntersectBitSet;
+
+    void setIsPositionIdIntersectBitSet(BitSet isPositionIdIntersectBitSet) {
+        this.isPositionIdIntersectBitSet = isPositionIdIntersectBitSet;
+    }
+
+    private BitSet isPositionIdIntersectBitSet;
     private final Position position;
     int intersectCount;
     private int intersectScore = Integer.MIN_VALUE;
@@ -46,7 +51,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
             if (!this.isPositionIdIntersect[i]) {
                 continue;
             }
-            BlockPosition blockPosition = this.blockPuzzle.blockPositionsById[i];
+            BlockPosition blockPosition = this.blockPuzzle.getBlockPositionById(i);
             double blockPriorityScore = 10;
             double blockExtraScoreFactor = 3 / (2 + blockPosition.block.priority);
             double positionExtraScoreFactor = 1;
@@ -122,6 +127,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return position;
     }
 
+    public BitSet getIsPositionIdIntersectBitSet() {
+        return isPositionIdIntersectBitSet;
+    }
+
     public boolean get(int row, int col) {
         if (row - position.y() < 0 || row - position.y() > block.height - 1) {
             return false;
@@ -131,6 +140,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         }
         return block.get(row - position.y(), col - position.x());
     }
+
 
     public void addIntersectPosition(BlockPosition intersect) {
         this.intersectCount++;

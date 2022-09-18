@@ -7,9 +7,9 @@ public class BlockPuzzle {
     int positionCount = 0;
     final int puzzleWidth;
     final int puzzleHeight;
-    private Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
+    private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
-    public BlockPosition[] blockPositionsById;
+    private final BlockPosition[] blockPositionsById;
     private final List<Block> blocks = new ArrayList<>();
 
     public int getBlockIdByBlockPositionId(int blockPositionId) {
@@ -18,12 +18,6 @@ public class BlockPuzzle {
 
     public int getPositionCount() {
         return positionCount;
-    }
-
-    private int weightOneCount = 0;
-
-    public int getWeightOneCount() {
-        return weightOneCount;
     }
 
     public int getPuzzleWidth() {
@@ -65,9 +59,6 @@ public class BlockPuzzle {
         }
         for (Block block : blocks) {
             blockIdToBlockPositionsMap.put(block.id, generateBlockPositions(block));
-            if (block.weight == 1) {
-                weightOneCount++;
-            }
         }
         this.blockPositionsById = new BlockPosition[this.positionCount];
         for (List<BlockPosition> blockPositions : blockIdToBlockPositionsMap.values()) {
@@ -105,7 +96,7 @@ public class BlockPuzzle {
     private void intersectBlockPositions() {
         for (BlockPosition blockPosition : this.blockPositionsById) {
             blockPosition.isPositionIdIntersect = new boolean[this.positionCount];
-            blockPosition.isPositionIdIntersectBitSet = new BitSet(this.positionCount);
+            blockPosition.setIsPositionIdIntersectBitSet(new BitSet(this.positionCount));
         }
         for (int i = 0; i < blockCount; i++) {
             List<BlockPosition> blockIPositions = blockIdToBlockPositionsMap.get(i);

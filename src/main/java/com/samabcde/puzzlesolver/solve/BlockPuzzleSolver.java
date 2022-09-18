@@ -128,7 +128,7 @@ public class BlockPuzzleSolver {
         isCommonPositionIntersectBitSet.clear();
         isCommonPositionIntersectBitSet.flip(0, isCommonPositionIntersectBitSet.size());
         for (BlockPosition blockPosition : blockPositions) {
-            isCommonPositionIntersectBitSet.and(blockPosition.isPositionIdIntersectBitSet);
+            isCommonPositionIntersectBitSet.and(blockPosition.getIsPositionIdIntersectBitSet());
             if (isCommonPositionIntersectBitSet.cardinality() == 0) {
                 return isCommonPositionIntersectBitSet;
             }

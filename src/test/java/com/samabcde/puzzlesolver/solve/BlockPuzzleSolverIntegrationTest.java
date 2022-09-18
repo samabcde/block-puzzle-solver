@@ -115,7 +115,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     public void testSolve12() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "11,1", "1", "1,1", "11", "11", "1", "1", "1",
@@ -304,7 +304,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     public void testSolve18() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"1", "11", "1,1", "01,11", "11,1", "11,01", "1111", "1,1,1,1", "11,11", "111,1",
@@ -324,7 +324,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     public void testSolve20() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(13, 13,
                 new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",
