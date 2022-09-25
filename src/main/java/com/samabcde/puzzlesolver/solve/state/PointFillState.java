@@ -11,7 +11,7 @@ public class PointFillState {
     private int canFillBlockCount = 0;
     private int canFillBlockPositionCount = 0;
     private int canFillBlockWeight = 0;
-    private int[] canFillPositionCountOfBlocks;
+    private final int[] canFillPositionCountOfBlocks;
     private final int position;
     private final BlockPuzzle blockPuzzle;
 
@@ -116,7 +116,7 @@ public class PointFillState {
         return canFillBlockIds;
     }
 
-    public PointFillState clone() {
+    public PointFillState copy() {
         return new PointFillState(this);
     }
 

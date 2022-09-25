@@ -8,8 +8,8 @@ public class Block {
     public final int id;
     // store the 2D block in 1D array with true as present
     private boolean[] value;
-    int height;
-    int width;
+    private int height;
+    private int width;
     int weight;
     int totalIntersectCount = 0;
     Set<Integer> coverableBlockIds = new HashSet<>();
@@ -87,7 +87,7 @@ public class Block {
         if (valueView != null) {
             return valueView;
         }
-        String lineSeparator = System.getProperty("line.separator");
+        String lineSeparator = System.lineSeparator();
         StringBuilder stringBuilder = new StringBuilder(this.width * this.height);
         for (int rowIndex = 0; rowIndex < this.height; rowIndex++) {
             for (int colIndex = 0; colIndex < this.width; colIndex++) {
@@ -120,11 +120,11 @@ public class Block {
     }
 
     private void initializeSize(String[] rows) {
-        height = rows.length;
         int maxColCount = 0;
         for (int rowIndex = 0; rowIndex < rows.length; rowIndex++) {
             maxColCount = Math.max(rows[rowIndex].length(), maxColCount);
         }
+        this.height = rows.length;
         this.width = maxColCount;
     }
 

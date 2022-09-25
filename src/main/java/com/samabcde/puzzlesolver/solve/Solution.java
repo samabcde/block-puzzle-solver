@@ -14,7 +14,7 @@ public class Solution implements Iterable<BlockPosition> {
     private static final String display = "0123456789" +
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
             "`~!@#$%^&*()-_=+[]{}\\|:;'\"<>,./?" +
-            "€‚ƒ„…†‡ˆ‰Š‹ŒŽ"+
+            "€‚ƒ„…†‡ˆ‰Š‹ŒŽ" +
             "‘’“”•–—˜" +
             "™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿" +
             "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
@@ -78,6 +78,10 @@ public class Solution implements Iterable<BlockPosition> {
 
     public boolean isEmpty() {
         return positionSolutions.isEmpty();
+    }
+
+    public boolean containsBlock(Block block) {
+        return positionSolutions.stream().anyMatch(positionSolutions -> positionSolutions.getBlock() == block);
     }
 
     @Override

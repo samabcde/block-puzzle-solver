@@ -21,10 +21,6 @@ public class BlockPuzzleSolver {
     private final Solution solution;
     private final BlockPossiblePosition blockPossiblePosition;
     private final BoardFillState boardFillState;
-    private final long[] noPossiblePositionCount;
-    private final long[] noCanFillPointCount;
-    private final long[] pTfFCount;
-    private final long[] pFfTCount;
     private final PerformanceRecorder performanceRecorder = new PerformanceRecorder();
 
     private List<Block> getRemainingBlocks() {
@@ -43,16 +39,12 @@ public class BlockPuzzleSolver {
         }
         sortBlockPositions();
         boardFillState = new BoardFillState(blockPuzzle);
-        noPossiblePositionCount = new long[blockPuzzle.getBlocks().size()];
-        noCanFillPointCount = new long[blockPuzzle.getBlocks().size()];
-        pTfFCount = new long[blockPuzzle.getBlocks().size()];
-        pFfTCount = new long[blockPuzzle.getBlocks().size()];
         this.solution = new Solution(this.blockPuzzle);
         performanceRecorder.addExecution("Complete initialize block puzzle");
     }
 
     private void sortBlockPositions() {
-        BlockPuzzleSolver.BlockPositionComparator blockPositionComparator = new BlockPuzzleSolver.BlockPositionComparator();
+        BlockPuzzleSolver.BlockPositionComparator blockPositionComparator = new BlockPuzzleSolver.BlockPositionComparator(blockPuzzle);
         for (Block block : this.blockPuzzle.getBlocks()) {
             List<BlockPosition> blockPositions = block.getBlockPositions();
             blockPositions.sort(blockPositionComparator);
@@ -63,10 +55,15 @@ public class BlockPuzzleSolver {
     }
 
     private static class BlockPositionComparator implements Comparator<BlockPosition> {
+        private final BlockPuzzle blockPuzzle;
+
+        private BlockPositionComparator(BlockPuzzle blockPuzzle) {
+            this.blockPuzzle = blockPuzzle;
+        }
 
         @Override
         public int compare(BlockPosition arg0, BlockPosition arg1) {
-            int compareIntersectScore = Integer.compare(arg0.getIntersectScore(), arg1.getIntersectScore());
+            int compareIntersectScore = Integer.compare(arg0.getIntersectScore(blockPuzzle), arg1.getIntersectScore(blockPuzzle));
             if (compareIntersectScore != 0) {
                 return compareIntersectScore;
             }
@@ -107,10 +104,6 @@ public class BlockPuzzleSolver {
         if (isSolved()) {
             logger.info("Solved");
             logger.info("iterate Count: " + iterateCount);
-            logger.debug("No Possible Position Count: " + Arrays.toString(noPossiblePositionCount));
-            logger.debug("Can not fill all points Count: " + Arrays.toString(noCanFillPointCount));
-            logger.debug("Position false point true: " + Arrays.toString(pFfTCount));
-            logger.debug("Position true point false: " + Arrays.toString(pTfFCount));
             logger.info("Solution: ");
             solution.print();
         } else {
@@ -139,7 +132,7 @@ public class BlockPuzzleSolver {
     private boolean isCurrentBoardSolvable(Block block) {
         List<Block> remainingBlocks = getRemainingBlocks();
         BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition;
-        BoardFillState cloneBoardFillState = this.boardFillState.clone();
+        BoardFillState cloneBoardFillState = this.boardFillState.copy();
         if (!this.blockPossiblePosition.isBlockHasPossibleBlockPosition(block)) {
             return false;
         }
@@ -270,13 +263,8 @@ public class BlockPuzzleSolver {
             }
 
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
-            boolean isInSolution = false;
-            for (BlockPosition blockPosition : solution) {
-                if (blockPosition.getBlock() == intersectBlockPosition.getBlock()) {
-                    isInSolution = true;
-                    break;
-                }
-            }
+            boolean isInSolution = solution.containsBlock(intersectBlockPosition.getBlock());
+
             if (!isInSolution) {
                 boardFillState.addCanFillBlockPosition(intersectBlockPosition);
             }
@@ -319,13 +307,7 @@ public class BlockPuzzleSolver {
                 if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId] == 1) {
 
                     BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
-                    boolean isInSolution = false;
-                    for (BlockPosition blockPosition : solution) {
-                        if (blockPosition.getBlock() == intersectBlockPosition.getBlock()) {
-                            isInSolution = true;
-                            break;
-                        }
-                    }
+                    boolean isInSolution = solution.containsBlock(intersectBlockPosition.getBlock());
                     if (!isInSolution) {
                         boardFillState.removeCanFillBlockPosition(intersectBlockPosition);
                     }

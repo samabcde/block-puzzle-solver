@@ -35,7 +35,7 @@ public class BoardFillState {
         this.noOfFillPoint = boardFillState.noOfFillPoint;
         this.pointFillStatesOrderByPosition = new ArrayList<>();
         for (PointFillState pointFillState : boardFillState.pointFillStatesOrderByPosition) {
-            this.pointFillStatesOrderByPosition.add(pointFillState.clone());
+            this.pointFillStatesOrderByPosition.add(pointFillState.copy());
         }
 
         this.isFillabilityChanged = boardFillState.isFillabilityChanged;
@@ -45,7 +45,7 @@ public class BoardFillState {
         }
     }
 
-    public BoardFillState clone() {
+    public BoardFillState copy() {
         return new BoardFillState(this);
     }
 

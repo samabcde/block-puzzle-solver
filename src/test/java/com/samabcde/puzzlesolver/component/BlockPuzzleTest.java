@@ -1,19 +1,47 @@
 package com.samabcde.puzzlesolver.component;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.Instant;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BlockPuzzleUnitTest {
+class BlockPuzzleTest {
+
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+            1|1
+            2|2
+            """, delimiterString = "|")
+    public void width(int width, int expected) {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(width, 1), new String[]{});
+        assertEquals(expected, blockPuzzle.getPuzzleWidth());
+    }
+
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+            1|1
+            2|2
+            """, delimiterString = "|")
+    public void height(int height, int expected) {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, height), new String[]{});
+        assertEquals(expected, blockPuzzle.getPuzzleHeight());
+    }
 
     @Test
-    public void testBlockPuzzle() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(4, 3, new String[]{"001,111", "1,1111", "111"});
-        assertEquals(3, blockPuzzle.getBlocks().size() );
+    public void getBlocks() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
+        List<Block> blocks = blockPuzzle.getBlocks();
+        assertEquals(1, blocks.size());
+    }
+
+    @Test
+    public void testIsIntersect() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 3), new String[]{"001,111", "1,1111", "111"});
+        assertEquals(3, blockPuzzle.getBlocks().size());
 
         BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
         BlockPosition p2 = blockPuzzle.getBlockIdToBlockPositionsMap().get(1).get(0);
@@ -25,7 +53,7 @@ public class BlockPuzzleUnitTest {
 
     @Test
     public void testBlockPuzzle2() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(2, 2, new String[]{"1,1", "1,1"});
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(2, 2), new String[]{"1,1", "1,1"});
         assertTrue(blockPuzzle.getBlocks().size() == 2);
 
         BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
@@ -35,11 +63,11 @@ public class BlockPuzzleUnitTest {
 
     @Test
     public void testBlockPuzzle3() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(12, 12,
-                new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
-                        "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
-                        "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
-                        "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
+        BlockPuzzle blockPuzzle = new BlockPuzzle(
+                new Dimension(12, 12), new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
+                "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
+                "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
+                "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
         long startTime = Instant.now().toEpochMilli();
         for (int k = 0; k < 5; k++) {
             for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
@@ -58,11 +86,11 @@ public class BlockPuzzleUnitTest {
 
     @Test
     public void testBlockPuzzle4() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(12, 12,
-                new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
-                        "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
-                        "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
-                        "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
+        BlockPuzzle blockPuzzle = new BlockPuzzle(
+                new Dimension(12, 12), new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
+                "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
+                "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
+                "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
         int[] intersectionCountOfBlockPosition = new int[blockPuzzle.getPositionCount()];
         int[] intersectionCountOfBlockPosition2 = new int[blockPuzzle.getPositionCount()];
         long startTime = Instant.now().toEpochMilli();

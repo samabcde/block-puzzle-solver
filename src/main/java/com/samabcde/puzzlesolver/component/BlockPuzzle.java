@@ -3,10 +3,9 @@ package com.samabcde.puzzlesolver.component;
 import java.util.*;
 
 public class BlockPuzzle {
-    public int blockCount;
+    public final int blockCount;
     int positionCount = 0;
-    final int puzzleWidth;
-    final int puzzleHeight;
+    private final Dimension puzzleDimension;
     private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
     private final BlockPosition[] blockPositionsById;
@@ -21,19 +20,15 @@ public class BlockPuzzle {
     }
 
     public int getPuzzleWidth() {
-        return puzzleWidth;
+        return puzzleDimension.width();
     }
 
     public int getPuzzleHeight() {
-        return puzzleHeight;
+        return puzzleDimension.height();
     }
 
     public Map<Integer, List<BlockPosition>> getBlockIdToBlockPositionsMap() {
         return blockIdToBlockPositionsMap;
-    }
-
-    public List<BlockPosition> getBlockPositionsByBlockId(Integer blockId) {
-        return blockIdToBlockPositionsMap.get(blockId);
     }
 
     public List<Block> getBlocks() {
@@ -41,12 +36,11 @@ public class BlockPuzzle {
     }
 
     public int getSize() {
-        return this.puzzleHeight * this.puzzleWidth;
+        return puzzleDimension.height() * puzzleDimension.width();
     }
 
-    public BlockPuzzle(int width, int height, String[] blockValues) {
-        this.puzzleWidth = width;
-        this.puzzleHeight = height;
+    public BlockPuzzle(Dimension dimension, String[] blockValues) {
+        this.puzzleDimension = dimension;
         int blockId = 0;
         for (String blockValue : blockValues) {
             blocks.add(new Block(blockValue, blockId));
@@ -116,13 +110,15 @@ public class BlockPuzzle {
 
     private List<BlockPosition> generateBlockPositions(Block block) {
         List<BlockPosition> blockPositions = new ArrayList<>();
-        block.positionIdFrom = this.positionCount;
-        for (int i = 0; i < puzzleWidth - block.width + 1; i++) {
-            for (int j = 0; j < puzzleHeight - block.height + 1; j++) {
-                blockPositions.add(new BlockPosition(this, block, new Position(i, j)));
+        block.positionIdFrom = positionCount;
+        int noOfPosition = (getPuzzleWidth() - block.getWidth() + 1) * (getPuzzleHeight() - block.getHeight() + 1);
+        block.positionIdTo = block.positionIdFrom + noOfPosition - 1;
+        for (int i = 0; i < getPuzzleWidth() - block.getWidth() + 1; i++) {
+            for (int j = 0; j < getPuzzleHeight() - block.getHeight() + 1; j++) {
+                blockPositions.add(new BlockPosition(this.puzzleDimension, block, new Position(i, j), positionCount));
+                positionCount++;
             }
         }
-        block.positionIdTo = this.positionCount - 1;
         return blockPositions;
     }
 }

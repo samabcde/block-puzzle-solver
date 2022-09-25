@@ -66,7 +66,7 @@ public class BlockPossiblePosition {
         return possibleBlockPositions;
     }
 
-    public BlockPossiblePosition clone() {
+    public BlockPossiblePosition copy() {
         return new BlockPossiblePosition(this);
     }
 

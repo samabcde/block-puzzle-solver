@@ -7,7 +7,6 @@ import java.util.*;
 public class BlockPosition implements Comparable<BlockPosition> {
     public final int id;
     final Block block;
-    private final BlockPuzzle blockPuzzle;
     boolean[] isPositionIdIntersect;
 
     void setIsPositionIdIntersectBitSet(BitSet isPositionIdIntersectBitSet) {
@@ -42,16 +41,16 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return Arrays.stream(canFillPoints).anyMatch(i -> i == point.getPosition());
     }
 
-    public int getIntersectScore() {
+    public int getIntersectScore(BlockPuzzle blockPuzzle) {
         if (intersectScore != Integer.MIN_VALUE) {
             return intersectScore;
         }
         intersectScore = 0;
-        for (int i = 0; i < this.blockPuzzle.positionCount; i++) {
+        for (int i = 0; i < blockPuzzle.positionCount; i++) {
             if (!this.isPositionIdIntersect[i]) {
                 continue;
             }
-            BlockPosition blockPosition = this.blockPuzzle.getBlockPositionById(i);
+            BlockPosition blockPosition = blockPuzzle.getBlockPositionById(i);
             double blockPriorityScore = 10;
             double blockExtraScoreFactor = 3 / (2 + blockPosition.block.priority);
             double positionExtraScoreFactor = 1;
@@ -89,19 +88,18 @@ public class BlockPosition implements Comparable<BlockPosition> {
         this.priority = priority;
     }
 
-    public BlockPosition(BlockPuzzle blockPuzzle, Block block, Position position) {
+    public BlockPosition(Dimension puzzleDimension, Block block, Position position, int id) {
         super();
-        this.blockPuzzle = blockPuzzle;
-        this.id = this.blockPuzzle.positionCount;
-        this.blockPuzzle.positionCount++;
+//        this.blockPuzzle = blockPuzzle;
+        this.id = id;
         this.block = block;
         this.position = position;
         this.canFillPoints = new int[block.weight];
         int pointIndex = 0;
-        for (int rowIndex = this.position.y(); rowIndex < this.position.y() + this.block.height; rowIndex++) {
-            for (int columnIndex = this.position.x(); columnIndex < this.position.x() + this.block.width; columnIndex++) {
+        for (int rowIndex = this.position.y(); rowIndex < this.position.y() + this.block.getHeight(); rowIndex++) {
+            for (int columnIndex = this.position.x(); columnIndex < this.position.x() + this.block.getWidth(); columnIndex++) {
                 if (this.get(rowIndex, columnIndex)) {
-                    this.canFillPoints[pointIndex] = this.blockPuzzle.puzzleWidth * rowIndex + columnIndex;
+                    this.canFillPoints[pointIndex] = puzzleDimension.width() * rowIndex + columnIndex;
                     pointIndex++;
                 }
             }
@@ -111,8 +109,8 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public boolean isIntersect(BlockPosition other) {
         int startRow = Math.max(this.position.y(), other.position.y());
         int startCol = Math.max(this.position.x(), other.position.x());
-        int endRow = Math.min(this.position.y() + this.block.height, other.position.y() + other.block.height);
-        int endCol = Math.min(this.position.x() + this.block.width, other.position.x() + other.block.width);
+        int endRow = Math.min(this.position.y() + this.block.getHeight(), other.position.y() + other.block.getHeight());
+        int endCol = Math.min(this.position.x() + this.block.getWidth(), other.position.x() + other.block.getWidth());
         for (int i = startRow; i < endRow; i++) {
             for (int j = startCol; j < endCol; j++) {
                 if (this.get(i, j) && other.get(i, j)) {
@@ -132,10 +130,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     public boolean get(int row, int col) {
-        if (row - position.y() < 0 || row - position.y() > block.height - 1) {
+        if (row - position.y() < 0 || row - position.y() > block.getHeight() - 1) {
             return false;
         }
-        if (col - position.x() < 0 || col - position.x() > block.width - 1) {
+        if (col - position.x() < 0 || col - position.x() > block.getWidth() - 1) {
             return false;
         }
         return block.get(row - position.y(), col - position.x());
