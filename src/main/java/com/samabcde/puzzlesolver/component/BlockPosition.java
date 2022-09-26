@@ -46,7 +46,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
             return intersectScore;
         }
         intersectScore = 0;
-        for (int i = 0; i < blockPuzzle.positionCount; i++) {
+        for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
             if (!this.isPositionIdIntersect[i]) {
                 continue;
             }
@@ -67,30 +67,12 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return this.isPositionIdIntersect[id];
     }
 
-    public boolean isPositionIntersectAll(Collection<BlockPosition> blockPositions) {
-        for (BlockPosition blockPosition : blockPositions) {
-            if (!this.isPositionIntersect(blockPosition.id)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public int getIntersectCount() {
-        return intersectCount;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
     public void setPriority(int priority) {
         this.priority = priority;
     }
 
     public BlockPosition(Dimension puzzleDimension, Block block, Position position, int id) {
         super();
-//        this.blockPuzzle = blockPuzzle;
         this.id = id;
         this.block = block;
         this.position = position;
@@ -106,7 +88,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         }
     }
 
-    public boolean isIntersect(BlockPosition other) {
+    boolean isIntersect(BlockPosition other) {
         int startRow = Math.max(this.position.y(), other.position.y());
         int startCol = Math.max(this.position.x(), other.position.x());
         int endRow = Math.min(this.position.y() + this.block.getHeight(), other.position.y() + other.block.getHeight());
@@ -129,7 +111,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return isPositionIdIntersectBitSet;
     }
 
-    public boolean get(int row, int col) {
+    private boolean get(int row, int col) {
         if (row - position.y() < 0 || row - position.y() > block.getHeight() - 1) {
             return false;
         }
@@ -140,7 +122,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
 
-    public void addIntersectPosition(BlockPosition intersect) {
+    void addIntersectPosition(BlockPosition intersect) {
         this.intersectCount++;
         this.block.totalIntersectCount++;
         this.isPositionIdIntersect[intersect.id] = true;

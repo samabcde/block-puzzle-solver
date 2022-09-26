@@ -74,7 +74,7 @@ public class Block {
         this.priority = priority;
     }
 
-    public void setBlockPositions(List<BlockPosition> blockPositions) {
+    void setBlockPositions(List<BlockPosition> blockPositions) {
         this.blockPositions = blockPositions;
     }
 

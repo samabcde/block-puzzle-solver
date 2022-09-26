@@ -54,12 +54,7 @@ public class BlockPuzzleSolver {
         }
     }
 
-    private static class BlockPositionComparator implements Comparator<BlockPosition> {
-        private final BlockPuzzle blockPuzzle;
-
-        private BlockPositionComparator(BlockPuzzle blockPuzzle) {
-            this.blockPuzzle = blockPuzzle;
-        }
+    private record BlockPositionComparator(BlockPuzzle blockPuzzle) implements Comparator<BlockPosition> {
 
         @Override
         public int compare(BlockPosition arg0, BlockPosition arg1) {
@@ -71,11 +66,11 @@ public class BlockPuzzleSolver {
         }
     }
 
-    public Block getNextBlockToAdd() {
+    private Block getNextBlockToAdd() {
         return this.getRemainingBlocks().get(0);
     }
 
-    void updateBlockOrder() {
+    private void updateBlockOrder() {
         getRemainingBlocks().sort(new BlockPriorityComparator(blockPossiblePosition, boardFillState));
     }
 
@@ -336,14 +331,14 @@ public class BlockPuzzleSolver {
         return solution.size() == this.blockPuzzle.blockCount;
     }
 
-    void addBlock(Block block) {
+    private void addBlock(Block block) {
         updateBlockOrder();
         if (this.blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] > -1) {
             return;
         }
     }
 
-    void removeBlock(Block block) {
+    private void removeBlock(Block block) {
         setAllBlockPositionsTried(block);
     }
 }

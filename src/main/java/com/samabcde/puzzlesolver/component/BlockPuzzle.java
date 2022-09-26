@@ -4,7 +4,7 @@ import java.util.*;
 
 public class BlockPuzzle {
     public final int blockCount;
-    int positionCount = 0;
+    private int positionCount = 0;
     private final Dimension puzzleDimension;
     private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
