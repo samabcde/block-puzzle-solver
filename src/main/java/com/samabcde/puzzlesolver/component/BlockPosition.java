@@ -9,10 +9,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
     final Block block;
     boolean[] isPositionIdIntersect;
 
-    void setIsPositionIdIntersectBitSet(BitSet isPositionIdIntersectBitSet) {
-        this.isPositionIdIntersectBitSet = isPositionIdIntersectBitSet;
-    }
-
     private BitSet isPositionIdIntersectBitSet;
     private final Position position;
     int intersectCount;
@@ -21,8 +17,8 @@ public class BlockPosition implements Comparable<BlockPosition> {
     int[] canFillPoints;
     private int priority;
 
-    public boolean[] getIsPositionIdIntersect() {
-        return isPositionIdIntersect;
+    void setIsPositionIdIntersectBitSet(BitSet isPositionIdIntersectBitSet) {
+        this.isPositionIdIntersectBitSet = isPositionIdIntersectBitSet;
     }
 
     public Block getBlock() {
@@ -38,7 +34,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     public boolean canFill(PointFillState point) {
-        return Arrays.stream(canFillPoints).anyMatch(i -> i == point.getPosition());
+        return Arrays.binarySearch(canFillPoints, point.getPosition()) > -1;
     }
 
     public int getIntersectScore(BlockPuzzle blockPuzzle) {
@@ -61,10 +57,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
             intersectScore += score;
         }
         return intersectScore;
-    }
-
-    public boolean isPositionIntersect(int id) {
-        return this.isPositionIdIntersect[id];
     }
 
     public void setPriority(int priority) {
@@ -124,7 +116,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
 
     void addIntersectPosition(BlockPosition intersect) {
         this.intersectCount++;
-        this.block.totalIntersectCount++;
         this.isPositionIdIntersect[intersect.id] = true;
         this.isPositionIdIntersectBitSet.set(intersect.id);
         this.intersectPositionIds.add(intersect.id);
@@ -137,7 +128,9 @@ public class BlockPosition implements Comparable<BlockPosition> {
 
     @Override
     public String toString() {
-        return "position:" + position + ",block:" + System.lineSeparator() + block.toString();
+        return """
+                position: %s, block:
+                """.formatted(position, block);
     }
 
     @Override

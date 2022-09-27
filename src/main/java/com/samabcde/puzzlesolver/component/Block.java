@@ -42,10 +42,6 @@ public class Block {
         return this.height >= block.height && this.width >= block.width;
     }
 
-    public int getTotalIntersectCount() {
-        return totalIntersectCount;
-    }
-
     public int getAverageIntersectCount() {
         return totalIntersectCount / this.blockPositions.size();
     }
@@ -76,6 +72,7 @@ public class Block {
 
     void setBlockPositions(List<BlockPosition> blockPositions) {
         this.blockPositions = blockPositions;
+        this.totalIntersectCount = blockPositions.stream().map(p -> p.intersectCount).reduce(Integer::sum).orElse(0);
     }
 
     public List<BlockPosition> getBlockPositions() {

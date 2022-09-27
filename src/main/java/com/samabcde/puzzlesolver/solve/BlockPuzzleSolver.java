@@ -196,9 +196,10 @@ public class BlockPuzzleSolver {
                     Iterator<BlockPosition> iterator = remainingBlockBlockPositions.iterator();
                     while (iterator.hasNext()) {
                         BlockPosition blockPosition = iterator.next();
-                        int isPointInPosition = Arrays.binarySearch(blockPosition.getCanFillPoints(),
-                                remainOneBlockEmptyPoint.getPosition());
-                        if ((isSameBlock && isPointInPosition < 0) || (!isSameBlock && isPointInPosition > -1)) {
+//                        int isPointInPosition = Arrays.binarySearch(blockPosition.getCanFillPoints(),
+//                                remainOneBlockEmptyPoint.getPosition());
+                        boolean isPointInPosition = blockPosition.canFill(remainOneBlockEmptyPoint);
+                        if ((isSameBlock && !isPointInPosition ) || (!isSameBlock && isPointInPosition)) {
                             hasChange = true;
                             cloneBoardFillState.removeCanFillBlockPosition(blockPosition);
                             iterator.remove();
