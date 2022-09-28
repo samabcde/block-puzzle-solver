@@ -89,8 +89,7 @@ public class BlockPuzzle {
 
     private void intersectBlockPositions() {
         for (BlockPosition blockPosition : this.blockPositionsById) {
-            blockPosition.isPositionIdIntersect = new boolean[this.positionCount];
-            blockPosition.setIsPositionIdIntersectBitSet(new BitSet(this.positionCount));
+            blockPosition.initializeIntersection(positionCount);
         }
         for (int i = 0; i < blockCount; i++) {
             List<BlockPosition> blockIPositions = blockIdToBlockPositionsMap.get(i);

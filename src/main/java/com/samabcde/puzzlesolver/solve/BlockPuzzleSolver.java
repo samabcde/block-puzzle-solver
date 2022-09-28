@@ -128,7 +128,7 @@ public class BlockPuzzleSolver {
         List<Block> remainingBlocks = getRemainingBlocks();
         BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition;
         BoardFillState cloneBoardFillState = this.boardFillState.copy();
-        if (!this.blockPossiblePosition.isBlockHasPossibleBlockPosition(block)) {
+        if (!this.blockPossiblePosition.hasPossibleBlockPosition(block)) {
             return false;
         }
         if (this.boardFillState.existCannotFillPoint()) {

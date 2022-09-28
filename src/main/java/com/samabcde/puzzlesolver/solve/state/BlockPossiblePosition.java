@@ -34,7 +34,7 @@ public class BlockPossiblePosition {
                 blockPossiblePosition.addedPositionPriorityOfBlocks.length);
     }
 
-    public boolean isBlockHasPossibleBlockPosition(Block block) {
+    public boolean hasPossibleBlockPosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
         int positionPriorityFrom = this.getAddedPositionPriorityOfBlocks()[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;

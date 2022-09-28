@@ -72,7 +72,7 @@ public class Block {
 
     void setBlockPositions(List<BlockPosition> blockPositions) {
         this.blockPositions = blockPositions;
-        this.totalIntersectCount = blockPositions.stream().map(p -> p.intersectCount).reduce(Integer::sum).orElse(0);
+        this.totalIntersectCount = blockPositions.stream().map(p -> p.getIntersectCount()).reduce(Integer::sum).orElse(0);
     }
 
     public List<BlockPosition> getBlockPositions() {

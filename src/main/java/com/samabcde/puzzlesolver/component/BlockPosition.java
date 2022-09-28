@@ -7,27 +7,21 @@ import java.util.*;
 public class BlockPosition implements Comparable<BlockPosition> {
     public final int id;
     final Block block;
-    boolean[] isPositionIdIntersect;
-
-    private BitSet isPositionIdIntersectBitSet;
     private final Position position;
-    int intersectCount;
+    private Intersection intersection;
+
     private int intersectScore = Integer.MIN_VALUE;
-    List<Integer> intersectPositionIds = new ArrayList<>();
     int[] canFillPoints;
     private int priority;
 
-    void setIsPositionIdIntersectBitSet(BitSet isPositionIdIntersectBitSet) {
-        this.isPositionIdIntersectBitSet = isPositionIdIntersectBitSet;
+    void initializeIntersection(int positionCount) {
+        this.intersection = new Intersection(positionCount);
     }
 
     public Block getBlock() {
         return block;
     }
 
-    public List<Integer> getIntersectPositionIds() {
-        return intersectPositionIds;
-    }
 
     public int[] getCanFillPoints() {
         return canFillPoints;
@@ -43,7 +37,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         }
         intersectScore = 0;
         for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
-            if (!this.isPositionIdIntersect[i]) {
+            if (!this.intersection.isPositionIdIntersectBitSet.get(i)) {
                 continue;
             }
             BlockPosition blockPosition = blockPuzzle.getBlockPositionById(i);
@@ -99,8 +93,16 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return position;
     }
 
+    public int getIntersectCount() {
+        return intersection.getIntersectCount();
+    }
+
+    public List<Integer> getIntersectPositionIds() {
+        return intersection.getIntersectPositionIds();
+    }
+
     public BitSet getIsPositionIdIntersectBitSet() {
-        return isPositionIdIntersectBitSet;
+        return intersection.getIsPositionIdIntersectBitSet();
     }
 
     private boolean get(int row, int col) {
@@ -115,10 +117,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
 
 
     void addIntersectPosition(BlockPosition intersect) {
-        this.intersectCount++;
-        this.isPositionIdIntersect[intersect.id] = true;
-        this.isPositionIdIntersectBitSet.set(intersect.id);
-        this.intersectPositionIds.add(intersect.id);
+        this.intersection.add(intersect);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public String toString() {
         return """
                 position: %s, block:
-                """.formatted(position, block);
+                %s""".formatted(position, block);
     }
 
     @Override
