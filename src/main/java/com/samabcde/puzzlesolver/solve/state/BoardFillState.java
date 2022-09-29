@@ -33,11 +33,7 @@ public class BoardFillState {
     private BoardFillState(BoardFillState boardFillState) {
         this.blockPuzzle = boardFillState.blockPuzzle;
         this.noOfFillPoint = boardFillState.noOfFillPoint;
-        this.pointFillStatesOrderByPosition = new ArrayList<>();
-        for (PointFillState pointFillState : boardFillState.pointFillStatesOrderByPosition) {
-            this.pointFillStatesOrderByPosition.add(pointFillState.copy());
-        }
-
+        this.pointFillStatesOrderByPosition = boardFillState.pointFillStatesOrderByPosition.stream().map(PointFillState::copy).toList();
         this.isFillabilityChanged = boardFillState.isFillabilityChanged;
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
         for (int i = 0; i < this.emptyPoints.size(); i++) {

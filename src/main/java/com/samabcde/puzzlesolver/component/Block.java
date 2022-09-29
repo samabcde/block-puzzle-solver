@@ -72,7 +72,7 @@ public class Block {
 
     void setBlockPositions(List<BlockPosition> blockPositions) {
         this.blockPositions = blockPositions;
-        this.totalIntersectCount = blockPositions.stream().map(p -> p.getIntersectCount()).reduce(Integer::sum).orElse(0);
+        this.totalIntersectCount = blockPositions.stream().map(BlockPosition::getIntersectCount).reduce(Integer::sum).orElse(0);
     }
 
     public List<BlockPosition> getBlockPositions() {
@@ -118,8 +118,8 @@ public class Block {
 
     private void initializeSize(String[] rows) {
         int maxColCount = 0;
-        for (int rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-            maxColCount = Math.max(rows[rowIndex].length(), maxColCount);
+        for (String row : rows) {
+            maxColCount = Math.max(row.length(), maxColCount);
         }
         this.height = rows.length;
         this.width = maxColCount;
