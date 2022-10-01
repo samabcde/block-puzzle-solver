@@ -135,12 +135,6 @@ public class BlockPuzzleSolver {
             return false;
         }
         List<List<BlockPosition>> remainingBlocksBlockPositions = getRemainingBlocksBlockPositions(remainingBlocks, cloneBlockPossiblePosition);
-        for (List<BlockPosition> p : remainingBlocksBlockPositions) {
-            // not possible to be empty
-            if (p.isEmpty()) {
-                return false;
-            }
-        }
         return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlocksBlockPositions);
     }
 
@@ -283,14 +277,6 @@ public class BlockPuzzleSolver {
         int positionPriorityTo = blockPositions.size() - 1;
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
             BlockPosition nextPossiblePosition = blockPositions.get(i);
-            boolean skipOther = false;
-            if (boardFillState.getOnlyBlock().isPresent() && boardFillState.getOnlyBlock().get() == block) {
-                if (!nextPossiblePosition.canFill(boardFillState.getPointWithOnly1Block().get())) {
-                    continue;
-                } else {
-                    skipOther = true;
-                }
-            }
             if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[nextPossiblePosition.id] > 0) {
                 continue;
             }
@@ -310,9 +296,6 @@ public class BlockPuzzleSolver {
                 }
             }
             blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = i;
-            if (skipOther) {
-                blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = positionPriorityTo;
-            }
             blockPossiblePosition.getPossiblePositionCountOfBlocks()[block.id]--;
             solution.push(nextPossiblePosition);
             for (BlockPosition blockPosition : nextPossiblePosition.getBlock().getBlockPositions()) {
