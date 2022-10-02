@@ -7,6 +7,7 @@ import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
@@ -51,7 +52,22 @@ public class BlockPossiblePosition {
         return false;
     }
 
-    public List<BlockPosition> getPossibleBlockPosition(Block block) {
+    public BlockPosition pollNextPossiblePosition(Block block) {
+        List<BlockPosition> blockPositions = block.getBlockPositions();
+
+        int positionPriorityFrom = this.addedPositionPriorityOfBlocks[block.id] + 1;
+        int positionPriorityTo = blockPositions.size() - 1;
+
+        for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
+            if (getIntersectionCount(blockPositions.get(i)) == 0) {
+                getAddedPositionPriorityOfBlocks()[block.id] = i;
+                return blockPositions.get(i);
+            }
+        }
+        throw new NoSuchElementException("No possible position to choose");
+    }
+
+    public List<BlockPosition> getPossiblePositions(Block block) {
         List<BlockPosition> possibleBlockPositions = new ArrayList<>();
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
@@ -59,7 +75,7 @@ public class BlockPossiblePosition {
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
-            if (this.intersectionCountOfBlockPositions[blockPositions.get(i).id] == 0) {
+            if (getIntersectionCount(blockPositions.get(i)) == 0) {
                 possibleBlockPositions.add(blockPositions.get(i));
             }
         }
@@ -107,8 +123,12 @@ public class BlockPossiblePosition {
     }
 
     // check which position is added
-    public int[] getAddedPositionPriorityOfBlocks() {
+    private int[] getAddedPositionPriorityOfBlocks() {
         return addedPositionPriorityOfBlocks;
+    }
+
+    public void resetAddedPositionPriority(Block block) {
+        addedPositionPriorityOfBlocks[block.id] = -1;
     }
 
 }

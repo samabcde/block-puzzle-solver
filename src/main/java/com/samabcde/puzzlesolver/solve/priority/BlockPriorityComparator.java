@@ -10,11 +10,9 @@ import java.util.Optional;
 public class BlockPriorityComparator implements Comparator<Block> {
 
     private final BlockPossiblePosition blockPossiblePosition;
-    private final Optional<Block> onlyBlock;
 
-    public BlockPriorityComparator(BlockPossiblePosition blockPossiblePosition, BoardFillState boardFillState) {
+    public BlockPriorityComparator(BlockPossiblePosition blockPossiblePosition) {
         this.blockPossiblePosition = blockPossiblePosition;
-        this.onlyBlock = boardFillState.getOnlyBlock();
     }
 
     @Override
