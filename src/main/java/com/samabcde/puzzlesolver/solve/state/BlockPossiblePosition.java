@@ -15,8 +15,8 @@ public class BlockPossiblePosition {
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.getPositionCount()];
-        this.addedPositionPriorityOfBlocks = new int[blockPuzzle.blockCount];
         List<Block> blocks = blockPuzzle.getBlocks();
+        this.addedPositionPriorityOfBlocks = new int[blocks.size()];
         this.possiblePositionCountOfBlocks = new int[blocks.size()];
         for (Block block : blocks) {
             this.possiblePositionCountOfBlocks[block.id] = block.getPositionIdTo() - block.getPositionIdFrom() + 1;
@@ -70,14 +70,43 @@ public class BlockPossiblePosition {
         return new BlockPossiblePosition(this);
     }
 
-    public int[] getPossiblePositionCountOfBlocks() {
+    // possible if not in solution or no intersect
+    private int[] getPossiblePositionCountOfBlocks() {
         return possiblePositionCountOfBlocks;
     }
 
-    public int[] getIntersectionCountOfBlockPositions() {
+    public int getPossiblePositionCount(Block block) {
+        return possiblePositionCountOfBlocks[block.id];
+    }
+
+    private int[] getIntersectionCountOfBlockPositions() {
         return intersectionCountOfBlockPositions;
     }
 
+    public int getIntersectionCount(BlockPosition blockPosition) {
+        return getIntersectionCountOfBlockPositions()[blockPosition.id];
+    }
+
+    public int incrementIntersectionCount(BlockPosition blockPosition) {
+        this.getIntersectionCountOfBlockPositions()[blockPosition.id]++;
+        if (getIntersectionCount(blockPosition) == 1) {
+            getPossiblePositionCountOfBlocks()[blockPosition.getBlock().id]--;
+        }
+        return getIntersectionCount(blockPosition);
+    }
+
+    public int decrementIntersectionCount(BlockPosition blockPosition) {
+        getIntersectionCountOfBlockPositions()[blockPosition.id]--;
+        if (getIntersectionCountOfBlockPositions()[blockPosition.id] < 0) {
+            throw new IllegalStateException("intersection count must not be negative");
+        }
+        if (getIntersectionCount(blockPosition) == 0) {
+            getPossiblePositionCountOfBlocks()[blockPosition.getBlock().id]++;
+        }
+        return getIntersectionCount(blockPosition);
+    }
+
+    // check which position is added
     public int[] getAddedPositionPriorityOfBlocks() {
         return addedPositionPriorityOfBlocks;
     }

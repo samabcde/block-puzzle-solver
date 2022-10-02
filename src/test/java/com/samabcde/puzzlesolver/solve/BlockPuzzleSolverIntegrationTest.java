@@ -126,6 +126,24 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
 
         });
+        // iterate Count: 110452847
+        // bbii222333333
+        // bbddd223r0aak
+        // bbbd2223000aa
+        // b88822t3h0saa
+        // p11822v3h0aam
+        // 11187222000qc
+        // 18887777770cc
+        // 111117wggu0cc
+        // 1115555g000cc
+        // o11555550jj9c
+        // 666654eeef999
+        // 66664444efff9
+        // 6l6n444444999
+        // Step Complete initialize block puzzle time: 158ms
+        // Step Solve complete time: 6073620ms
+        // Step Print solution time: 1ms
+
         assertPuzzleSolvable(blockPuzzle);
     }
 
@@ -184,7 +202,6 @@ public class BlockPuzzleSolverIntegrationTest {
         });
         assertPuzzleSolvable(blockPuzzle);
     }
-
 
     @Test
     public void testSolve13() {

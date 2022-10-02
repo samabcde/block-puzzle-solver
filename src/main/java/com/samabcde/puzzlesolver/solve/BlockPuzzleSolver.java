@@ -242,32 +242,25 @@ public class BlockPuzzleSolver {
 
         List<Integer> intersectPositionIds = lastBlockPosition.getIntersectPositionIds();
         for (Integer intersectPositionId : intersectPositionIds) {
-            blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId]--;
-            if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId] < 0) {
-                throw new RuntimeException("");
-            }
-            if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId] > 0) {
+            BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
+            int intersectCount = blockPossiblePosition.decrementIntersectionCount(intersectBlockPosition);
+            if (intersectCount > 0) {
                 continue;
             }
 
-            BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
             boolean isInSolution = solution.containsBlock(intersectBlockPosition.getBlock());
 
             if (!isInSolution) {
                 boardFillState.addCanFillBlockPosition(intersectBlockPosition);
             }
-            blockPossiblePosition.getPossiblePositionCountOfBlocks()[blockPuzzle
-                    .getBlockIdByBlockPositionId(intersectPositionId)]++;
-
         }
 
         for (BlockPosition blockPosition : lastBlockPosition.getBlock().getBlockPositions()) {
-            if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[blockPosition.id] == 0) {
+            if (blockPossiblePosition.getIntersectionCount(blockPosition) == 0) {
                 boardFillState.addCanFillBlockPosition(blockPosition);
             }
         }
         boardFillState.removeBlockPosition(lastBlockPosition);
-        blockPossiblePosition.getPossiblePositionCountOfBlocks()[lastBlockPosition.getBlock().id]++;
         return lastBlockPosition;
     }
 
@@ -277,29 +270,25 @@ public class BlockPuzzleSolver {
         int positionPriorityTo = blockPositions.size() - 1;
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
             BlockPosition nextPossiblePosition = blockPositions.get(i);
-            if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[nextPossiblePosition.id] > 0) {
+            if (blockPossiblePosition.getIntersectionCount(nextPossiblePosition) > 0) {
                 continue;
             }
 
             List<Integer> intersectPositionIds = nextPossiblePosition.getIntersectPositionIds();
             for (Integer intersectPositionId : intersectPositionIds) {
-                blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId]++;
-                if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[intersectPositionId] == 1) {
-
-                    BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
+                BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
+                int intersectCount = blockPossiblePosition.incrementIntersectionCount(intersectBlockPosition);
+                if (intersectCount == 1) {
                     boolean isInSolution = solution.containsBlock(intersectBlockPosition.getBlock());
                     if (!isInSolution) {
                         boardFillState.removeCanFillBlockPosition(intersectBlockPosition);
                     }
-                    blockPossiblePosition.getPossiblePositionCountOfBlocks()[blockPuzzle
-                            .getBlockIdByBlockPositionId(intersectPositionId)]--;
                 }
             }
             blockPossiblePosition.getAddedPositionPriorityOfBlocks()[block.id] = i;
-            blockPossiblePosition.getPossiblePositionCountOfBlocks()[block.id]--;
             solution.push(nextPossiblePosition);
             for (BlockPosition blockPosition : nextPossiblePosition.getBlock().getBlockPositions()) {
-                if (blockPossiblePosition.getIntersectionCountOfBlockPositions()[blockPosition.id] == 0) {
+                if (blockPossiblePosition.getIntersectionCount(blockPosition) == 0) {
                     boardFillState.removeCanFillBlockPosition(blockPosition);
                 }
             }

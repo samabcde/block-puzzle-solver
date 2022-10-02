@@ -27,10 +27,10 @@ public class BlockPriorityComparator implements Comparator<Block> {
 //                return 1;
 //            }
 //        }
-        if (blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg0.id] != blockPossiblePosition
-                .getPossiblePositionCountOfBlocks()[arg1.id]) {
-            return Integer.compare(blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg0.id],
-                    blockPossiblePosition.getPossiblePositionCountOfBlocks()[arg1.id]);
+        if (blockPossiblePosition.getPossiblePositionCount(arg0) != blockPossiblePosition
+                .getPossiblePositionCount(arg1)) {
+            return Integer.compare(blockPossiblePosition.getPossiblePositionCount(arg0),
+                    blockPossiblePosition.getPossiblePositionCount(arg1));
         }
         if (arg0.getAverageIntersectCount() != arg1.getAverageIntersectCount()) {
             return -Integer.compare(arg0.getAverageIntersectCount(), arg1.getAverageIntersectCount());
