@@ -47,8 +47,8 @@ public class BoardFillState {
 
     public boolean existCannotFillPoint() {
         List<PointFillState> emptyPoints = getEmptyPoints();
-        for (int i = 0; i < emptyPoints.size(); i++) {
-            if (!emptyPoints.get(i).canFill()) {
+        for (PointFillState emptyPoint : emptyPoints) {
+            if (!emptyPoint.canFill()) {
                 return true;
             }
         }

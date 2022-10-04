@@ -131,7 +131,7 @@ public class BlockPuzzleSolver {
         List<Block> remainingBlocks = getRemainingBlocks();
         BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition;
         BoardFillState cloneBoardFillState = this.boardFillState.copy();
-        if (!this.blockPossiblePosition.hasPossibleBlockPosition(block)) {
+        if (!this.blockPossiblePosition.hasPossiblePosition(block)) {
             return false;
         }
         if (this.boardFillState.existCannotFillPoint()) {
@@ -172,13 +172,9 @@ public class BlockPuzzleSolver {
                 }
             }
             List<PointFillState> emptyPoints = cloneBoardFillState.getEmptyPoints();
-            List<PointFillState> remainOneBlockEmptyPoints = new ArrayList<>();
+            List<PointFillState> remainOneBlockEmptyPoints = emptyPoints.stream()
+                    .filter(p -> p.getCanFillBlockIds().size() == 1).toList();
 
-            for (PointFillState emptyPoint : emptyPoints) {
-                if (emptyPoint.getCanFillBlockIds().size() == 1) {
-                    remainOneBlockEmptyPoints.add(emptyPoint);
-                }
-            }
 
             for (PointFillState remainOneBlockEmptyPoint : remainOneBlockEmptyPoints) {
                 if (remainOneBlockEmptyPoint.getCanFillBlockIds().isEmpty()) {
@@ -189,12 +185,15 @@ public class BlockPuzzleSolver {
 
                 for (int i = 0; i < remainingBlocksBlockPositions.size(); i++) {
                     List<BlockPosition> remainingBlockBlockPositions = remainingBlocksBlockPositions.get(i);
-                    boolean isSameBlock = remainingBlockBlockPositions.get(0).getBlock() == remainBlock;
+//                    boolean isSameBlock = remainingBlockBlockPositions.get(0).getBlock() == remainBlock;
+                    if (remainingBlockBlockPositions.get(0).getBlock() != remainBlock) {
+                        continue;
+                    }
                     Iterator<BlockPosition> iterator = remainingBlockBlockPositions.iterator();
                     while (iterator.hasNext()) {
                         BlockPosition blockPosition = iterator.next();
                         boolean isPointInPosition = blockPosition.canFill(remainOneBlockEmptyPoint);
-                        if ((isSameBlock && !isPointInPosition) || (!isSameBlock && isPointInPosition)) {
+                        if (!isPointInPosition) {
                             hasChange = true;
                             cloneBoardFillState.removeCanFillBlockPosition(blockPosition);
                             iterator.remove();

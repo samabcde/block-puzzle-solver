@@ -12,16 +12,16 @@ import java.util.NoSuchElementException;
 public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
-    private final int[] addedPositionPriorityOfBlocks;
+    private final int[] addedPositionOfBlocks;
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.getPositionCount()];
         List<Block> blocks = blockPuzzle.getBlocks();
-        this.addedPositionPriorityOfBlocks = new int[blocks.size()];
+        this.addedPositionOfBlocks = new int[blocks.size()];
         this.possiblePositionCountOfBlocks = new int[blocks.size()];
         for (Block block : blocks) {
             this.possiblePositionCountOfBlocks[block.id] = block.getPositionIdTo() - block.getPositionIdFrom() + 1;
-            this.addedPositionPriorityOfBlocks[block.id] = -1;
+            this.addedPositionOfBlocks[block.id] = -1;
         }
 
     }
@@ -31,13 +31,13 @@ public class BlockPossiblePosition {
                 blockPossiblePosition.intersectionCountOfBlockPositions.length);
         this.possiblePositionCountOfBlocks = Arrays.copyOf(blockPossiblePosition.possiblePositionCountOfBlocks,
                 blockPossiblePosition.possiblePositionCountOfBlocks.length);
-        this.addedPositionPriorityOfBlocks = Arrays.copyOf(blockPossiblePosition.addedPositionPriorityOfBlocks,
-                blockPossiblePosition.addedPositionPriorityOfBlocks.length);
+        this.addedPositionOfBlocks = Arrays.copyOf(blockPossiblePosition.addedPositionOfBlocks,
+                blockPossiblePosition.addedPositionOfBlocks.length);
     }
 
-    public boolean hasPossibleBlockPosition(Block block) {
+    public boolean hasPossiblePosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
-        int positionPriorityFrom = this.getAddedPositionPriorityOfBlocks()[block.id] + 1;
+        int positionPriorityFrom = this.getAddedPositionOfBlocks()[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
@@ -45,7 +45,7 @@ public class BlockPossiblePosition {
                 continue;
             }
             if (this.getPossiblePositionCountOfBlocks()[block.id] == 0) {
-                throw new RuntimeException("should have no possible position");
+                throw new IllegalStateException("intersection count is 0 but possible position count is also 0");
             }
             return true;
         }
@@ -55,12 +55,12 @@ public class BlockPossiblePosition {
     public BlockPosition pollNextPossiblePosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
-        int positionPriorityFrom = this.addedPositionPriorityOfBlocks[block.id] + 1;
+        int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
             if (getIntersectionCount(blockPositions.get(i)) == 0) {
-                getAddedPositionPriorityOfBlocks()[block.id] = i;
+                getAddedPositionOfBlocks()[block.id] = i;
                 return blockPositions.get(i);
             }
         }
@@ -71,7 +71,7 @@ public class BlockPossiblePosition {
         List<BlockPosition> possibleBlockPositions = new ArrayList<>();
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
-        int positionPriorityFrom = this.addedPositionPriorityOfBlocks[block.id] + 1;
+        int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
@@ -123,12 +123,12 @@ public class BlockPossiblePosition {
     }
 
     // check which position is added
-    private int[] getAddedPositionPriorityOfBlocks() {
-        return addedPositionPriorityOfBlocks;
+    private int[] getAddedPositionOfBlocks() {
+        return addedPositionOfBlocks;
     }
 
     public void resetAddedPositionPriority(Block block) {
-        addedPositionPriorityOfBlocks[block.id] = -1;
+        addedPositionOfBlocks[block.id] = -1;
     }
 
 }
