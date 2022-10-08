@@ -31,17 +31,15 @@ public class PointFillState {
         Arrays.fill(canFillPositionCountOfBlocks, 0);
         for (Block block : blockPuzzle.getBlocks()) {
             for (BlockPosition blockPosition : block.getBlockPositions()) {
-                for (int canFillPoint : blockPosition.getCanFillPoints()) {
-                    if (canFillPoint != position) {
-                        continue;
-                    }
-                    if (canFillPositionCountOfBlocks[block.id] == 0) {
-                        canFillBlockCount++;
-                        canFillBlockWeight += block.getWeight();
-                    }
-                    canFillPositionCountOfBlocks[block.id]++;
-                    canFillBlockPositionCount++;
+                if (!blockPosition.canFill(position)) {
+                    continue;
                 }
+                if (canFillPositionCountOfBlocks[block.id] == 0) {
+                    canFillBlockCount++;
+                    canFillBlockWeight += block.getWeight();
+                }
+                canFillPositionCountOfBlocks[block.id]++;
+                canFillBlockPositionCount++;
             }
         }
         this.position = position;

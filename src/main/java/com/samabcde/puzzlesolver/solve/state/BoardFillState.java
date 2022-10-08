@@ -16,9 +16,7 @@ public class BoardFillState {
     private final List<PointFillState> emptyPoints;
 
     private final List<PointFillState> pointFillStatesOrderByPosition;
-    private int noOfFillPoint = 0;
     private final BlockPuzzle blockPuzzle;
-    private boolean isFillabilityChanged = false;
 
     public BoardFillState(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
@@ -32,9 +30,7 @@ public class BoardFillState {
 
     private BoardFillState(BoardFillState boardFillState) {
         this.blockPuzzle = boardFillState.blockPuzzle;
-        this.noOfFillPoint = boardFillState.noOfFillPoint;
         this.pointFillStatesOrderByPosition = boardFillState.pointFillStatesOrderByPosition.stream().map(PointFillState::copy).toList();
-        this.isFillabilityChanged = boardFillState.isFillabilityChanged;
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
         for (int i = 0; i < this.emptyPoints.size(); i++) {
             this.emptyPoints.set(i, this.pointFillStatesOrderByPosition.get(this.emptyPoints.get(i).getPosition()));
@@ -47,12 +43,7 @@ public class BoardFillState {
 
     public boolean existCannotFillPoint() {
         List<PointFillState> emptyPoints = getEmptyPoints();
-        for (PointFillState emptyPoint : emptyPoints) {
-            if (!emptyPoint.canFill()) {
-                return true;
-            }
-        }
-        return false;
+        return emptyPoints.stream().anyMatch(emptyPoint->!emptyPoint.canFill());
     }
 
     public Optional<Block> getOnlyBlock() {
@@ -83,15 +74,12 @@ public class BoardFillState {
         for (int canFillPoint : addBlockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(true);
             emptyPoints.remove(pointFillStatesOrderByPosition.get(canFillPoint));
-            noOfFillPoint++;
-            this.isFillabilityChanged = true;
         }
     }
 
     public void removeCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
-            this.isFillabilityChanged = true;
         }
     }
 
@@ -99,16 +87,13 @@ public class BoardFillState {
     public void removeBlockPosition(BlockPosition removeBlockPosition) {
         for (int canFillPoint : removeBlockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(false);
-            noOfFillPoint--;
             emptyPoints.add(pointFillStatesOrderByPosition.get(canFillPoint));
-            this.isFillabilityChanged = true;
         }
     }
 
     public void addCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).addCanFillBlockPosition(blockPosition);
-            this.isFillabilityChanged = true;
         }
     }
 }

@@ -31,6 +31,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return Arrays.binarySearch(canFillPoints, point.getPosition()) > -1;
     }
 
+    public boolean canFill(int position) {
+        return Arrays.binarySearch(canFillPoints, position) > -1;
+    }
+
     public int getIntersectScore(BlockPuzzle blockPuzzle) {
         if (intersectScore != Integer.MIN_VALUE) {
             return intersectScore;
