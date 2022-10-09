@@ -148,7 +148,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     public void testSolve12a() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1,1", "11", "11", "1", "1", "1",
@@ -175,6 +175,24 @@ public class BlockPuzzleSolverIntegrationTest {
         // j4444449990hh
         // Step Complete initialize block puzzle time: 134ms
         // Step Solve complete time: 413493ms
+        // Step Print solution time: 1ms
+
+        // iterate Count: 4469691
+        // g888bb5555iic
+        // g118bb55555cc
+        // 1118bbb5eqncc
+        // 1888b7tueeecc
+        // 111117777770c
+        // 111fff7yaa000
+        // m11vf222waa0k
+        // 33333322xaa0l
+        // 36666222aa000
+        // 3666622s9ddd0
+        // 3646r22999pd0
+        // 34444o2229000
+        // j4444449990hh
+        // Step Complete initialize block puzzle time: 150ms
+        // Step Solve complete time: 154258ms
         // Step Print solution time: 1ms
     }
 

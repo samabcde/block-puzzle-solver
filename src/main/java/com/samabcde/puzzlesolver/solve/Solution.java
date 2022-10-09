@@ -21,9 +21,11 @@ public class Solution implements Iterable<BlockPosition> {
     private static final Logger logger = LoggerFactory.getLogger(Solution.class);
     private final BlockPuzzle blockPuzzle;
     private final Deque<BlockPosition> positionSolutions = new LinkedList<>();
+    private final BitSet addedBlocks;
 
     public Solution(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
+        this.addedBlocks = new BitSet(blockPuzzle.blockCount);
     }
 
     private char[] getDisplay(int count) {
@@ -65,11 +67,14 @@ public class Solution implements Iterable<BlockPosition> {
     }
 
     public BlockPosition poll() {
-        return positionSolutions.poll();
+        BlockPosition blockPosition = positionSolutions.poll();
+        addedBlocks.set(blockPosition.getBlock().id, false);
+        return blockPosition;
     }
 
     public void push(BlockPosition blockPosition) {
         positionSolutions.push(blockPosition);
+        addedBlocks.set(blockPosition.getBlock().id, true);
     }
 
     public int size() {
@@ -81,7 +86,7 @@ public class Solution implements Iterable<BlockPosition> {
     }
 
     public boolean containsBlock(Block block) {
-        return positionSolutions.stream().anyMatch(positionSolutions -> positionSolutions.getBlock() == block);
+        return addedBlocks.get(block.id);
     }
 
     @Override

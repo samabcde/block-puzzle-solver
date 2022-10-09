@@ -173,19 +173,18 @@ public class BlockPuzzleSolver {
             }
             List<PointFillState> emptyPoints = cloneBoardFillState.getEmptyPoints();
             List<PointFillState> remainOneBlockEmptyPoints = emptyPoints.stream()
-                    .filter(p -> p.getCanFillBlockIds().size() == 1).toList();
+                    .filter(PointFillState::canFillByOnlyOneBlock).toList();
 
 
             for (PointFillState remainOneBlockEmptyPoint : remainOneBlockEmptyPoints) {
-                if (remainOneBlockEmptyPoint.getCanFillBlockIds().isEmpty()) {
+                if (remainOneBlockEmptyPoint.canNotFillByAnyBlock()) {
                     return false;
                 }
                 Block remainBlock = this.blockPuzzle
-                        .getBlockById(remainOneBlockEmptyPoint.getCanFillBlockIds().get(0));
+                        .getBlockById(remainOneBlockEmptyPoint.getFirstCanFillBlockId());
 
                 for (int i = 0; i < remainingBlocksBlockPositions.size(); i++) {
                     List<BlockPosition> remainingBlockBlockPositions = remainingBlocksBlockPositions.get(i);
-//                    boolean isSameBlock = remainingBlockBlockPositions.get(0).getBlock() == remainBlock;
                     if (remainingBlockBlockPositions.get(0).getBlock() != remainBlock) {
                         continue;
                     }

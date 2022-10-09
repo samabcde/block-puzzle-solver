@@ -114,6 +114,37 @@ public class PointFillState {
         return canFillBlockIds;
     }
 
+    public boolean canFillByOnlyOneBlock() {
+        boolean hasOneBlock = false;
+        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
+            if (canFillPositionCountOfBlocks[i] > 0) {
+                if (hasOneBlock) {
+                    return false;
+                }
+                hasOneBlock = true;
+            }
+        }
+        return hasOneBlock;
+    }
+
+    public boolean canNotFillByAnyBlock() {
+        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
+            if (canFillPositionCountOfBlocks[i] > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int getFirstCanFillBlockId() {
+        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
+            if (canFillPositionCountOfBlocks[i] > 0) {
+                return i;
+            }
+        }
+        throw new NoSuchElementException("no can fill block id");
+    }
+
     public PointFillState copy() {
         return new PointFillState(this);
     }
