@@ -69,6 +69,24 @@ public class BlockPuzzleSolverIntegrationTest {
 
         });
         assertPuzzleSolvable(blockPuzzle);
+//        BlockPuzzleSolver - Solved
+//        BlockPuzzleSolver - iterate Count: 21566
+//        BlockPuzzleSolver - Solution:
+//        Solution - 999999955555
+//        Solution - ccccc5555111
+//        Solution - 222666666g11
+//        Solution - 2d66iiiggg11
+//        Solution - 2ddaaaaaa811
+//        Solution - 2dd44fffh810
+//        Solution - 2ee44ffhh810
+//        Solution - 2ee44bjj8810
+//        Solution - 27e44bbbb810
+//        Solution - 277433333300
+//        Solution - 777430000000
+//        Solution - 777433333300
+//        PerformanceRecorder - Step Complete initialize block puzzle time: 77ms
+//        PerformanceRecorder - Step Solve complete time: 2203ms
+//        PerformanceRecorder - Step Print solution time: 2ms
     }
 
     @Test
@@ -148,7 +166,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     public void testSolve12a() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1,1", "11", "11", "1", "1", "1",
@@ -173,11 +191,11 @@ public class BlockPuzzleSolverIntegrationTest {
         // 3646r22999pd0
         // 34444o2229000
         // j4444449990hh
-        // Step Complete initialize block puzzle time: 134ms
-        // Step Solve complete time: 413493ms
+        // Step Complete initialize block puzzle time: 150ms
+        // Step Solve complete time: 154258ms
         // Step Print solution time: 1ms
 
-        // iterate Count: 4469691
+        // iterate Count: 1078661
         // g888bb5555iic
         // g118bb55555cc
         // 1118bbb5eqncc
@@ -191,9 +209,9 @@ public class BlockPuzzleSolverIntegrationTest {
         // 3646r22999pd0
         // 34444o2229000
         // j4444449990hh
-        // Step Complete initialize block puzzle time: 150ms
-        // Step Solve complete time: 154258ms
-        // Step Print solution time: 1ms
+        // Step Complete initialize block puzzle time: 323ms
+        // Step Solve complete time: 86446ms
+        // Step Print solution time: 2ms
     }
 
     @Test

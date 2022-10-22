@@ -23,6 +23,7 @@ public class BlockPuzzleSolver {
     private final BoardFillState boardFillState;
     private final BlockPriorityComparator blockPriorityComparator;
     private final PerformanceRecorder performanceRecorder = new PerformanceRecorder();
+    private final BitSet isCommonPositionIntersectBitSet;
 
     private List<Block> getRemainingBlocks() {
         return blocks.subList(solution.size(), blocks.size());
@@ -44,6 +45,7 @@ public class BlockPuzzleSolver {
         boardFillState = new BoardFillState(this.blockPuzzle);
         this.solution = new Solution(this.blockPuzzle);
         performanceRecorder.addExecution("Complete initialize block puzzle");
+        isCommonPositionIntersectBitSet = new BitSet(blockPuzzle.getPositionCount());
     }
 
     private void sortBlockPositions() {
@@ -113,7 +115,6 @@ public class BlockPuzzleSolver {
         return solution;
     }
 
-    private final BitSet isCommonPositionIntersectBitSet = new BitSet();
 
     private BitSet getCommonIntersectBlockPositions(List<BlockPosition> blockPositions) {
         isCommonPositionIntersectBitSet.clear();
