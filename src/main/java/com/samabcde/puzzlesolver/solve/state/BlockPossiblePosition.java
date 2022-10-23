@@ -67,8 +67,8 @@ public class BlockPossiblePosition {
         throw new NoSuchElementException("No possible position to choose");
     }
 
-    public List<BlockPosition> getPossiblePositions(Block block) {
-        List<BlockPosition> possibleBlockPositions = new ArrayList<>();
+    public PossiblePositions getPossiblePositions(Block block) {
+        List<BlockPosition> possibleBlockPositions = new ArrayList<>(this.getPossiblePositionCount(block));
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
         int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
@@ -79,7 +79,7 @@ public class BlockPossiblePosition {
                 possibleBlockPositions.add(blockPositions.get(i));
             }
         }
-        return possibleBlockPositions;
+        return new PossiblePositions(possibleBlockPositions);
     }
 
     public BlockPossiblePosition copy() {

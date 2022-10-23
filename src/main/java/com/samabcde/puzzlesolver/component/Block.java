@@ -39,7 +39,11 @@ public class Block {
     }
 
     public boolean isCoverable(Block block) {
-        return this.height >= block.height && this.width >= block.width;
+        return (this.height >= block.height && this.width >= block.width && this.weight >= block.weight)
+                // TODO below can reduce iterate count, but also reduce isRemainingBlockPositionsSolvable speed
+//                || (this.height >= block.height && this.width > block.width && this.weight >= block.weight)
+//                || (this.height > block.height && this.width >= block.width && this.weight >= block.weight)
+                ;
     }
 
     public int getAverageIntersectCount() {

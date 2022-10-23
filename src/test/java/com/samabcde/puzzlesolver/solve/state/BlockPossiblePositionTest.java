@@ -9,14 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BlockPossiblePositionTest {
-    @Test
-    public void getPossiblePositions() {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
-        BlockPossiblePosition blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
-        Block block = blockPuzzle.getBlocks().get(0);
-        assertEquals(block.getBlockPositions(), blockPossiblePosition.getPossiblePositions(block));
-        assertNotSame(block.getBlockPositions(), blockPossiblePosition.getPossiblePositions(block));
-    }
 
     @Test
     public void getIntersectionCount() {
