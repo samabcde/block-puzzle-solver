@@ -22,18 +22,20 @@ class BlockPossiblePositionTest {
     @Test
     public void incrementIntersectionCount() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
+        BoardFillState boardFillState = new BoardFillState(blockPuzzle);
         BlockPossiblePosition blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
         Block block = blockPuzzle.getBlocks().get(0);
         BlockPosition blockPosition = block.getBlockPositions().get(0);
         assertEquals(1, blockPossiblePosition.incrementIntersectionCount(blockPosition));
         assertEquals(1, blockPossiblePosition.getIntersectionCount(blockPosition));
         assertEquals(0, blockPossiblePosition.getPossiblePositionCount(block));
-        assertFalse(blockPossiblePosition.hasPossiblePosition(block));
+        assertFalse(blockPossiblePosition.hasPossiblePosition(block, boardFillState));
     }
 
     @Test
     public void decrementIntersectionCount() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 2), new String[]{"1", "1"});
+        BoardFillState boardFillState = new BoardFillState(blockPuzzle);
         BlockPossiblePosition blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
         Block block = blockPuzzle.getBlocks().get(0);
         BlockPosition blockPosition = block.getBlockPositions().get(0);
@@ -41,6 +43,6 @@ class BlockPossiblePositionTest {
         assertEquals(0, blockPossiblePosition.decrementIntersectionCount(blockPosition));
         assertEquals(0, blockPossiblePosition.getIntersectionCount(blockPosition));
         assertEquals(2, blockPossiblePosition.getPossiblePositionCount(block));
-        assertTrue(blockPossiblePosition.hasPossiblePosition(block));
+        assertTrue(blockPossiblePosition.hasPossiblePosition(block, boardFillState));
     }
 }

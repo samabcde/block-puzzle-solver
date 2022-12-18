@@ -4,10 +4,8 @@ import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
@@ -35,13 +33,17 @@ public class BlockPossiblePosition {
                 blockPossiblePosition.addedPositionOfBlocks.length);
     }
 
-    public boolean hasPossiblePosition(Block block) {
+    public boolean hasPossiblePosition(Block block, BoardFillState boardFillState) {
+        Predicate<BlockPosition> onlyBlockFilter = onlyBlockFilter(block, boardFillState);
         List<BlockPosition> blockPositions = block.getBlockPositions();
         int positionPriorityFrom = this.getAddedPositionOfBlocks()[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
             if (this.getIntersectionCountOfBlockPositions()[blockPositions.get(i).id] > 0) {
+                continue;
+            }
+            if (!onlyBlockFilter.test(blockPositions.get(i))) {
                 continue;
             }
             if (this.getPossiblePositionCountOfBlocks()[block.id] == 0) {
@@ -52,13 +54,17 @@ public class BlockPossiblePosition {
         return false;
     }
 
-    public BlockPosition pollNextPossiblePosition(Block block) {
+    public BlockPosition pollNextPossiblePosition(Block block, BoardFillState boardFillState) {
+        Predicate<BlockPosition> onlyBlockFilter = onlyBlockFilter(block, boardFillState);
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
         int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
+            if (!onlyBlockFilter.test(blockPositions.get(i))) {
+                continue;
+            }
             if (getIntersectionCount(blockPositions.get(i)) == 0) {
                 getAddedPositionOfBlocks()[block.id] = i;
                 return blockPositions.get(i);
@@ -67,20 +73,37 @@ public class BlockPossiblePosition {
         throw new NoSuchElementException("No possible position to choose");
     }
 
-    public PossiblePositions getPossiblePositions(Block block) {
-        List<BlockPosition> possibleBlockPositions = new ArrayList<>(this.getPossiblePositionCount(block));
+    public PossiblePositions getPossiblePositions(Block block, BoardFillState boardFillState) {
+        Predicate<BlockPosition> onlyBlockFilter = onlyBlockFilter(block, boardFillState);
+        List<BlockPosition> possibleBlockPositions = new ArrayList<>(getPossiblePositionCount(block));
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
         int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
+            if (!onlyBlockFilter.test(blockPositions.get(i))) {
+                continue;
+            }
             if (getIntersectionCount(blockPositions.get(i)) == 0) {
                 possibleBlockPositions.add(blockPositions.get(i));
             }
         }
         return new PossiblePositions(possibleBlockPositions);
     }
+
+    private Predicate<BlockPosition> onlyBlockFilter(Block block, BoardFillState boardFillState) {
+        Optional<PointFillState> pointWithOnly1Block = boardFillState.getPointWithOnly1Block();
+        if (!pointWithOnly1Block.isPresent()) {
+            return (blockPosition) -> true;
+        }
+        Block onlyBlock = pointWithOnly1Block.get().onlyBlock().get();
+        if (block != onlyBlock) {
+            return (blockPosition) -> true;
+        }
+        return (blockPosition) -> blockPosition.canFill(pointWithOnly1Block.get());
+    }
+
 
     public BlockPossiblePosition copy() {
         return new BlockPossiblePosition(this);

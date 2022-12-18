@@ -1,5 +1,6 @@
 package com.samabcde.puzzlesolver.component;
 
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,12 @@ public class Block {
     public final int id;
     // store the 2D block in 1D array with true as present
     private boolean[] value;
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    private Shape shape;
     private int height;
     private int width;
     int weight;
@@ -118,9 +125,15 @@ public class Block {
                 }
             }
         }
+        BitSet bitSet = new BitSet(width * height);
+        for (int i = 0; i < value.length; i++) {
+            bitSet.set(i, value[i]);
+        }
+        this.shape = new Shape(width, height, bitSet);
     }
 
     private void initializeSize(String[] rows) {
+        // TODO incorrect, e.g. 1000,0100,0000
         int maxColCount = 0;
         for (String row : rows) {
             maxColCount = Math.max(row.length(), maxColCount);

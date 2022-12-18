@@ -6,14 +6,11 @@ import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class BoardFillState {
     private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
-    private final List<PointFillState> emptyPoints;
+    private final LinkedList<PointFillState> emptyPoints;
 
     private final List<PointFillState> pointFillStatesOrderByPosition;
     private final BlockPuzzle blockPuzzle;
@@ -43,31 +40,37 @@ public class BoardFillState {
 
     public boolean existCannotFillPoint() {
         List<PointFillState> emptyPoints = getEmptyPoints();
-        return emptyPoints.stream().anyMatch(emptyPoint->!emptyPoint.canFill());
+        return emptyPoints.stream().anyMatch(emptyPoint -> !emptyPoint.canFill());
     }
 
+    public static boolean isEnableOnly = false;
+
     public Optional<Block> getOnlyBlock() {
-        for (PointFillState pointFillState : getEmptyPoints()) {
-            Optional<Block> onlyBlock = pointFillState.onlyBlock();
-            if (onlyBlock.isPresent()) {
-                return onlyBlock;
+        if (isEnableOnly) {
+            for (PointFillState pointFillState : getEmptyPoints()) {
+                Optional<Block> onlyBlock = pointFillState.onlyBlock();
+                if (onlyBlock.isPresent()) {
+                    return onlyBlock;
+                }
             }
         }
         return Optional.empty();
     }
 
     public Optional<PointFillState> getPointWithOnly1Block() {
-        for (PointFillState pointFillState : getEmptyPoints()) {
-            Optional<Block> onlyBlock = pointFillState.onlyBlock();
-            if (onlyBlock.isPresent()) {
-                return Optional.of(pointFillState);
-            }
+        if (isEnableOnly) {
+            return getEmptyPoints().stream().filter(pointFillState -> pointFillState.onlyBlock().isPresent()).findFirst();
         }
         return Optional.empty();
     }
 
     public List<PointFillState> getEmptyPoints() {
         return this.emptyPoints;
+    }
+
+    public List<PointFillState> getOneBlockCanFillEmptyPoints() {
+        return emptyPoints.stream()
+                .filter(PointFillState::canFillByOnlyOneBlock).toList();
     }
 
     public void addBlockPosition(BlockPosition addBlockPosition) {
@@ -87,7 +90,7 @@ public class BoardFillState {
     public void removeBlockPosition(BlockPosition removeBlockPosition) {
         for (int canFillPoint : removeBlockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(false);
-            emptyPoints.add(pointFillStatesOrderByPosition.get(canFillPoint));
+            emptyPoints.addFirst(pointFillStatesOrderByPosition.get(canFillPoint));
         }
     }
 

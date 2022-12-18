@@ -1,6 +1,7 @@
 package com.samabcde.puzzlesolver.component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BlockPuzzle {
     public final int blockCount;
@@ -8,6 +9,7 @@ public class BlockPuzzle {
     private final Dimension puzzleDimension;
     private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
     Block[] blocksById;
+    private final Map<Shape, List<Block>> shapeToBlocksMap;
     private final BlockPosition[] blockPositionsById;
     private final List<Block> blocks = new ArrayList<>();
 
@@ -65,6 +67,7 @@ public class BlockPuzzle {
             block.setBlockPositions(blockIdToBlockPositionsMap.get(block.id));
         }
         setCoverableBlocks();
+        this.shapeToBlocksMap = this.blocks.stream().collect(Collectors.groupingBy(Block::getShape));
     }
 
     public Block getBlockById(int id) {
@@ -73,6 +76,10 @@ public class BlockPuzzle {
 
     public BlockPosition getBlockPositionById(int id) {
         return this.blockPositionsById[id];
+    }
+
+    public List<Block> getBlocksWithSameShape(Shape shape) {
+        return shapeToBlocksMap.get(shape);
     }
 
     private void setCoverableBlocks() {

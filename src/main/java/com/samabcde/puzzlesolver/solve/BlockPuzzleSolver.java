@@ -22,7 +22,6 @@ public class BlockPuzzleSolver {
     private final Solution solution;
     private final BlockPossiblePosition blockPossiblePosition;
     private final BoardFillState boardFillState;
-    private final BlockPriorityComparator blockPriorityComparator;
     private final PerformanceRecorder performanceRecorder = new PerformanceRecorder();
 
     private List<Block> getRemainingBlocks() {
@@ -35,7 +34,6 @@ public class BlockPuzzleSolver {
         this.blockPuzzle = blockPuzzle;
         // TODO check how to simplify
         this.blocks = new ArrayList<>(this.blockPuzzle.getBlocks());
-        blockPriorityComparator = new BlockPriorityComparator(blockPossiblePosition);
         blocks.sort(new BlockComparator());
         for (int i = 0; i < this.blocks.size(); i++) {
             Block block = this.blocks.get(i);
@@ -48,7 +46,7 @@ public class BlockPuzzleSolver {
     }
 
     private void sortBlockPositions() {
-        BlockPuzzleSolver.BlockPositionComparator blockPositionComparator = new BlockPuzzleSolver.BlockPositionComparator(blockPuzzle);
+        BlockPositionComparator blockPositionComparator = new BlockPositionComparator(blockPuzzle);
         for (Block block : this.blockPuzzle.getBlocks()) {
             List<BlockPosition> blockPositions = block.getBlockPositions();
             blockPositions.sort(blockPositionComparator);
@@ -75,7 +73,7 @@ public class BlockPuzzleSolver {
     }
 
     private void updateBlockOrder() {
-        getRemainingBlocks().sort(blockPriorityComparator);
+        getRemainingBlocks().sort(new BlockPriorityComparator(blockPossiblePosition, boardFillState));
     }
 
     public Solution solve() {
@@ -118,11 +116,16 @@ public class BlockPuzzleSolver {
         List<Block> remainingBlocks = getRemainingBlocks();
         BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition;
         BoardFillState cloneBoardFillState = this.boardFillState.copy();
-        if (!this.blockPossiblePosition.hasPossiblePosition(block)) {
+        if (!this.blockPossiblePosition.hasPossiblePosition(block, boardFillState)) {
             return false;
         }
         if (this.boardFillState.existCannotFillPoint()) {
             return false;
+        }
+        for (Block remainingBlock : remainingBlocks) {
+            if (!blockPossiblePosition.hasPossiblePosition(remainingBlock, boardFillState)) {
+                return false;
+            }
         }
         List<PossiblePositions> remainingBlockPossiblePositions = getRemainingBlocksPossiblePositions(remainingBlocks, cloneBlockPossiblePosition);
         return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlockPossiblePositions);
@@ -156,10 +159,8 @@ public class BlockPuzzleSolver {
                     }
                 }
             }
-            List<PointFillState> emptyPoints = cloneBoardFillState.getEmptyPoints();
-            List<PointFillState> remainOneBlockEmptyPoints = emptyPoints.stream()
-                    .filter(PointFillState::canFillByOnlyOneBlock).toList();
 
+            List<PointFillState> remainOneBlockEmptyPoints = cloneBoardFillState.getOneBlockCanFillEmptyPoints();
 
             for (PointFillState remainOneBlockEmptyPoint : remainOneBlockEmptyPoints) {
                 if (remainOneBlockEmptyPoint.canNotFillByAnyBlock()) {
@@ -199,7 +200,7 @@ public class BlockPuzzleSolver {
                 continue;
             }
             PossiblePositions possibleBlockPositions = cloneBlockPossiblePosition
-                    .getPossiblePositions(remainingBlock);
+                    .getPossiblePositions(remainingBlock,boardFillState);
             if (possibleBlockPositions.hasNoCommonIntersect()) {
                 for (Integer coverableBlockId : remainingBlock.getCoverableBlockIds()) {
                     isBlocksSkippable[coverableBlockId] = true;
@@ -248,7 +249,7 @@ public class BlockPuzzleSolver {
     }
 
     private void addNextPossibleBlockPosition(Block block) {
-        BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block);
+        BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block, boardFillState);
 
         List<Integer> intersectPositionIds = nextPossiblePosition.getIntersectPositionIds();
         for (Integer intersectPositionId : intersectPositionIds) {

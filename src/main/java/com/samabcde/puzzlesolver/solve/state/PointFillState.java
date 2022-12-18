@@ -3,17 +3,20 @@ package com.samabcde.puzzlesolver.solve.state;
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
+import com.samabcde.puzzlesolver.component.Shape;
 
 import java.util.*;
 
 public class PointFillState {
     private boolean isFilled = false;
     private int canFillBlockCount = 0;
+    private int canFillPositionCountGt1BlockCount = 0;
     private int canFillBlockPositionCount = 0;
     private int canFillBlockWeight = 0;
     private final int[] canFillPositionCountOfBlocks;
     private final int position;
     private final BlockPuzzle blockPuzzle;
+    private Optional<Block> onlyBlock = Optional.empty();
 
     private PointFillState(PointFillState pointFillState) {
         this.canFillBlockCount = pointFillState.canFillBlockCount;
@@ -24,6 +27,7 @@ public class PointFillState {
         this.isFilled = pointFillState.isFilled;
         this.position = pointFillState.position;
         this.blockPuzzle = pointFillState.blockPuzzle;
+        this.canFillPositionCountGt1BlockCount = pointFillState.canFillPositionCountGt1BlockCount;
     }
 
     public PointFillState(BlockPuzzle blockPuzzle, int position) {
@@ -39,6 +43,9 @@ public class PointFillState {
                     canFillBlockWeight += block.getWeight();
                 }
                 canFillPositionCountOfBlocks[block.id]++;
+                if (canFillPositionCountOfBlocks[block.id] == 2) {
+                    canFillPositionCountGt1BlockCount++;
+                }
                 canFillBlockPositionCount++;
             }
         }
@@ -50,24 +57,33 @@ public class PointFillState {
         if (this.isFilled) {
             return Optional.empty();
         }
-        boolean isAllLe2 = Arrays.stream(this.canFillPositionCountOfBlocks).allMatch(i -> i < 2);
-        if (!isAllLe2) {
+        if (canFillPositionCountGt1BlockCount > 0) {
             return Optional.empty();
         }
-        List<Block> blocks = new ArrayList<>();
+        Shape shape = null;
+        Block block = null;
         for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
             if (canFillPositionCountOfBlocks[i] == 0) {
                 continue;
             }
-            blocks.add(blockPuzzle.getBlockById(i));
+            Block blockById = blockPuzzle.getBlockById(i);
+            if (shape == null) {
+                shape = blockById.getShape();
+                block = blockById;
+            } else {
+                if (!shape.equals(blockById.getShape())) {
+                    return Optional.empty();
+                }
+            }
         }
-        if (blocks.isEmpty()) {
+        if (shape == null) {
             return Optional.empty();
         }
-        if (blocks.size() == 1 || blocks.stream().allMatch(block -> block.getWeight() == 1)) {
-            return Optional.of(blocks.get(0));
-        }
-        return Optional.empty();
+        return Optional.of(block);
+//        if (blocks.size() == 1 || blocks.stream().allMatch(block -> block.getShape().equals(blocks.get(0).getShape()))) {
+//            return Optional.of(block);
+//        }
+//        return Optional.empty();
     }
 
     public int getCanFillBlockWeight() {
@@ -163,6 +179,10 @@ public class PointFillState {
             canFillBlockWeight += canFillBlockPosition.getBlock().getWeight();
         }
         canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]++;
+        // from 1 -> 2
+        if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 2) {
+            canFillPositionCountGt1BlockCount++;
+        }
         canFillBlockPositionCount++;
     }
 
@@ -172,6 +192,10 @@ public class PointFillState {
             canFillBlockWeight -= canFillBlockPosition.getBlock().getWeight();
         }
         canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id]--;
+        // from 2 -> 1
+        if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 1) {
+            canFillPositionCountGt1BlockCount--;
+        }
         canFillBlockPositionCount--;
 
     }
