@@ -29,9 +29,7 @@ public class BoardFillState {
         this.blockPuzzle = boardFillState.blockPuzzle;
         this.pointFillStatesOrderByPosition = boardFillState.pointFillStatesOrderByPosition.stream().map(PointFillState::copy).toList();
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
-        for (int i = 0; i < this.emptyPoints.size(); i++) {
-            this.emptyPoints.set(i, this.pointFillStatesOrderByPosition.get(this.emptyPoints.get(i).getPosition()));
-        }
+        this.emptyPoints.replaceAll(pointFillState -> this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
     }
 
     public BoardFillState copy() {

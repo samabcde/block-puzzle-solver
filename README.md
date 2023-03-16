@@ -1,3 +1,4 @@
+[![GitHub Actions Status](https://github.com/samabcde/block-puzzle-solver/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/samabcde/block-puzzle-solver)
 # Block Puzzle Solver
 
 ![](image/block_puzzle.webp)
