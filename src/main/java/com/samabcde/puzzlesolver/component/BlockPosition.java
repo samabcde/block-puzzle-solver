@@ -6,12 +6,12 @@ import java.util.*;
 
 public class BlockPosition implements Comparable<BlockPosition> {
     public final int id;
-    final Block block;
+    private final Block block;
     private final Position position;
     private Intersection intersection;
 
     private int intersectScore = Integer.MIN_VALUE;
-    int[] canFillPoints;
+    private int[] canFillPoints;
     private int priority;
 
     void initializeIntersection(int positionCount) {
@@ -21,7 +21,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public Block getBlock() {
         return block;
     }
-
 
     public int[] getCanFillPoints() {
         return canFillPoints;

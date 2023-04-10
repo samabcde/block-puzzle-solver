@@ -94,7 +94,7 @@ public class BlockPossiblePosition {
 
     private Predicate<BlockPosition> onlyBlockFilter(Block block, BoardFillState boardFillState) {
         Optional<PointFillState> pointWithOnly1Block = boardFillState.getPointWithOnly1Block();
-        if (!pointWithOnly1Block.isPresent()) {
+        if (pointWithOnly1Block.isEmpty()) {
             return (blockPosition) -> true;
         }
         Block onlyBlock = pointWithOnly1Block.get().onlyBlock().get();

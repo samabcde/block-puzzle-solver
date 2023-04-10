@@ -3,6 +3,7 @@ package com.samabcde.puzzlesolver.component;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class BlockPositionTest {
@@ -20,5 +21,17 @@ class BlockPositionTest {
         Block block = blockPuzzle.getBlocks().get(0);
         assertEquals(2, block.totalIntersectCount);
         assertEquals(1, block.getAverageIntersectCount());
+    }
+
+    @Test
+    public void isIntersect() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 3), new String[]{"001,111", "1,1111", "111"});
+        assertEquals(3, blockPuzzle.getBlocks().size());
+        BlockPosition p1 = blockPuzzle.getBlockIdToBlockPositionsMap().get(0).get(0);
+        BlockPosition p2 = blockPuzzle.getBlockIdToBlockPositionsMap().get(1).get(0);
+        BlockPosition p3 = blockPuzzle.getBlockIdToBlockPositionsMap().get(2).get(0);
+        assertTrue(p1.isIntersect(p2));
+        assertTrue(p1.isIntersect(p3));
+
     }
 }

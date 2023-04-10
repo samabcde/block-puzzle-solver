@@ -8,13 +8,13 @@ public class BlockPuzzle {
     private int positionCount = 0;
     private final Dimension puzzleDimension;
     private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
-    Block[] blocksById;
+    private Block[] blocksById;
     private final Map<Shape, List<Block>> shapeToBlocksMap;
     private final BlockPosition[] blockPositionsById;
     private final List<Block> blocks = new ArrayList<>();
 
     public int getBlockIdByBlockPositionId(int blockPositionId) {
-        return this.blockPositionsById[blockPositionId].block.id;
+        return this.blockPositionsById[blockPositionId].getBlock().id;
     }
 
     public int getPositionCount() {
@@ -88,7 +88,7 @@ public class BlockPuzzle {
             for (int j = i + 1; j < blockCount; j++) {
                 Block blockJ = blocks.get(j);
                 if (blockI.isCoverable(blockJ)) {
-                    blockI.coverableBlockIds.add(blockJ.id);
+                    blockI.getCoverableBlockIds().add(blockJ.id);
                 }
             }
         }

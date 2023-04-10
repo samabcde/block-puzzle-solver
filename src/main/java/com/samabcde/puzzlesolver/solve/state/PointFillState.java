@@ -80,10 +80,6 @@ public class PointFillState {
             return Optional.empty();
         }
         return Optional.of(block);
-//        if (blocks.size() == 1 || blocks.stream().allMatch(block -> block.getShape().equals(blocks.get(0).getShape()))) {
-//            return Optional.of(block);
-//        }
-//        return Optional.empty();
     }
 
     public int getCanFillBlockWeight() {
@@ -200,35 +196,10 @@ public class PointFillState {
 
     }
 
-    static class PointFillStateComparator implements Comparator<PointFillState> {
-
-        @Override
-        public int compare(PointFillState arg0, PointFillState arg1) {
-            return PointFillState.compare(arg0, arg1);
-
-        }
-    }
-
     @Override
     public String toString() {
         return "filled:" + this.isFilled + " position: " + this.position + " canFillBlockCount: "
                 + this.canFillBlockCount + " weight " + canFillBlockWeight
                 + Arrays.toString(this.canFillPositionCountOfBlocks);
-    }
-
-    static int compare(PointFillState arg0, PointFillState arg1) {
-        if (arg0.isFilled != arg1.isFilled) {
-            if (arg0.isFilled) {
-                return -1;
-            }
-            return 1;
-        }
-        if (arg0.canFillBlockCount != arg1.canFillBlockCount) {
-            return arg0.canFillBlockCount - arg1.canFillBlockCount;
-        }
-        if (arg0.canFillBlockPositionCount != arg1.canFillBlockPositionCount) {
-            return arg0.canFillBlockPositionCount - arg1.canFillBlockPositionCount;
-        }
-        return arg0.position - arg1.position;
     }
 }

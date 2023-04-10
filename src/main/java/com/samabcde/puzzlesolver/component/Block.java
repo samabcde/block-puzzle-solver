@@ -10,16 +10,12 @@ public class Block {
     // store the 2D block in 1D array with true as present
     private boolean[] value;
 
-    public Shape getShape() {
-        return shape;
-    }
-
     private Shape shape;
     private int height;
     private int width;
     int weight;
     int totalIntersectCount = 0;
-    Set<Integer> coverableBlockIds = new HashSet<>();
+    private Set<Integer> coverableBlockIds = new HashSet<>();
     int positionIdFrom;
     int positionIdTo;
     private String valueView;
@@ -130,6 +126,10 @@ public class Block {
             bitSet.set(i, value[i]);
         }
         this.shape = new Shape(width, height, bitSet);
+    }
+
+    public Shape getShape() {
+        return shape;
     }
 
     private void initializeSize(String[] rows) {

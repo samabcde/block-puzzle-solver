@@ -14,9 +14,6 @@
         <module name="block-puzzle-solver" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="block-puzzle-solver" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
