@@ -34,4 +34,12 @@ class BlockPositionTest {
         assertTrue(p1.isIntersect(p3));
 
     }
+
+    @Test
+    public void toStringTest() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
+        assertEquals("""
+                position: y:0,x:0, block: 
+                1""", blockPuzzle.getBlockPositionById(0).toString());
+    }
 }

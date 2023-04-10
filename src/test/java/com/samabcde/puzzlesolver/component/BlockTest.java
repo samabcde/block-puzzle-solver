@@ -1,5 +1,6 @@
 package com.samabcde.puzzlesolver.component;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -74,5 +75,13 @@ class BlockTest {
     public void get(int rowIndex, int columnIndex, boolean expected) {
         Block block = new Block("11111,11011,10001", 1);
         assertEquals(expected, block.get(rowIndex, columnIndex));
+    }
+
+    @Test
+    public void toStringTest() {
+        Block block = new Block("11111,11011,10001", 1);
+        assertEquals("11111" + System.lineSeparator() +
+                "11011" + System.lineSeparator() +
+                "10001", block.toString());
     }
 }

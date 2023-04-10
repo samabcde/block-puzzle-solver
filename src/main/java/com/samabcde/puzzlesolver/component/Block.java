@@ -15,7 +15,7 @@ public class Block {
     private int width;
     int weight;
     int totalIntersectCount = 0;
-    private Set<Integer> coverableBlockIds = new HashSet<>();
+    private final Set<Integer> coverableBlockIds = new HashSet<>();
     int positionIdFrom;
     int positionIdTo;
     private String valueView;
