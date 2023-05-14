@@ -1,11 +1,11 @@
 package com.samabcde.puzzlesolver.solve;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Dimension;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class BlockPuzzleSolverIntegrationTest {
     @Test
@@ -881,17 +881,24 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-    @Disabled
     public void testSolveNeverFinish() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(7, 7), new String[]{
-                "1111,01,01,01,0111,011",
-                "11,1",
                 "1",
-                "1,11", "1,1,1,1", "1", "1", "1,11,1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
                 "1,1",
-                "11", "1", "1", "1", "1,11111"
+                "1,1,1,1",
+                "1,11",
+                "1,11,1",
+                "1,11111",
+                "11",
+                "11,1",
+                "1111,01,01,01,0111,011"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertThrows(IllegalStateException.class, () -> new BlockPuzzleSolver(blockPuzzle));
     }
 
     private void assertPuzzleSolvable(BlockPuzzle blockPuzzle) {

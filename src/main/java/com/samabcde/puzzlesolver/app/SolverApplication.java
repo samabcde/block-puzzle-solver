@@ -1,5 +1,7 @@
 package com.samabcde.puzzlesolver.app;
 
+import com.samabcde.puzzlesolver.app.validate.BlocksValidator;
+import com.samabcde.puzzlesolver.app.validate.DimensionValidator;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Dimension;
 import com.samabcde.puzzlesolver.solve.BlockPuzzleSolver;
@@ -35,6 +37,8 @@ public class SolverApplication implements Callable<Integer> {
     @Override
     public Integer call() {
         logger.info("width:" + width + ", height:" + height + ", blocks:" + Arrays.toString(blocks));
+        new DimensionValidator().validate(width, height);
+        new BlocksValidator(width, height).validate(blocks);
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(width, height), blocks);
         new BlockPuzzleSolver(blockPuzzle).solve();
         return 0;

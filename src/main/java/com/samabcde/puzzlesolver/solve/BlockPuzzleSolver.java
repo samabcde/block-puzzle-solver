@@ -29,6 +29,7 @@ public class BlockPuzzleSolver {
     }
 
     public BlockPuzzleSolver(BlockPuzzle blockPuzzle) {
+        blockPuzzle.assertValid();
         performanceRecorder.init();
         this.blockPossiblePosition = new BlockPossiblePosition(blockPuzzle);
         this.blockPuzzle = blockPuzzle;

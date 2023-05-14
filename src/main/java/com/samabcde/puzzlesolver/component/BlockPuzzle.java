@@ -1,6 +1,9 @@
 package com.samabcde.puzzlesolver.component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BlockPuzzle {
@@ -126,5 +129,11 @@ public class BlockPuzzle {
             }
         }
         return blockPositions;
+    }
+
+    public void assertValid() {
+        if (blocks.stream().mapToInt(Block::getWeight).sum() < this.getPuzzleHeight() * this.getPuzzleWidth()) {
+            throw new IllegalStateException("Block weight:%d does not match Puzzle size:%d".formatted(blocks.stream().mapToInt(Block::getWeight).sum(), this.getPuzzleHeight() * this.getPuzzleWidth()));
+        }
     }
 }
