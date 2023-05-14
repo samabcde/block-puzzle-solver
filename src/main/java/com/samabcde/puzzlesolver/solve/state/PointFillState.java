@@ -5,7 +5,11 @@ import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Shape;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class PointFillState {
     private boolean isFilled = false;
@@ -67,6 +71,9 @@ public class PointFillState {
                 continue;
             }
             Block blockById = blockPuzzle.getBlockById(i);
+            if (blockById.getWeight() == 1) {
+                return Optional.empty();
+            }
             if (shape == null) {
                 shape = blockById.getShape();
                 block = blockById;

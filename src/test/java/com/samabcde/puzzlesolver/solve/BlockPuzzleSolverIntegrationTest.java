@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Dimension;
+import com.samabcde.puzzlesolver.solve.state.BoardFillState;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,31 @@ public class BlockPuzzleSolverIntegrationTest {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(5, 5), new String[]{"1111", "111", "001,111", "1,1111", "111", "01,01,01,11,01"});
         assertPuzzleSolvable(blockPuzzle);
+        // only block disabled
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - Solved
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - iterate Count: 10
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - Solution:
+//        2023-05-14 19:10:49 INFO  Solution - 44420
+//        2023-05-14 19:10:49 INFO  Solution - 12220
+//        2023-05-14 19:10:49 INFO  Solution - 11110
+//        2023-05-14 19:10:49 INFO  Solution - 55500
+//        2023-05-14 19:10:49 INFO  Solution - 33330
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 7ms
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Solve complete time: 7ms
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Print solution time: 7ms
+        // only block enabled
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - Solved
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - iterate Count: 12
+//        2023-05-14 19:10:49 INFO  BlockPuzzleSolver - Solution:
+//        2023-05-14 19:10:49 INFO  Solution - 55520
+//        2023-05-14 19:10:49 INFO  Solution - 12220
+//        2023-05-14 19:10:49 INFO  Solution - 11110
+//        2023-05-14 19:10:49 INFO  Solution - 44400
+//        2023-05-14 19:10:49 INFO  Solution - 33330
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 0ms
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Solve complete time: 8ms
+//        2023-05-14 19:10:49 INFO  PerformanceRecorder - Step Print solution time: 1ms
+
     }
 
     @Test
@@ -829,29 +855,34 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1111", "111", "1,1,1", "1,1,1"
         });
         assertPuzzleSolvable(blockPuzzle);
-        // only block enabled
-//        2022-10-16 23:25:02 INFO  BlockPuzzleSolver - Solved
-//        2022-10-16 23:25:02 INFO  BlockPuzzleSolver - iterate Count: 42
-//        2022-10-16 23:25:02 INFO  BlockPuzzleSolver - Solution:
-//        2022-10-16 23:25:02 INFO  Solution - 0000555
-//        2022-10-16 23:25:02 INFO  Solution - 9066f44
-//        2022-10-16 23:25:02 INFO  Solution - 9062248
-//        2022-10-16 23:25:02 INFO  Solution - 70e2248
-//        2022-10-16 23:25:02 INFO  Solution - 70002d8
-//        2022-10-16 23:25:02 INFO  Solution - 70bc111
-//        2022-10-16 23:25:02 INFO  Solution - 33331a1
         // only block disabled
-//        2022-10-16 23:26:02 INFO  BlockPuzzleSolver - Solved
-//        2022-10-16 23:26:02 INFO  BlockPuzzleSolver - iterate Count: 28
-//        2022-10-16 23:26:02 INFO  BlockPuzzleSolver - Solution:
-//        2022-10-16 23:26:02 INFO  Solution - 0000555
-//        2022-10-16 23:26:02 INFO  Solution - 9066d44
-//        2022-10-16 23:26:02 INFO  Solution - 9062248
-//        2022-10-16 23:26:02 INFO  Solution - 70f2248
-//        2022-10-16 23:26:02 INFO  Solution - 70002c8
-//        2022-10-16 23:26:02 INFO  Solution - 70be111
-//        2022-10-16 23:26:02 INFO  Solution - 33331a1
-
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - Solved
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - iterate Count: 22
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - Solution:
+//        2023-05-14 19:09:47 INFO  Solution - 0000555
+//        2023-05-14 19:09:47 INFO  Solution - 9066d44
+//        2023-05-14 19:09:47 INFO  Solution - 9062248
+//        2023-05-14 19:09:47 INFO  Solution - 70f2248
+//        2023-05-14 19:09:47 INFO  Solution - 70002c8
+//        2023-05-14 19:09:47 INFO  Solution - 70be111
+//        2023-05-14 19:09:47 INFO  Solution - 33331a1
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 19ms
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Solve complete time: 10ms
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Print solution time: 8ms
+        // only block enabled
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - Solved
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - iterate Count: 22
+//        2023-05-14 19:09:47 INFO  BlockPuzzleSolver - Solution:
+//        2023-05-14 19:09:47 INFO  Solution - 0000555
+//        2023-05-14 19:09:47 INFO  Solution - 9066d44
+//        2023-05-14 19:09:47 INFO  Solution - 9062248
+//        2023-05-14 19:09:47 INFO  Solution - 70f2248
+//        2023-05-14 19:09:47 INFO  Solution - 70002c8
+//        2023-05-14 19:09:47 INFO  Solution - 70be111
+//        2023-05-14 19:09:47 INFO  Solution - 33331a1
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 2ms
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Solve complete time: 11ms
+//        2023-05-14 19:09:47 INFO  PerformanceRecorder - Step Print solution time: 1ms
     }
 
     @Test

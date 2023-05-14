@@ -13,7 +13,9 @@ import com.samabcde.puzzlesolver.solve.state.PossiblePositions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class BlockPuzzleSolver {
     private static final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
@@ -201,7 +203,7 @@ public class BlockPuzzleSolver {
                 continue;
             }
             PossiblePositions possibleBlockPositions = cloneBlockPossiblePosition
-                    .getPossiblePositions(remainingBlock,boardFillState);
+                    .getPossiblePositions(remainingBlock, boardFillState);
             if (possibleBlockPositions.hasNoCommonIntersect()) {
                 for (Integer coverableBlockId : remainingBlock.getCoverableBlockIds()) {
                     isBlocksSkippable[coverableBlockId] = true;
