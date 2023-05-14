@@ -83,6 +83,10 @@ public class BlockPossiblePosition {
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
             if (!onlyBlockFilter.test(blockPositions.get(i))) {
+                // TODO remove properly
+                if (getIntersectionCount(blockPositions.get(i)) == 0) {
+                    boardFillState.removeCanFillBlockPosition(blockPositions.get(i));
+                }
                 continue;
             }
             if (getIntersectionCount(blockPositions.get(i)) == 0) {
