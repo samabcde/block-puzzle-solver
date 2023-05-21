@@ -93,6 +93,10 @@ public class PointFillState {
         return canFillBlockWeight;
     }
 
+    public boolean canOnlyFillByWeight1Block() {
+        return canFillBlockCount > 0 && canFillBlockCount == canFillBlockWeight;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

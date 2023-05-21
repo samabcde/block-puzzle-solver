@@ -62,6 +62,10 @@ public class BoardFillState {
         return Optional.empty();
     }
 
+    public long countPointCanOnlyFillByWeight1Block() {
+        return getEmptyPoints().stream().filter(PointFillState::canOnlyFillByWeight1Block).count();
+    }
+
     public List<PointFillState> getEmptyPoints() {
         return this.emptyPoints;
     }

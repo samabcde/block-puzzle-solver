@@ -2,15 +2,22 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n</Property>
+        <Property name="SOLUTION_PATTERN">%m%n</Property>
     </Properties>
 
     <Appenders>
         <Console name="console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
+        <Console name="solution" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${SOLUTION_PATTERN}"/>
+        </Console>
     </Appenders>
 
     <Loggers>
+        <Logger name="com.samabcde.puzzlesolver.solve.Solution" level="info" additivity="false">
+            <AppenderRef ref="solution"/>
+        </Logger>
         <Root level="info">
             <AppenderRef ref="console"/>
         </Root>

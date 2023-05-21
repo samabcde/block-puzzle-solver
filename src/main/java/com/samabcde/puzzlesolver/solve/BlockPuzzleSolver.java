@@ -123,6 +123,9 @@ public class BlockPuzzleSolver {
         if (!this.blockPossiblePosition.hasPossiblePosition(block, boardFillState)) {
             return false;
         }
+        if (this.boardFillState.countPointCanOnlyFillByWeight1Block() > remainingBlocks.stream().filter(b -> b.getWeight() == 1).count()) {
+            return false;
+        }
         if (this.boardFillState.existCannotFillPoint()) {
             return false;
         }
@@ -201,7 +204,9 @@ public class BlockPuzzleSolver {
 
         boolean[] isBlocksSkippable = new boolean[blocks.size()];
         for (Block remainingBlock : remainingBlocks) {
-            if (isBlocksSkippable[remainingBlock.id]) {
+            if (isBlocksSkippable[remainingBlock.id]
+//                    && possibleBlockPositions.hasNoCommonIntersect()
+            ) {
                 continue;
             }
             PossiblePositions possibleBlockPositions = cloneBlockPossiblePosition
@@ -211,9 +216,7 @@ public class BlockPuzzleSolver {
                     isBlocksSkippable[coverableBlockId] = true;
                 }
             }
-            if (!possibleBlockPositions.isEmpty()) {
-                remainingBlocksPossiblePositions.add(possibleBlockPositions);
-            }
+            remainingBlocksPossiblePositions.add(possibleBlockPositions);
         }
         return remainingBlocksPossiblePositions;
     }

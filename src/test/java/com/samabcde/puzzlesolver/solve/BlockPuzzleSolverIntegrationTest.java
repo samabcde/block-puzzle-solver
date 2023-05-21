@@ -153,10 +153,42 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001", "111,101"
         });
         assertPuzzleSolvable(blockPuzzle);
+//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - Solved
+//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - iterate Count: 2190893
+//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - Solution:
+//        1111ll3333
+//        1bbblddd3q
+//        cccbeed555
+//        c8kk7ee5j5
+//        88mk779jjj
+//        8mmgg799a0
+//        6nggif9aa0
+//        6niiifffa0
+//        62222hhhh0
+//        6o2p444440
+//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 331ms
+//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Solve complete time: 41607ms
+//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Print solution time: 1ms
+
+//        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solved
+//        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - iterate Count: 1875
+//        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solution:
+//        1111ll3333
+//        1bbblddd3q
+//        cccbeed555
+//        c8kk7ee5j5
+//        88mk779jjj
+//        8mmgg799a0
+//        6nggif9aa0
+//        6niiifffa0
+//        62222hhhh0
+//        6o2p444440
+//        2023-05-21 17:28:43 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 52ms
+//        2023-05-21 17:28:43 INFO  PerformanceRecorder - Step Solve complete time: 135ms
+//        2023-05-21 17:28:43 INFO  PerformanceRecorder - Step Print solution time: 7ms
     }
 
     @Test
-//    @Disabled
     public void testSolve11() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(12, 12), new String[]{"1", "11", "1,1", "111", "1,1,1", "01,11", "11,1", "11,01", "11,11", "1111", "1,1,1,1",
@@ -233,25 +265,6 @@ public class BlockPuzzleSolverIntegrationTest {
         // Step Complete initialize block puzzle time: 875ms
         // Step Solve complete time: 955254ms
         // Step Print solution time: 1ms
-
-//        2022-11-11 23:20:51 INFO  BlockPuzzleSolver - iterate Count: 19296027
-//        2022-11-11 23:20:51 INFO  BlockPuzzleSolver - Solution:
-//        2022-11-11 23:20:51 INFO  Solution - bbii222333333
-//        2022-11-11 23:20:51 INFO  Solution - bbddd223k0aal
-//        2022-11-11 23:20:51 INFO  Solution - bbbd2223000aa
-//        2022-11-11 23:20:51 INFO  Solution - b88822w3h0maa
-//        2022-11-11 23:20:51 INFO  Solution - n11822v3h0aap
-//        2022-11-11 23:20:51 INFO  Solution - 11187222000oc
-//        2022-11-11 23:20:51 INFO  Solution - 18887777770cc
-//        2022-11-11 23:20:51 INFO  Solution - 111117tggu0cc
-//        2022-11-11 23:20:51 INFO  Solution - 1115555g000cc
-//        2022-11-11 23:20:51 INFO  Solution - s11555550jj9c
-//        2022-11-11 23:20:51 INFO  Solution - 666654eeef999
-//        2022-11-11 23:20:51 INFO  Solution - 66664444efff9
-//        2022-11-11 23:20:51 INFO  Solution - 6r6q444444999
-//        2022-11-11 23:20:51 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 201ms
-//        2022-11-11 23:20:51 INFO  PerformanceRecorder - Step Solve complete time: 2467916ms
-//        2022-11-11 23:20:51 INFO  PerformanceRecorder - Step Print solution time: 0ms
         assertPuzzleSolvable(blockPuzzle);
     }
 
@@ -305,7 +318,6 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-    @Disabled
     public void testSolve12b() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
@@ -319,7 +331,6 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-    @Disabled
     public void testSolve12c() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
@@ -405,10 +416,43 @@ public class BlockPuzzleSolverIntegrationTest {
 // Step Complete initialize block puzzle time: 145ms
 // Step Solve complete time: 8163ms
 // Step Print solution time: 7ms
+// 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solved
+// 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - iterate Count: 88039
+// 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solution:
+// 222333333fffb
+// k2236666s9fbb
+// 22236666999bb
+// 22x36e6Ayu9bb
+// 22B37eee9990b
+// n222777777000
+// m888C75555t0g
+// o118cc555550g
+// 1118ccc5aa000
+// 1888czdddaaq0
+// 111114vwdaap0
+// 111r4444aa000
+// j11l4444440ih
+// 2023-05-21 19:51:38 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 189ms
+// 2023-05-21 19:51:38 INFO  PerformanceRecorder - Step Solve complete time: 4823ms
+// 2023-05-21 19:51:38 INFO  PerformanceRecorder - Step Print solution time: 6ms
+
     }
 
     @Test
-    @Disabled
+    public void testSolve12d() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(
+                new Dimension(13, 13), new String[]{"1,1,1", "11", "1,1", "1",
+                "1,1", "11,111,11", "111,01", "111,111", "1,111", "01,111,001,111", "11,0111,0111,11",
+                "1,111111,11", "01,11,11,11,01", "111111,1,1,1,1", "11111,11111,01", "1111,1111,101111",
+                "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
+                "01,111,01,01,111,001,001,111,1"
+        });
+        assertPuzzleSolvable(blockPuzzle);
+    }
+
+
+
+    @Test
     public void testSolve7() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"11", "111,11", "001,111", "1,1111", "111", "01,01,01,11,01",
@@ -437,7 +481,7 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-    public void testSolve14() {
+    public void testSolve13b() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(12, 12), new String[]{"11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
@@ -445,6 +489,39 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11", "11", "11", "11", "11"});
         assertPuzzleSolvable(blockPuzzle);
+    }
+
+    @Disabled
+    @Test
+    public void testSolve14() {
+        BlockPuzzle blockPuzzle = new BlockPuzzle(
+                new Dimension(14, 14), new String[]{"1,1,1", "11", "1,1", "1",
+                "1,1", "11,111,11", "111,01", "111,111", "1,111", "01,111,001,111", "11,0111,0111,11",
+                "1,111111,11", "01,11,11,11,01", "111111,1,1,1,1", "11111,11111,01", "1111,1111,101111",
+                "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
+                "1111111", "1111111", "1,1,1,1,1,1,1", "1,1,1,1,1,1", "01,111,01,01,111,001,001,111,1"
+        });
+        assertPuzzleSolvable(blockPuzzle);
+//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solved
+//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - iterate Count: 34701447
+//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solution:
+//        cccccccddddddd
+//        b222333333jjje
+//        b22234444oajee
+//        b22234444aaaee
+//        b22234i4444aee
+//        b22236iiiaaa0e
+//        bk222666666000
+//        bk99966888880l
+//        fk119gg888880l
+//        f1119ggg877000
+//        f1999gghhh7770
+//        f111115hhh7770
+//        f111m555577000
+//        f111m5555550nn
+//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 170ms
+//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Solve complete time: 1893456ms
+//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Print solution time: 1ms
     }
 
     @Test
@@ -627,7 +704,6 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
     public void testSolve18() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "11", "1,1", "01,11", "11,1", "11,01", "1111", "1,1,1,1", "11,11", "111,1",
@@ -637,7 +713,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01", "01,111,001", "001,111,1", "001,111,01", "001,111,001"
         });
         assertPuzzleSolvable(blockPuzzle);
-// iterate Count: 430784
+// iterate Count: 293846
 // Solution:
 // 4444aaaaccccc
 // 43oooaxxrbbbb
@@ -652,9 +728,9 @@ public class BlockPuzzleSolverIntegrationTest {
 // 0hh28881www95
 // 02228dd111999
 // 02ttttddd1CC9
-// Step Complete initialize block puzzle time: 286ms
-// Step Solve complete time: 19025ms
-// Step Print solution time: 1ms
+// Step Complete initialize block puzzle time: 104ms
+// Step Solve complete time: 17267ms
+// Step Print solution time: 0ms
     }
 
     @Test
@@ -676,6 +752,47 @@ public class BlockPuzzleSolverIntegrationTest {
 
         });
         assertPuzzleSolvable(blockPuzzle);
+        // only block disabled
+//        2023-05-21 00:09:05 INFO  BlockPuzzleSolver - Solved
+//        2023-05-21 00:09:05 INFO  BlockPuzzleSolver - iterate Count: 2208052
+//        2023-05-21 00:09:05 INFO  BlockPuzzleSolver - Solution:
+//        8ccccccc55555
+//        8888885555111
+//        9000666666j11
+//        90g66mmmjjj11
+//        90ggddddddb11
+//        90gg44iiilb12
+//        90hh44iillb12
+//        90hh44fnnbb12
+//        00eh44ffffb12
+//        00ee433333322
+//        0eee43222222k
+//        07774333aaakk
+//        07777773aaaaa
+//        2023-05-21 00:09:05 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 119ms
+//        2023-05-21 00:09:05 INFO  PerformanceRecorder - Step Solve complete time: 93313ms
+//        2023-05-21 00:09:05 INFO  PerformanceRecorder - Step Print solution time: 1ms
+        // only block enabled
+//        2023-05-21 00:10:08 INFO  BlockPuzzleSolver - Solved
+//        2023-05-21 00:10:08 INFO  BlockPuzzleSolver - iterate Count: 1098612
+//        2023-05-21 00:10:08 INFO  BlockPuzzleSolver - Solution:
+//        8ccccccc55555
+//        8888885555111
+//        9000666666j11
+//        90g66mmmjjj11
+//        90ggddddddb11
+//        90gg44iiilb12
+//        90hh44iillb12
+//        90hh44fnnbb12
+//        00eh44ffffb12
+//        00ee433333322
+//        0eee43222222k
+//        07774333aaakk
+//        07777773aaaaa
+//        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 8ms
+//        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Solve complete time: 63235ms
+//        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Print solution time: 1ms
+
     }
 
     @Test
