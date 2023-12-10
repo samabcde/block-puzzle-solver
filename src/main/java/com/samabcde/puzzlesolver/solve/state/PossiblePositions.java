@@ -14,11 +14,7 @@ public class PossiblePositions {
     private final List<BlockPosition> blockPositions;
 
     public PossiblePositions(List<BlockPosition> blockPositions) {
-        if (blockPositions.isEmpty()) {
-            isCommonIntersectBitSet = new BitSet();
-        } else {
-            isCommonIntersectBitSet = new BitSet(blockPositions.get(0).getIsPositionIdIntersectBitSet().size());
-        }
+        isCommonIntersectBitSet = new BitSet(blockPositions.get(0).getIsPositionIdIntersectBitSet().size());
         this.isCommonIntersectBitSet.set(0, isCommonIntersectBitSet.size(), true);
         setCommonIntersect(isCommonIntersectBitSet, blockPositions);
         this.blockPositions = blockPositions;

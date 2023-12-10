@@ -109,12 +109,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     private boolean get(int row, int col) {
-        if (row - position.y() < 0 || row - position.y() > block.getHeight() - 1) {
-            return false;
-        }
-        if (col - position.x() < 0 || col - position.x() > block.getWidth() - 1) {
-            return false;
-        }
         return block.get(row - position.y(), col - position.x());
     }
 

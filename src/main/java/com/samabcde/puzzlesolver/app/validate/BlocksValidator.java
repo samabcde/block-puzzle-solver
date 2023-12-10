@@ -22,7 +22,7 @@ public class BlocksValidator {
             throw new IllegalArgumentException("below blocks contains character other than '0', '1', ',' %s".formatted(containsInvalids.toString()));
         }
         long weight = Arrays.stream(blocks).mapToLong(s -> s.chars().filter(c -> c == '1').count()).sum();
-        if (weight != width * height) {
+        if (weight != (long) width * height) {
             throw new IllegalArgumentException("total block weight:%s must equals puzzle size %d".formatted(weight, width * height));
         }
     }
