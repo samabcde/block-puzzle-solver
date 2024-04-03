@@ -17,6 +17,6 @@ public class BlockComparator implements Comparator<Block> {
         if (arg0.getSize() != arg1.getSize()) {
             return -Integer.compare(arg0.getSize(), arg1.getSize());
         }
-        return Integer.compare(arg0.id, arg1.id);
+        return Integer.compare(arg0.getId(), arg1.getId());
     }
 }

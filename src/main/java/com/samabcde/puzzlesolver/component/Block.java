@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Block {
+    public int getId() {
+        return id;
+    }
+
     public final int id;
     // store the 2D block in 1D array with true as present
     private boolean[] value;
