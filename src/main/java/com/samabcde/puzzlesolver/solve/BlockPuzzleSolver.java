@@ -97,7 +97,7 @@ public class BlockPuzzleSolver {
                 resetAddedPosition(block);
             }
             if (iterateCount % 200000 == 0) {
-                logger.info("iterate" + iterateCount);
+                logger.info("iterate{}", iterateCount);
                 solution.print();
             }
         }
@@ -117,12 +117,10 @@ public class BlockPuzzleSolver {
     }
 
     private boolean isCurrentBoardSolvable(Block block) {
-        List<Block> remainingBlocks = getRemainingBlocks();
-        BlockPossiblePosition cloneBlockPossiblePosition = this.blockPossiblePosition;
-        BoardFillState cloneBoardFillState = this.boardFillState.copy();
         if (!this.blockPossiblePosition.hasPossiblePosition(block, boardFillState)) {
             return false;
         }
+        List<Block> remainingBlocks = getRemainingBlocks();
         if (this.boardFillState.countPointCanOnlyFillByWeight1Block() > remainingBlocks.stream().filter(b -> b.getWeight() == 1).count()) {
             return false;
         }
@@ -134,7 +132,8 @@ public class BlockPuzzleSolver {
                 return false;
             }
         }
-        List<PossiblePositions> remainingBlockPossiblePositions = getRemainingBlocksPossiblePositions(cloneBoardFillState, remainingBlocks, cloneBlockPossiblePosition);
+        BoardFillState cloneBoardFillState = this.boardFillState.copy();
+        List<PossiblePositions> remainingBlockPossiblePositions = getRemainingBlocksPossiblePositions(cloneBoardFillState, remainingBlocks, this.blockPossiblePosition);
         return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlockPossiblePositions);
     }
 

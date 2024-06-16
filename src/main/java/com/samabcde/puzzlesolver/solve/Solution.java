@@ -30,13 +30,9 @@ public class Solution implements Iterable<BlockPosition> {
 
     private char[] getDisplay(int count) {
         if (count > display.length()) {
-            throw new RuntimeException("Not enough display, count:%d, available:%d".formatted(count, display.length()));
+            throw new IllegalArgumentException("Not enough display, count:%d, available:%d".formatted(count, display.length()));
         }
-        char[] c = new char[count];
-        for (int i = 0; i < count; i++) {
-            c[i] = display.charAt(i);
-        }
-        return c;
+        return display.toCharArray();
     }
 
     void print() {
@@ -67,6 +63,9 @@ public class Solution implements Iterable<BlockPosition> {
     }
 
     public BlockPosition poll() {
+        if (positionSolutions.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         BlockPosition blockPosition = positionSolutions.poll();
         addedBlocks.set(blockPosition.getBlock().id, false);
         return blockPosition;

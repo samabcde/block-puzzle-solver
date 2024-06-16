@@ -14,7 +14,7 @@ public class BlockPuzzle {
     private Block[] blocksById;
     private final Map<Shape, List<Block>> shapeToBlocksMap;
     private final BlockPosition[] blockPositionsById;
-    private final List<Block> blocks = new ArrayList<>();
+    private final List<Block> blocks;
 
     public int getBlockIdByBlockPositionId(int blockPositionId) {
         return this.blockPositionsById[blockPositionId].getBlock().id;
@@ -47,6 +47,7 @@ public class BlockPuzzle {
     public BlockPuzzle(Dimension dimension, String[] blockValues) {
         this.puzzleDimension = dimension;
         int blockId = 0;
+        blocks = new ArrayList<>(blockValues.length);
         for (String blockValue : blockValues) {
             blocks.add(new Block(blockValue, blockId));
             blockId++;
@@ -118,9 +119,9 @@ public class BlockPuzzle {
     }
 
     private List<BlockPosition> generateBlockPositions(Block block) {
-        List<BlockPosition> blockPositions = new ArrayList<>();
         block.positionIdFrom = positionCount;
         int noOfPosition = (getPuzzleWidth() - block.getWidth() + 1) * (getPuzzleHeight() - block.getHeight() + 1);
+        List<BlockPosition> blockPositions = new ArrayList<>(noOfPosition);
         block.positionIdTo = block.positionIdFrom + noOfPosition - 1;
         for (int i = 0; i < getPuzzleWidth() - block.getWidth() + 1; i++) {
             for (int j = 0; j < getPuzzleHeight() - block.getHeight() + 1; j++) {

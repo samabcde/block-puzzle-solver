@@ -5,8 +5,8 @@ import java.util.BitSet;
 import java.util.List;
 
 public class Intersection {
-    final BitSet isPositionIdIntersectBitSet;
-    final List<Integer> intersectPositionIds = new ArrayList<>();
+    private final BitSet isPositionIdIntersectBitSet;
+    private final List<Integer> intersectPositionIds = new ArrayList<>();
     private int intersectCount;
 
     Intersection(int positionCount) {

@@ -40,7 +40,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
         }
         intersectScore = 0;
         for (int i = 0; i < blockPuzzle.getPositionCount(); i++) {
-            if (!this.intersection.isPositionIdIntersectBitSet.get(i)) {
+            if (!this.intersection.getIsPositionIdIntersectBitSet().get(i)) {
                 continue;
             }
             BlockPosition blockPosition = blockPuzzle.getBlockPositionById(i);

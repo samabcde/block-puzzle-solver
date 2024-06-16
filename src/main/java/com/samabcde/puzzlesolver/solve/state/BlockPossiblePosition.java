@@ -11,6 +11,7 @@ public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
     private final int[] addedPositionOfBlocks;
+    // TODO add BlockCommonIntersection
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.getPositionCount()];

@@ -138,16 +138,7 @@ public class PointFillState {
     }
 
     public boolean canFillByOnlyOneBlock() {
-        boolean hasOneBlock = false;
-        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
-            if (canFillPositionCountOfBlocks[i] > 0) {
-                if (hasOneBlock) {
-                    return false;
-                }
-                hasOneBlock = true;
-            }
-        }
-        return hasOneBlock;
+        return this.canFillBlockCount == 1;
     }
 
     public boolean canNotFillByAnyBlock() {

@@ -209,7 +209,6 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1,111111,01", "01,11,11,11,01", "111111,1,1,1,1", "1111,11111,01", "1111,1111,101",
                 "111,011,111,11,11,0111", "011,111,1,11111,111,011", "111,001,001,111", "01,1111,111111",
                 "01,111,01,01,111,001,001,111,1"
-
         });
         // iterate Count: 110452847
         // bbii222333333
@@ -269,7 +268,6 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     @Test
-//    @Disabled
     public void testSolve12a() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(13, 13), new String[]{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1,1", "11", "11", "1", "1", "1",
