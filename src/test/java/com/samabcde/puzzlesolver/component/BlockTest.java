@@ -9,6 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BlockTest {
     @ParameterizedTest
     @CsvSource(textBlock = """
+            01,01| 1| 2
+            10,10| 1| 2
+            00,11| 2| 1
+            11,00| 2| 1
+            """, delimiter = '|')
+    public void trimValue(String value, int expectedWidth, int expectedHeight) {
+        Block block = new Block(value, 1);
+        assertEquals(expectedWidth, block.getWidth());
+        assertEquals(expectedHeight, block.getHeight());
+    }
+
+    @ParameterizedTest
+    @CsvSource(textBlock = """
             1| 1
             0| 0
             -1| -1

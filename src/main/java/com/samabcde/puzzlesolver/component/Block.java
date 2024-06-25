@@ -1,9 +1,6 @@
 package com.samabcde.puzzlesolver.component;
 
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Block {
     public int getId() {
@@ -28,9 +25,35 @@ public class Block {
 
     Block(String value, int blockId) {
         this.id = blockId;
-        String[] rows = value.split(",");
+        String[] rows = trimColumn(trimRow(value.split(",")));
         initializeSize(rows);
         initializeValueAndWeight(rows);
+    }
+
+    private static String[] trimRow(String[] rows) {
+        int start = -1;
+        int end = -1;
+        for (int i = 0; i < rows.length; i++) {
+            if (rows[i].contains("1")) {
+                start = i;
+                break;
+            }
+        }
+        for (int i = rows.length - 1; i >= 0; i--) {
+            if (rows[i].contains("1")) {
+                end = i + 1;
+                break;
+            }
+        }
+        return Arrays.copyOfRange(rows, start, end);
+    }
+
+    private static String[] trimColumn(String[] rows) {
+        int minStart = Arrays.stream(rows)
+                .mapToInt(s -> s.indexOf('1')).filter(i -> i != -1).min().orElse(0);
+        int maxEnd = Arrays.stream(rows)
+                .mapToInt(s -> s.lastIndexOf('1')).filter(i -> i != -1).map(i -> i + 1).max().orElse(0);
+        return Arrays.stream(rows).map(s -> s.substring(minStart, Math.min(s.length(), maxEnd))).toArray(String[]::new);
     }
 
     public int getPositionIdFrom() {
@@ -46,11 +69,7 @@ public class Block {
     }
 
     public boolean isCoverable(Block block) {
-        return (this.height >= block.height && this.width >= block.width && this.weight >= block.weight)
-                // TODO below can reduce iterate count, but also reduce isRemainingBlockPositionsSolvable speed
-//                || (this.height >= block.height && this.width > block.width && this.weight >= block.weight)
-//                || (this.height > block.height && this.width >= block.width && this.weight >= block.weight)
-                ;
+        return (this.height >= block.height && this.width >= block.width && this.weight >= block.weight);
     }
 
     public int getAverageIntersectCount() {
