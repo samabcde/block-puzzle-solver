@@ -170,9 +170,6 @@ public class BlockPuzzleSolver {
             List<PointFillState> remainOneBlockEmptyPoints = cloneBoardFillState.getOneBlockCanFillEmptyPoints();
 
             for (PointFillState remainOneBlockEmptyPoint : remainOneBlockEmptyPoints) {
-                if (remainOneBlockEmptyPoint.canNotFillByAnyBlock()) {
-                    return false;
-                }
                 Block remainBlock = this.blockPuzzle
                         .getBlockById(remainOneBlockEmptyPoint.getFirstCanFillBlockId());
 
@@ -251,7 +248,7 @@ public class BlockPuzzleSolver {
                 boardFillState.addCanFillBlockPosition(blockPosition);
             }
         }
-        boardFillState.removeBlockPosition(lastBlockPosition);
+        boardFillState.clearBlockPosition(lastBlockPosition);
         return lastBlockPosition;
     }
 
@@ -275,7 +272,7 @@ public class BlockPuzzleSolver {
                 boardFillState.removeCanFillBlockPosition(blockPosition);
             }
         }
-        boardFillState.addBlockPosition(nextPossiblePosition);
+        boardFillState.fillBlockPosition(nextPossiblePosition);
     }
 
     private boolean isSolved() {

@@ -6,8 +6,6 @@ import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Shape;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -89,10 +87,6 @@ public class PointFillState {
         return Optional.of(block);
     }
 
-    public int getCanFillBlockWeight() {
-        return canFillBlockWeight;
-    }
-
     public boolean canOnlyFillByWeight1Block() {
         return canFillBlockCount > 0 && canFillBlockCount == canFillBlockWeight;
     }
@@ -127,27 +121,8 @@ public class PointFillState {
         return this.canFillBlockCount > 0;
     }
 
-    public List<Integer> getCanFillBlockIds() {
-        List<Integer> canFillBlockIds = new LinkedList<>();
-        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
-            if (canFillPositionCountOfBlocks[i] > 0) {
-                canFillBlockIds.add(i);
-            }
-        }
-        return canFillBlockIds;
-    }
-
     public boolean canFillByOnlyOneBlock() {
         return this.canFillBlockCount == 1;
-    }
-
-    public boolean canNotFillByAnyBlock() {
-        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
-            if (canFillPositionCountOfBlocks[i] > 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public int getFirstCanFillBlockId() {
