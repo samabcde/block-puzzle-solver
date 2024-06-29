@@ -72,28 +72,28 @@ public class BlockPuzzleSolver {
     }
 
     private Block getNextBlockToAdd() {
-        return this.getRemainingBlocks().get(0);
+        return this.getRemainingBlocks().getFirst();
     }
 
     private void updateBlockOrder() {
         getRemainingBlocks().sort(new BlockPriorityComparator(blockPossiblePosition, boardFillState));
     }
 
-    long iterateCount = 0;
 
     public Solution solve() {
+        long iterateCount = 0;
         while (!isSolved()) {
             iterateCount++;
             Block block = getNextBlockToAdd();
 
             if (isCurrentBoardSolvable(block)) {
-                addNextPossibleBlockPosition(block);
+                placeNextBlockPosition(block);
                 updateBlockOrder();
             } else {
                 if (isAllBlockTried()) {
                     break;
                 }
-                BlockPosition lastBlockPosition = removeLastBlockPositionFromSolution();
+                takeLastBlockPosition();
                 resetAddedPosition(block);
             }
             if (iterateCount % 200000 == 0) {
@@ -225,7 +225,7 @@ public class BlockPuzzleSolver {
         return solution.isEmpty();
     }
 
-    private BlockPosition removeLastBlockPositionFromSolution() {
+    private void takeLastBlockPosition() {
         BlockPosition lastBlockPosition = solution.poll();
 
         List<Integer> intersectPositionIds = lastBlockPosition.getIntersectPositionIds();
@@ -244,15 +244,14 @@ public class BlockPuzzleSolver {
         }
 
         for (BlockPosition blockPosition : lastBlockPosition.getBlock().getBlockPositions()) {
-            if (blockPossiblePosition.getIntersectionCount(blockPosition) == 0) {
+            if (blockPossiblePosition.isPossible(blockPosition)) {
                 boardFillState.addCanFillBlockPosition(blockPosition);
             }
         }
-        boardFillState.clearBlockPosition(lastBlockPosition);
-        return lastBlockPosition;
+        boardFillState.takeBlockPosition(lastBlockPosition);
     }
 
-    private void addNextPossibleBlockPosition(Block block) {
+    private void placeNextBlockPosition(Block block) {
         BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block, boardFillState);
 
         List<Integer> intersectPositionIds = nextPossiblePosition.getIntersectPositionIds();
@@ -268,11 +267,11 @@ public class BlockPuzzleSolver {
         }
         solution.push(nextPossiblePosition);
         for (BlockPosition blockPosition : nextPossiblePosition.getBlock().getBlockPositions()) {
-            if (blockPossiblePosition.getIntersectionCount(blockPosition) == 0) {
+            if (blockPossiblePosition.isPossible(blockPosition)) {
                 boardFillState.removeCanFillBlockPosition(blockPosition);
             }
         }
-        boardFillState.fillBlockPosition(nextPossiblePosition);
+        boardFillState.placeBlockPosition(nextPossiblePosition);
     }
 
     private boolean isSolved() {

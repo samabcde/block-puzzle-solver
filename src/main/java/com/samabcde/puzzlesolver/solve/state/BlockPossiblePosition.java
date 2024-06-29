@@ -22,16 +22,6 @@ public class BlockPossiblePosition {
             this.possiblePositionCountOfBlocks[block.id] = block.getPositionIdTo() - block.getPositionIdFrom() + 1;
             this.addedPositionOfBlocks[block.id] = -1;
         }
-
-    }
-
-    private BlockPossiblePosition(BlockPossiblePosition blockPossiblePosition) {
-        this.intersectionCountOfBlockPositions = Arrays.copyOf(blockPossiblePosition.intersectionCountOfBlockPositions,
-                blockPossiblePosition.intersectionCountOfBlockPositions.length);
-        this.possiblePositionCountOfBlocks = Arrays.copyOf(blockPossiblePosition.possiblePositionCountOfBlocks,
-                blockPossiblePosition.possiblePositionCountOfBlocks.length);
-        this.addedPositionOfBlocks = Arrays.copyOf(blockPossiblePosition.addedPositionOfBlocks,
-                blockPossiblePosition.addedPositionOfBlocks.length);
     }
 
     public boolean hasPossiblePosition(Block block, BoardFillState boardFillState) {
@@ -109,11 +99,6 @@ public class BlockPossiblePosition {
         return (blockPosition) -> blockPosition.canFill(pointWithOnly1Block.get());
     }
 
-
-    public BlockPossiblePosition copy() {
-        return new BlockPossiblePosition(this);
-    }
-
     // possible if not in solution or no intersect
     private int[] getPossiblePositionCountOfBlocks() {
         return possiblePositionCountOfBlocks;
@@ -127,8 +112,12 @@ public class BlockPossiblePosition {
         return intersectionCountOfBlockPositions;
     }
 
-    public int getIntersectionCount(BlockPosition blockPosition) {
+    int getIntersectionCount(BlockPosition blockPosition) {
         return getIntersectionCountOfBlockPositions()[blockPosition.id];
+    }
+
+    public boolean isPossible(BlockPosition blockPosition) {
+        return getIntersectionCount(blockPosition) == 0;
     }
 
     public int incrementIntersectionCount(BlockPosition blockPosition) {

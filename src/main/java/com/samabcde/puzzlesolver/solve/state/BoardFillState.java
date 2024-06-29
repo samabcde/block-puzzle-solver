@@ -75,8 +75,8 @@ public class BoardFillState {
                 .filter(PointFillState::canFillByOnlyOneBlock).toList();
     }
 
-    public void fillBlockPosition(BlockPosition addBlockPosition) {
-        for (int canFillPoint : addBlockPosition.getCanFillPoints()) {
+    public void placeBlockPosition(BlockPosition blockPosition) {
+        for (int canFillPoint : blockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(true);
             emptyPoints.remove(pointFillStatesOrderByPosition.get(canFillPoint));
         }
@@ -89,8 +89,8 @@ public class BoardFillState {
     }
 
 
-    public void clearBlockPosition(BlockPosition removeBlockPosition) {
-        for (int canFillPoint : removeBlockPosition.getCanFillPoints()) {
+    public void takeBlockPosition(BlockPosition blockPosition) {
+        for (int canFillPoint : blockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(false);
             emptyPoints.addFirst(pointFillStatesOrderByPosition.get(canFillPoint));
         }
