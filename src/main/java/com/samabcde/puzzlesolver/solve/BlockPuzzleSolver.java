@@ -206,7 +206,7 @@ public class BlockPuzzleSolver {
                 continue;
             }
             PossiblePositions possibleBlockPositions = cloneBlockPossiblePosition
-                    .getPossiblePositions(remainingBlock, cloneBoardFillState);
+                    .getPossiblePositions(remainingBlock);
             if (possibleBlockPositions.hasNoCommonIntersect()) {
                 for (Integer coverableBlockId : remainingBlock.getCoverableBlockIds()) {
                     isBlocksSkippable[coverableBlockId] = true;
@@ -252,7 +252,7 @@ public class BlockPuzzleSolver {
     }
 
     private void placeNextBlockPosition(Block block) {
-        BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block, boardFillState);
+        BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block);
 
         List<Integer> intersectPositionIds = nextPossiblePosition.getIntersectPositionIds();
         for (Integer intersectPositionId : intersectPositionIds) {

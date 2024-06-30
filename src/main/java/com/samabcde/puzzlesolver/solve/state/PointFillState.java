@@ -3,11 +3,9 @@ package com.samabcde.puzzlesolver.solve.state;
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
-import com.samabcde.puzzlesolver.component.Shape;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class PointFillState {
     private boolean isFilled = false;
@@ -18,7 +16,6 @@ public class PointFillState {
     private final int[] canFillPositionCountOfBlocks;
     private final int position;
     private final BlockPuzzle blockPuzzle;
-    private Optional<Block> onlyBlock = Optional.empty();
 
     private PointFillState(PointFillState pointFillState) {
         this.canFillBlockCount = pointFillState.canFillBlockCount;
@@ -53,38 +50,6 @@ public class PointFillState {
         }
         this.position = position;
         this.blockPuzzle = blockPuzzle;
-    }
-
-    public Optional<Block> onlyBlock() {
-        if (this.isFilled) {
-            return Optional.empty();
-        }
-        if (canFillPositionCountGt1BlockCount > 0) {
-            return Optional.empty();
-        }
-        Shape shape = null;
-        Block block = null;
-        for (int i = 0; i < canFillPositionCountOfBlocks.length; i++) {
-            if (canFillPositionCountOfBlocks[i] == 0) {
-                continue;
-            }
-            Block blockById = blockPuzzle.getBlockById(i);
-            if (blockById.getWeight() == 1) {
-                return Optional.empty();
-            }
-            if (shape == null) {
-                shape = blockById.getShape();
-                block = blockById;
-            } else {
-                if (!shape.equals(blockById.getShape())) {
-                    return Optional.empty();
-                }
-            }
-        }
-        if (shape == null) {
-            return Optional.empty();
-        }
-        return Optional.of(block);
     }
 
     public boolean canOnlyFillByWeight1Block() {

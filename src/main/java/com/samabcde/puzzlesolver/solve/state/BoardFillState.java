@@ -41,27 +41,6 @@ public class BoardFillState {
         return emptyPoints.stream().anyMatch(emptyPoint -> !emptyPoint.canFill());
     }
 
-    public static boolean isEnableOnly = false;
-
-    public Optional<Block> getOnlyBlock() {
-        if (isEnableOnly) {
-            for (PointFillState pointFillState : getEmptyPoints()) {
-                Optional<Block> onlyBlock = pointFillState.onlyBlock();
-                if (onlyBlock.isPresent()) {
-                    return onlyBlock;
-                }
-            }
-        }
-        return Optional.empty();
-    }
-
-    public Optional<PointFillState> getPointWithOnly1Block() {
-        if (isEnableOnly) {
-            return getEmptyPoints().stream().filter(pointFillState -> pointFillState.onlyBlock().isPresent()).findFirst();
-        }
-        return Optional.empty();
-    }
-
     public long countPointCanOnlyFillByWeight1Block() {
         return getEmptyPoints().stream().filter(PointFillState::canOnlyFillByWeight1Block).count();
     }

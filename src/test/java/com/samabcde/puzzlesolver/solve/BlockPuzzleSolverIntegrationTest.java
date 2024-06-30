@@ -1,11 +1,12 @@
 package com.samabcde.puzzlesolver.solve;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Dimension;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BlockPuzzleSolverIntegrationTest {
     @Test
@@ -1032,24 +1033,6 @@ public class BlockPuzzleSolverIntegrationTest {
     }
 
     private void assertPuzzleSolvable(BlockPuzzle blockPuzzle) {
-//        long disableOnlyIterateCount;
-//        {
-//            BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
-//            BoardFillState.isEnableOnly = false;
-//            Solution solutions = solver.solve();
-//            assertFalse(solutions.isEmpty());
-//            disableOnlyIterateCount = solver.iterateCount;
-//        }
-//        System.out.println("-".repeat(80));
-//        long enableOnlyIterateCount;
-//        {
-//            BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
-//            BoardFillState.isEnableOnly = true;
-//            Solution solutions = solver.solve();
-//            assertFalse(solutions.isEmpty());
-//            enableOnlyIterateCount = solver.iterateCount;
-//        }
-//        assertTrue(enableOnlyIterateCount <= disableOnlyIterateCount);
         BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
         Solution solutions = solver.solve();
         assertFalse(solutions.isEmpty());

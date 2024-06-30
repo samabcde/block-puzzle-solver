@@ -11,27 +11,16 @@ public class BlockPriorityComparator implements Comparator<Block> {
 
     private final BlockPossiblePosition blockPossiblePosition;
     private final BoardFillState boardFillState;
-    private final Optional<Block> onlyBlock;
 
     public BlockPriorityComparator(BlockPossiblePosition blockPossiblePosition, BoardFillState boardFillState) {
         this.blockPossiblePosition = blockPossiblePosition;
         this.boardFillState = boardFillState;
-        this.onlyBlock = boardFillState.getOnlyBlock();
     }
 
     @Override
     public int compare(Block arg0, Block arg1) {
         int possiblePositionCount0 = blockPossiblePosition.getPossiblePositionCount(arg0);
         int possiblePositionCount1 = blockPossiblePosition.getPossiblePositionCount(arg1);
-        if (possiblePositionCount0 > 1 && possiblePositionCount1 > 1 &&
-                        onlyBlock.isPresent()) {
-            if (arg0 == onlyBlock.get()) {
-                return -1;
-            }
-            if (arg1 == onlyBlock.get()) {
-                return 1;
-            }
-        }
         if (possiblePositionCount0 != possiblePositionCount1) {
             return Integer.compare(possiblePositionCount0,
                     possiblePositionCount1);
