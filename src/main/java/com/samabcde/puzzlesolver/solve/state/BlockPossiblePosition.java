@@ -4,15 +4,20 @@ import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 public class BlockPossiblePosition {
+    private final BlockPuzzle blockPuzzle;
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
     private final int[] addedPositionOfBlocks;
     // TODO add BlockCommonIntersection
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
+        this.blockPuzzle = blockPuzzle;
         this.intersectionCountOfBlockPositions = new int[blockPuzzle.getPositionCount()];
         List<Block> blocks = blockPuzzle.getBlocks();
         this.addedPositionOfBlocks = new int[blocks.size()];
@@ -23,16 +28,16 @@ public class BlockPossiblePosition {
         }
     }
 
-    public boolean hasPossiblePosition(Block block, BoardFillState boardFillState) {
+    public boolean hasPossiblePosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
         int positionPriorityFrom = this.getAddedPositionOfBlocks()[block.id] + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
-            if (this.getIntersectionCountOfBlockPositions()[blockPositions.get(i).id] > 0) {
+            if (this.getIntersectionCount(blockPositions.get(i)) > 0) {
                 continue;
             }
-            if (this.getPossiblePositionCountOfBlocks()[block.id] == 0) {
+            if (this.getPossiblePositionCount(block) == 0) {
                 throw new IllegalStateException("intersection count is 0 but possible position count is also 0");
             }
             return true;
@@ -87,7 +92,7 @@ public class BlockPossiblePosition {
         return getIntersectionCountOfBlockPositions()[blockPosition.id];
     }
 
-    public boolean isPossible(BlockPosition blockPosition) {
+    private boolean isPossible(BlockPosition blockPosition) {
         return getIntersectionCount(blockPosition) == 0;
     }
 
@@ -108,6 +113,37 @@ public class BlockPossiblePosition {
             getPossiblePositionCountOfBlocks()[blockPosition.getBlock().id]++;
         }
         return getIntersectionCount(blockPosition);
+    }
+
+    public List<BlockPosition> placeBlockPosition(BlockPosition blockPosition) {
+        List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
+        Stream.Builder<BlockPosition> builder = Stream.builder();
+        for (Integer intersectPositionId : intersectPositionIds) {
+            BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
+            int intersectCount = this.incrementIntersectionCount(intersectBlockPosition);
+            // from possible to not possible
+            if (intersectCount == 1 && !isPlaced(intersectBlockPosition.getBlock())) {
+                builder.add(intersectBlockPosition);
+            }
+        }
+        return Stream.concat(builder.build(), blockPosition.getBlock().getBlockPositions().stream().filter(this::isPossible)).toList();
+    }
+
+    public List<BlockPosition> takeBlockPosition(BlockPosition blockPosition) {
+        List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
+        Stream.Builder<BlockPosition> builder = Stream.builder();
+        for (Integer intersectPositionId : intersectPositionIds) {
+            BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
+            int intersectCount = this.decrementIntersectionCount(intersectBlockPosition);
+            if (intersectCount == 0 && !isPlaced(intersectBlockPosition.getBlock())) {
+                builder.add(intersectBlockPosition);
+            }
+        }
+        return Stream.concat(builder.build(), blockPosition.getBlock().getBlockPositions().stream().filter(this::isPossible)).toList();
+    }
+
+    private boolean isPlaced(Block block) {
+        return this.addedPositionOfBlocks[block.id] != -1;
     }
 
     // check which position is added

@@ -8,10 +8,11 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public final int id;
     private final Block block;
     private final Position position;
+    private final int[] canFillPoints;
     private Intersection intersection;
 
     private int intersectScore = Integer.MIN_VALUE;
-    private int[] canFillPoints;
+
     private int priority;
 
     void initializeIntersection(int positionCount) {
@@ -27,7 +28,7 @@ public class BlockPosition implements Comparable<BlockPosition> {
     }
 
     public boolean canFill(PointFillState point) {
-        return Arrays.binarySearch(canFillPoints, point.getPosition()) > -1;
+        return canFill(point.getPosition());
     }
 
     public boolean canFill(int position) {

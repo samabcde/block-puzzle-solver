@@ -57,7 +57,7 @@ public class BoardFillState {
     public void placeBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
             pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(true);
-            emptyPoints.remove(pointFillStatesOrderByPosition.get(canFillPoint));
+            emptyPoints.removeFirstOccurrence(pointFillStatesOrderByPosition.get(canFillPoint));
         }
     }
 
@@ -66,7 +66,6 @@ public class BoardFillState {
             pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
         }
     }
-
 
     public void takeBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {

@@ -16,10 +16,6 @@ public class BlockPuzzle {
     private final BlockPosition[] blockPositionsById;
     private final List<Block> blocks;
 
-    public int getBlockIdByBlockPositionId(int blockPositionId) {
-        return this.blockPositionsById[blockPositionId].getBlock().id;
-    }
-
     public int getPositionCount() {
         return positionCount;
     }

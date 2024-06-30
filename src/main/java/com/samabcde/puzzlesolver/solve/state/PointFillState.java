@@ -56,28 +56,6 @@ public class PointFillState {
         return canFillBlockCount > 0 && canFillBlockCount == canFillBlockWeight;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + position;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PointFillState other = (PointFillState) obj;
-        if (position != other.position)
-            return false;
-        return true;
-    }
-
     public int getPosition() {
         return position;
     }
@@ -135,7 +113,28 @@ public class PointFillState {
             canFillPositionCountGt1BlockCount--;
         }
         canFillBlockPositionCount--;
+    }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + position;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PointFillState other = (PointFillState) obj;
+        if (position != other.position)
+            return false;
+        return true;
     }
 
     @Override
