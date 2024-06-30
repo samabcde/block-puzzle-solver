@@ -154,23 +154,6 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001", "111,101"
         });
         assertPuzzleSolvable(blockPuzzle);
-//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - Solved
-//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - iterate Count: 2190893
-//        2023-05-21 17:32:52 INFO  BlockPuzzleSolver - Solution:
-//        1111ll3333
-//        1bbblddd3q
-//        cccbeed555
-//        c8kk7ee5j5
-//        88mk779jjj
-//        8mmgg799a0
-//        6nggif9aa0
-//        6niiifffa0
-//        62222hhhh0
-//        6o2p444440
-//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 331ms
-//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Solve complete time: 41607ms
-//        2023-05-21 17:32:52 INFO  PerformanceRecorder - Step Print solution time: 1ms
-
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solved
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - iterate Count: 1875
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solution:
@@ -211,43 +194,6 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,111,11,11,0111", "011,111,1,11111,111,011", "111,001,001,111", "01,1111,111111",
                 "01,111,01,01,111,001,001,111,1"
         });
-        // iterate Count: 110452847
-        // bbii222333333
-        // bbddd223r0aak
-        // bbbd2223000aa
-        // b88822t3h0saa
-        // p11822v3h0aam
-        // 11187222000qc
-        // 18887777770cc
-        // 111117wggu0cc
-        // 1115555g000cc
-        // o11555550jj9c
-        // 666654eeef999
-        // 66664444efff9
-        // 6l6n444444999
-        // Step Complete initialize block puzzle time: 158ms
-        // Step Solve complete time: 6073620ms
-        // Step Print solution time: 1ms
-
-        // iterate Count: 110452847
-        // Solution:
-        // bbii222333333
-        // bbddd223r0aak
-        // bbbd2223000aa
-        // b88822t3h0saa
-        // p11822v3h0aam
-        // 11187222000qc
-        // 18887777770cc
-        // 111117wggu0cc
-        // 1115555g000cc
-        // o11555550jj9c
-        // 666654eeef999
-        // 66664444efff9
-        // 6l6n444444999
-        // Step Complete initialize block puzzle time: 255ms
-        // Step Solve complete time: 2787629ms
-        // Step Print solution time: 0ms
-
         // iterate Count: 17372861
         // bbii222333333
         // bbddd223r0aak
@@ -279,24 +225,6 @@ public class BlockPuzzleSolverIntegrationTest {
 
         });
         assertPuzzleSolvable(blockPuzzle);
-        // iterate Count: 1078661
-        // g888bb5555iic
-        // g118bb55555cc
-        // 1118bbb5eqncc
-        // 1888b7tueeecc
-        // 111117777770c
-        // 111fff7yaa000
-        // m11vf222waa0k
-        // 33333322xaa0l
-        // 36666222aa000
-        // 3666622s9ddd0
-        // 3646r22999pd0
-        // 34444o2229000
-        // j4444449990hh
-        // Step Complete initialize block puzzle time: 323ms
-        // Step Solve complete time: 86446ms
-        // Step Print solution time: 2ms
-
         // iterate Count: 752877
         // g888bb5555iic
         // g118bb55555cc
@@ -340,81 +268,6 @@ public class BlockPuzzleSolverIntegrationTest {
 
         });
         assertPuzzleSolvable(blockPuzzle);
-// iterate Count: 13177911
-//
-// 222333333fffb
-// k2236666n9fbb
-// 22236666999bb
-// 22A36e6tpo9bb
-// 22y37eee9990b
-// w222777777000
-// z888l75555m0g
-// x118cc555550g
-// 1118ccc5aa000
-// 1888crdddaaB0
-// 111114qsdaaC0
-// 111u4444aa000
-// j11v4444440hi
-// Step Complete initialize block puzzle time: 356ms
-// Step Solve complete time: 928836ms
-// Step Print solution time: 1ms
-
-// iterate Count: 5467887
-//
-// 222333333fffb
-// k2236666n9fbb
-// 22236666999bb
-// 22A36e6tpo9bb
-// 22y37eee9990b
-// w222777777000
-// z888m75555l0g
-// x118cc555550g
-// 1118ccc5aa000
-// 1888crdddaaB0
-// 111114qsdaaC0
-// 111u4444aa000
-// j11v4444440hi
-// Step Complete initialize block puzzle time: 233ms
-// Step Solve complete time: 917784ms
-// Step Print solution time: 1ms
-
-// iterate Count: 480103
-//
-// 222333333fffb
-// k2236666s9fbb
-// 22236666999bb
-// 22x36e6Ayu9bb
-// 22B37eee9990b
-// n222777777000
-// m888C75555t0g
-// o118cc555550g
-// 1118ccc5aa000
-// 1888czdddaaq0
-// 111114vwdaap0
-// 111r4444aa000
-// j11l4444440ih
-// Step Complete initialize block puzzle time: 398ms
-// Step Solve complete time: 17190ms
-// Step Print solution time: 1ms
-
-// iterate Count: 90231
-//
-// 222333333fffb
-// k2236666s9fbb
-// 22236666999bb
-// 22x36e6Ayu9bb
-// 22B37eee9990b
-// n222777777000
-// m888C75555t0g
-// o118cc555550g
-// 1118ccc5aa000
-// 1888czdddaaq0
-// 111114vwdaap0
-// 111r4444aa000
-// j11l4444440hi
-// Step Complete initialize block puzzle time: 145ms
-// Step Solve complete time: 8163ms
-// Step Print solution time: 7ms
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solved
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - iterate Count: 88039
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solution:
@@ -490,7 +343,7 @@ public class BlockPuzzleSolverIntegrationTest {
         assertPuzzleSolvable(blockPuzzle);
     }
 
-    @Disabled
+//    @Disabled
     @Test
     public void testSolve14() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
@@ -622,39 +475,24 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
         });
         assertPuzzleSolvable(blockPuzzle);
-// Solved
-// iterate Count: 55479
-//
-// 44442225555a
-// 44444225555a
-// j4st2225q5na
-// m77722bbbr0a
-// o11722bdd000
-// 11176222dd0g
-// 17776666660g
-// 111116ee9000
-// 111u3ee99ff0
-// l11333399pf0
-// ccc333333000
-// ic888888k0hh
-// Step Complete initialize block puzzle time: 100ms
-// Step Solve complete time: 2180ms
-// Step Print solution time: 9ms
-// Solved
-// iterate Count: 93617
-//
-// 44442225555a
-// 44444225555a
-// t4qr2225k5ja
-// u77722bbbl0a
-// s11722bdd000
-// 11176222dd0g
-// 17776666660g
-// 111116ee9000
-// 111i3ee99ff0
-// m11333399of0
-// ccc333333000
-// nc888888p0hh
+        // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - Solved
+        // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - iterate Count: 11495
+        // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - Solution:
+        // 44442225555a
+        // 44444225555a
+        // j4st2225q5na
+        // m77722bbbr0a
+        // o11722bdd000
+        // 11176222dd0g
+        // 17776666660g
+        // 111116ee9000
+        // 111u3ee99ff0
+        // l11333399pf0
+        // ccc333333000
+        // ic888888k0hh
+        // 2024-06-30 23:55:20 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 78ms
+        // 2024-06-30 23:55:20 INFO  PerformanceRecorder - Step Solve complete time: 924ms
+        // 2024-06-30 23:55:20 INFO  PerformanceRecorder - Step Print solution time: 16ms
     }
 
     @Test
@@ -791,7 +629,6 @@ public class BlockPuzzleSolverIntegrationTest {
 //        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 8ms
 //        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Solve complete time: 63235ms
 //        2023-05-21 00:10:08 INFO  PerformanceRecorder - Step Print solution time: 1ms
-
     }
 
     @Test
