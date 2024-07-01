@@ -5,35 +5,34 @@ import com.samabcde.puzzlesolver.component.Dimension;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BlockPuzzleSolverIntegrationTest {
     @Test
     public void testSolve() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 4), new String[]{"1111", "111", "001,111", "1,1111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 4);
     }
 
     @Test
     public void testSolve2() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(5, 5), new String[]{"1111", "111", "001,111", "1,1111", "111", "01,01,01,11,01"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 10);
     }
 
     @Test
     public void testSolve2a() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(5, 5), new String[]{"11", "1,1", "111,111", "11", "11", "1,1111", "01,01,11,01,01"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 41);
     }
 
     @Test
     public void testSolve3a() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(6, 7), new String[]{"1,1", "1,1,1", "11,11", "01,11,1", "001,111", "11,11,01",
                 "1,11,01,01", "101,111", "011,01,11", "1,1,1,1,1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 264);
     }
 
     @Test
@@ -42,7 +41,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,1,1,1,1,1,1,1", "11,11,11,11,1,1,1", "111111,1,111111", "11111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 28);
     }
 
     @Test
@@ -53,7 +52,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11,11,01", "01,011,111,111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 104);
     }
 
     @Test
@@ -64,23 +63,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11,11,01", "01,011,111,111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
-//        2022-10-10 23:38:46 INFO  BlockPuzzleSolver - Solved
-//        2022-10-10 23:38:46 INFO  BlockPuzzleSolver - iterate Count: 41821
-//        2022-10-10 23:38:46 INFO  BlockPuzzleSolver - Solution:
-//        2022-10-10 23:38:46 INFO  Solution - 111333333c
-//        2022-10-10 23:38:46 INFO  Solution - 1933eeeccc
-//        2022-10-10 23:38:46 INFO  Solution - 1996666665
-//        2022-10-10 23:38:46 INFO  Solution - 19922bbbd5
-//        2022-10-10 23:38:46 INFO  Solution - 1aa22bbdd5
-//        2022-10-10 23:38:46 INFO  Solution - 1aa227gf55
-//        2022-10-10 23:38:46 INFO  Solution - 14a2277775
-//        2022-10-10 23:38:46 INFO  Solution - 1442000000
-//        2022-10-10 23:38:46 INFO  Solution - 4442088888
-//        2022-10-10 23:38:46 INFO  Solution - 4442000000
-//        2022-10-10 23:38:46 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 38ms
-//        2022-10-10 23:38:46 INFO  PerformanceRecorder - Step Solve complete time: 970ms
-//        2022-10-10 23:38:46 INFO  PerformanceRecorder - Step Print solution time: 7ms
+        assertPuzzleSolvable(blockPuzzle, 2367);
     }
 
     @Test
@@ -92,25 +75,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
-//        BlockPuzzleSolver - Solved
-//        BlockPuzzleSolver - iterate Count: 21566
-//        BlockPuzzleSolver - Solution:
-//        Solution - 999999955555
-//        Solution - ccccc5555111
-//        Solution - 222666666g11
-//        Solution - 2d66iiiggg11
-//        Solution - 2ddaaaaaa811
-//        Solution - 2dd44fffh810
-//        Solution - 2ee44ffhh810
-//        Solution - 2ee44bjj8810
-//        Solution - 27e44bbbb810
-//        Solution - 277433333300
-//        Solution - 777430000000
-//        Solution - 777433333300
-//        PerformanceRecorder - Step Complete initialize block puzzle time: 77ms
-//        PerformanceRecorder - Step Solve complete time: 2203ms
-//        PerformanceRecorder - Step Print solution time: 2ms
+        assertPuzzleSolvable(blockPuzzle, 17636);
     }
 
     @Test
@@ -123,7 +88,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 100);
     }
 
     @Test
@@ -133,7 +98,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1", "01,11,01"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 126);
     }
 
     @Test
@@ -143,7 +108,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1", "01,11,01", "01,11,1",
                 "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001", "111,101"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 5864);
     }
 
     @Test
@@ -153,7 +118,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1", "01,11,01", "01,11,1",
                 "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001", "111,101"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 1875);
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solved
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - iterate Count: 1875
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solution:
@@ -179,9 +144,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,1", "111,01", "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1",
                 "01,11,01", "01,11,1", "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001",
                 "1111,0001", "111,101", "111,110", "111,011", "101,111", "110,111", "011,111", "111,1"});
-        assertPuzzleSolvable(blockPuzzle);
-        // 153478
-        // 95158
+        assertPuzzleSolvable(blockPuzzle, 106808);
     }
 
     @Test
@@ -211,7 +174,7 @@ public class BlockPuzzleSolverIntegrationTest {
         // Step Complete initialize block puzzle time: 875ms
         // Step Solve complete time: 955254ms
         // Step Print solution time: 1ms
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 17372861);
     }
 
     @Test
@@ -224,7 +187,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 752877);
         // iterate Count: 752877
         // g888bb5555iic
         // g118bb55555cc
@@ -254,7 +217,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 622474);
     }
 
     @Test
@@ -267,7 +230,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 88039);
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solved
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - iterate Count: 88039
 // 2023-05-21 19:51:38 INFO  BlockPuzzleSolver - Solution:
@@ -299,7 +262,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
                 "01,111,01,01,111,001,001,111,1"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 6875);
     }
 
 
@@ -314,7 +277,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 18498);
     }
 
     @Test
@@ -329,7 +292,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 169);
     }
 
     @Test
@@ -340,10 +303,10 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11", "11", "11", "11", "11"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 88);
     }
 
-//    @Disabled
+    @Disabled
     @Test
     public void testSolve14() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
@@ -353,7 +316,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
                 "1111111", "1111111", "1,1,1,1,1,1,1", "1,1,1,1,1,1", "01,111,01,01,111,001,001,111,1"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 34701447);
 //        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solved
 //        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - iterate Count: 34701447
 //        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solution:
@@ -385,7 +348,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1",
                 "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1",
                 "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1", "1,1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 96);
     }
 
     @Test
@@ -395,7 +358,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11",
                 "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 15);
     }
 
     @Test
@@ -410,7 +373,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11",
                 "11", "11", "11",
                 "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 28);
     }
 
     @Test
@@ -425,7 +388,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11",
                 "11", "11", "11",
                 "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 28);
     }
 
     @Test
@@ -442,7 +405,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11",
                 "11", "11", "11", "11",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 45);
     }
 
 
@@ -462,7 +425,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 66);
     }
 
     @Test
@@ -474,7 +437,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,111,11,11,0111", "011,111,1,11111,111,011", "111,001,001,111", "01,1111,111111",
                 "01,111,01,01,111,001,001,111,1"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 11495);
         // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - Solved
         // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - iterate Count: 11495
         // 2024-06-30 23:55:20 INFO  BlockPuzzleSolver - Solution:
@@ -505,7 +468,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11",
                 "11", "11", "11", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 91);
     }
 
     @Test
@@ -522,7 +485,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 100);
     }
 
     @Test
@@ -537,7 +500,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1",
                 "1", "1", "1", "1", "1", "1", "1", "1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 64);
     }
 
     @Test
@@ -549,7 +512,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011", "111,11", "11,0111", "011,111", "1,111,1", "1,111,01", "1,111,001", "01,111,1",
                 "01,111,01", "01,111,001", "001,111,1", "001,111,01", "001,111,001"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 293846);
 // iterate Count: 293846
 // Solution:
 // 4444aaaaccccc
@@ -574,7 +537,7 @@ public class BlockPuzzleSolverIntegrationTest {
     public void testSolve19() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(8, 5), new String[]{"1,1", "1,1,1", "11,01", "11,11", "011,11", "1,11,1",
                 "001,111", "1111", "001,001,111", "00111,111,1",});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 20);
     }
 
     @Test
@@ -588,7 +551,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,011,011,011,01,01,01,01", "0011111,1111", "1111111"
 
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 2208052);
         // only block disabled
 //        2023-05-21 00:09:05 INFO  BlockPuzzleSolver - Solved
 //        2023-05-21 00:09:05 INFO  BlockPuzzleSolver - iterate Count: 2208052
@@ -635,35 +598,35 @@ public class BlockPuzzleSolverIntegrationTest {
     public void testSolve21() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(6, 6), new String[]{"11,01", "1,1,1", "011,11", "111,1", "1,1,1,1", "01,111",
                 "11,11", "111,11", "001,111,1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 847);
     }
 
     @Test
     public void testSolve22() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 4), new String[]{"1,1", "11,1", "111", "11,11", "1111", "1,11,01",
                 "01,01,11", "11111", "01,11,01", "011,11111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 616);
     }
 
     @Test
     public void testSolve23() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 10), new String[]{"11", "111", "1,11", "01,111", "11,01,01", "11,11",
                 "01,011,11", "11,11,01", "11,01,011", "1,1,1,1,1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 92);
     }
 
     @Test
     public void testSolve24() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 4), new String[]{"11", "111", "01,11", "111,1", "01,11,11", "01,11,1",
                 "1111", "11,11", "01,111", "01,11111,0001"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 14);
     }
 
     @Test
     public void testSolve25() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(5, 8), new String[]{"1,1", "111", "01,11", "01,01,11", "1,11,01", "01,11,01",
                 "11,11", "11,0111,001", "1,11,111", "1111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 250);
         // only block disabled
 //        2023-05-14 23:53:18 INFO  BlockPuzzleSolver - Solved
 //        2023-05-14 23:53:18 INFO  BlockPuzzleSolver - iterate Count: 250
@@ -701,112 +664,112 @@ public class BlockPuzzleSolverIntegrationTest {
     public void testSolve26() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(8, 3), new String[]{"1,1", "111", "01,11", "11,11", "11,011", "111,01", "001,111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 11);
     }
 
     @Test
     public void testSolve27() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(
                 new Dimension(3, 8), new String[]{"11", "1,1,1", "01,11", "11,11", "1,11,01", "1,11,1", "01,01,11"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 11);
     }
 
     @Test
     public void testSolve28() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 4), new String[]{"1,1", "11,1", "1,1,1", "01,11,1", "01,111", "01,01,11",
                 "11,11", "1111", "1111,0001", "01,111111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 66);
     }
 
     @Test
     public void testSolve29() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 4), new String[]{"1,1", "11,01", "1,1,1", "1,111", "111,01", "1111", "11,11",
                 "011,11,01", "1,11,0111", "11,0111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 258);
     }
 
     @Test
     public void testSolve855() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 10), new String[]{"11", "111", "11,11", "1,1,11", "1,11,01", "01,11,01",
                 "01,111,01", "1,1,1,1", "01,01,01,11", "01,01,11,01"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 230);
     }
 
     @Test
     public void testSolve482() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(6, 8), new String[]{"1,1", "01,11", "111", "11,011", "11,11", "111,01", "1,1,11",
                 "1,1,1,1", "1111,01", "111,1,1", "11,1,1,1", "11111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 6204);
     }
 
     @Test
     public void testSolve489() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 5), new String[]{"11", "11,10", "01,11,1", "11,11", "111,01", "01,01,11",
                 "1,1,1,1", "1,111,1", "1,1,1,11", "01,111,01", "11,01,11", "11,011,01"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 96);
     }
 
     @Test
     public void testSolve484() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(6, 8), new String[]{"11,1", "1,1,1", "1111", "11,011", "11,11", "1,11,1",
                 "1,1,11", "1,11,011", "1,111,001", "11,01,11", "1001,11111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 791);
     }
 
     @Test
     public void testSolve486() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(8, 7), new String[]{"11", "111", "01,11", "1,111,1", "1,111,001", "011,111",
                 "1111,1", "111,0011", "1,1,111", "1,1111,0001", "1111,00011", "111111"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 4966);
     }
 
     @Test
     public void testSolve486_2() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(9, 6), new String[]{"11,1", "1,1,1", "1111", "11,11", "11,011", "1,111",
                 "101,111", "1,111,1", "111,1,1", "11,11,01", "11111", "001,001,1111,1"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 1970);
     }
 
     @Test
     public void testSolve485() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(4, 12), new String[]{"1,1", "01,11", "11,11", "1,1,1,1", "11,1,1", "1,11,1",
                 "01,11,11", "011,11,01", "01,01,11,01", "11,01,01,011", "11,1,11,01"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 419);
     }
 
     @Test
     public void testSolve491() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(7, 7), new String[]{"11", "01,11", "111", "1,111", "011,11", "111,01", "1111",
                 "111,101", "01,1111", "001,111,001", "111,0011", "1,111,001"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 2258);
     }
 
     @Test
     public void testSolve491_2() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(7, 7), new String[]{"11", "11,1", "1,1,1", "1,11,01", "111,01", "001,111",
                 "11,11", "1,1,1,1", "1,1,1,11", "111,01,01", "1,111,001", "01,111,0011"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 2346);
     }
 
     @Test
     public void testSolve492() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(7, 7), new String[]{"11", "1,1,1", "1,11", "11,011", "1111", "111,001", "11,11",
                 "1,1111", "111,011", "111,1,1", "001,111,1", "01,011,11"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 13744);
     }
 
     @Test
     public void testSolve493() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(8, 6), new String[]{"1,1", "1,11", "111", "11,11", "011,11", "01,11,01", "1111",
                 "01,01,11", "1,11,11", "1,111,01", "01,01,11,01", "11,01,011"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 6672);
     }
 
     @Test
     public void testSolve496() {
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(10, 5), new String[]{"1,1", "11,01", "11,11", "011,11", "11,01,01", "01,11,01",
                 "1,1,1,1", "01,01,111", "11111", "01,11,11", "01,1111", "111,0011"});
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 4612);
     }
 
     @Test
@@ -819,7 +782,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1", "1", "1",
                 "1111", "111", "1,1,1", "1,1,1"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 22);
     }
 
     @Test
@@ -832,7 +795,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1", "1",
                 "11", "11", "1", "1,11111"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 15);
     }
 
     @Test
@@ -845,7 +808,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "1,1",
                 "11", "1", "1,111", "11111,1,1,1,1,1,1"
         });
-        assertPuzzleSolvable(blockPuzzle);
+        assertPuzzleSolvable(blockPuzzle, 47);
     }
 
     @Test
@@ -869,10 +832,11 @@ public class BlockPuzzleSolverIntegrationTest {
         assertThrows(IllegalStateException.class, () -> new BlockPuzzleSolver(blockPuzzle));
     }
 
-    private void assertPuzzleSolvable(BlockPuzzle blockPuzzle) {
+    private void assertPuzzleSolvable(BlockPuzzle blockPuzzle, long expectedIterateCount) {
         BlockPuzzleSolver solver = new BlockPuzzleSolver(blockPuzzle);
-        Solution solutions = solver.solve();
-        assertFalse(solutions.isEmpty());
+        Solution solution = solver.solve();
+        assertFalse(solution.isEmpty());
+        assertEquals(expectedIterateCount, solution.getIterateCount());
     }
 
 }

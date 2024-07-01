@@ -22,6 +22,7 @@ public class Solution implements Iterable<BlockPosition> {
     private final BlockPuzzle blockPuzzle;
     private final Deque<BlockPosition> positionSolutions = new LinkedList<>();
     private final BitSet addedBlocks;
+    private long iterateCount;
 
     public Solution(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
@@ -103,4 +104,11 @@ public class Solution implements Iterable<BlockPosition> {
         return positionSolutions.spliterator();
     }
 
+    public long getIterateCount() {
+        return iterateCount;
+    }
+
+    public void setIterateCount(long iterateCount) {
+        this.iterateCount = iterateCount;
+    }
 }

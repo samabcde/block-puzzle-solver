@@ -113,6 +113,7 @@ public class BlockPuzzleSolver {
         }
         performanceRecorder.addExecution("Print solution");
         performanceRecorder.print();
+        solution.setIterateCount(iterateCount);
         return solution;
     }
 
