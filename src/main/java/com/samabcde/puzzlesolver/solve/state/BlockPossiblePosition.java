@@ -4,9 +4,7 @@ import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class BlockPossiblePosition {
@@ -14,6 +12,7 @@ public class BlockPossiblePosition {
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
     private final int[] addedPositionOfBlocks;
+    private Set<Integer> placedBlockIds = new HashSet<>();
     // TODO add BlockCommonIntersection
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
@@ -30,11 +29,11 @@ public class BlockPossiblePosition {
 
     public boolean hasPossiblePosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
-        int positionPriorityFrom = this.getAddedPositionOfBlocks()[block.id] + 1;
+        int positionPriorityFrom = this.getAddedPosition(block) + 1;
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
-            if (this.getIntersectionCount(blockPositions.get(i)) > 0) {
+            if (!isPossible(blockPositions.get(i))) {
                 continue;
             }
             if (this.getPossiblePositionCount(block) == 0) {
@@ -48,12 +47,12 @@ public class BlockPossiblePosition {
     public BlockPosition pollNextPossiblePosition(Block block) {
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
-        int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
+        int positionPriorityFrom = getBlockPriorityFrom(block);
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
-            if (getIntersectionCount(blockPositions.get(i)) == 0) {
-                getAddedPositionOfBlocks()[block.id] = i;
+            if (isPossible(blockPositions.get(i))) {
+                setAddedPosition(block, i);
                 return blockPositions.get(i);
             }
         }
@@ -64,11 +63,11 @@ public class BlockPossiblePosition {
         List<BlockPosition> possibleBlockPositions = new ArrayList<>(getPossiblePositionCount(block));
         List<BlockPosition> blockPositions = block.getBlockPositions();
 
-        int positionPriorityFrom = this.addedPositionOfBlocks[block.id] + 1;
+        int positionPriorityFrom = getBlockPriorityFrom(block);
         int positionPriorityTo = blockPositions.size() - 1;
 
         for (int i = positionPriorityFrom; i <= positionPriorityTo; i++) {
-            if (getIntersectionCount(blockPositions.get(i)) == 0) {
+            if (isPossible(blockPositions.get(i))) {
                 possibleBlockPositions.add(blockPositions.get(i));
             }
         }
@@ -76,10 +75,6 @@ public class BlockPossiblePosition {
     }
 
     // possible if not in solution or no intersect
-    private int[] getPossiblePositionCountOfBlocks() {
-        return possiblePositionCountOfBlocks;
-    }
-
     public int getPossiblePositionCount(Block block) {
         return possiblePositionCountOfBlocks[block.id];
     }
@@ -97,32 +92,41 @@ public class BlockPossiblePosition {
     }
 
     public int incrementIntersectionCount(BlockPosition blockPosition) {
-        this.getIntersectionCountOfBlockPositions()[blockPosition.id]++;
-        if (getIntersectionCount(blockPosition) == 1) {
-            getPossiblePositionCountOfBlocks()[blockPosition.getBlock().id]--;
+        boolean wasPossible = isPossible(blockPosition);
+        this.intersectionCountOfBlockPositions[blockPosition.id]++;
+        if (wasPossible) {
+            decrementPossiblePositionCount(blockPosition.getBlock());
         }
         return getIntersectionCount(blockPosition);
     }
 
     public int decrementIntersectionCount(BlockPosition blockPosition) {
-        getIntersectionCountOfBlockPositions()[blockPosition.id]--;
-        if (getIntersectionCountOfBlockPositions()[blockPosition.id] < 0) {
-            throw new IllegalStateException("intersection count must not be negative");
-        }
-        if (getIntersectionCount(blockPosition) == 0) {
-            getPossiblePositionCountOfBlocks()[blockPosition.getBlock().id]++;
+        this.intersectionCountOfBlockPositions[blockPosition.id]--;
+        boolean nowPossible = isPossible(blockPosition);
+        if (nowPossible) {
+            incrementPossiblePositionCount(blockPosition.getBlock());
         }
         return getIntersectionCount(blockPosition);
     }
 
+    private void incrementPossiblePositionCount(Block block) {
+        this.possiblePositionCountOfBlocks[block.id]++;
+    }
+
+    private void decrementPossiblePositionCount(Block block) {
+        this.possiblePositionCountOfBlocks[block.id]--;
+    }
+
     public List<BlockPosition> placeBlockPosition(BlockPosition blockPosition) {
+        placedBlockIds.add(blockPosition.getBlock().id);
         List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
         Stream.Builder<BlockPosition> builder = Stream.builder();
         for (Integer intersectPositionId : intersectPositionIds) {
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
-            int intersectCount = this.incrementIntersectionCount(intersectBlockPosition);
+            boolean wasPossible = isPossible(intersectBlockPosition);
+            this.incrementIntersectionCount(intersectBlockPosition);
             // from possible to not possible
-            if (intersectCount == 1 && !isPlaced(intersectBlockPosition.getBlock())) {
+            if (wasPossible && !isPlaced(intersectBlockPosition.getBlock())) {
                 builder.add(intersectBlockPosition);
             }
         }
@@ -130,12 +134,14 @@ public class BlockPossiblePosition {
     }
 
     public List<BlockPosition> takeBlockPosition(BlockPosition blockPosition) {
+        placedBlockIds.remove(blockPosition.getBlock().id);
         List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
         Stream.Builder<BlockPosition> builder = Stream.builder();
         for (Integer intersectPositionId : intersectPositionIds) {
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
-            int intersectCount = this.decrementIntersectionCount(intersectBlockPosition);
-            if (intersectCount == 0 && !isPlaced(intersectBlockPosition.getBlock())) {
+            this.decrementIntersectionCount(intersectBlockPosition);
+            boolean nowPossible = isPossible(intersectBlockPosition);
+            if (nowPossible && !isPlaced(intersectBlockPosition.getBlock())) {
                 builder.add(intersectBlockPosition);
             }
         }
@@ -143,16 +149,24 @@ public class BlockPossiblePosition {
     }
 
     private boolean isPlaced(Block block) {
-        return this.addedPositionOfBlocks[block.id] != -1;
+        return this.placedBlockIds.contains(block.id);
     }
 
     // check which position is added
-    private int[] getAddedPositionOfBlocks() {
-        return addedPositionOfBlocks;
+    private int getAddedPosition(Block block) {
+        return this.addedPositionOfBlocks[block.id];
+    }
+
+    private void setAddedPosition(Block block, int position) {
+        this.addedPositionOfBlocks[block.id] = position;
+    }
+
+    private int getBlockPriorityFrom(Block block) {
+        return getAddedPosition(block) + 1;
     }
 
     public void resetAddedPositionPriority(Block block) {
-        addedPositionOfBlocks[block.id] = -1;
+        setAddedPosition(block, -1);
     }
 
 }
