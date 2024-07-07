@@ -5,7 +5,6 @@ import com.samabcde.puzzlesolver.solve.state.BlockPossiblePosition;
 import com.samabcde.puzzlesolver.solve.state.BoardFillState;
 
 import java.util.Comparator;
-import java.util.Optional;
 
 public class BlockPriorityComparator implements Comparator<Block> {
 

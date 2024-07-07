@@ -1,17 +1,19 @@
 package com.samabcde.puzzlesolver.solve.state;
 
-import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BoardFillState {
     private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
     private final LinkedList<PointFillState> emptyPoints;
-    private boolean[] isCanFillPositionRemoved;
+    private final boolean[] isCanFillPositionRemoved;
     private final List<PointFillState> pointFillStatesOrderByPosition;
     private final BlockPuzzle blockPuzzle;
 

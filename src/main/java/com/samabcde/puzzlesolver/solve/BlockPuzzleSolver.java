@@ -5,6 +5,7 @@ import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.performance.PerformanceRecorder;
 import com.samabcde.puzzlesolver.solve.priority.BlockComparator;
+import com.samabcde.puzzlesolver.solve.priority.BlockPositionComparator;
 import com.samabcde.puzzlesolver.solve.priority.BlockPriorityComparator;
 import com.samabcde.puzzlesolver.solve.state.BlockPossiblePosition;
 import com.samabcde.puzzlesolver.solve.state.BoardFillState;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class BlockPuzzleSolver {
@@ -56,18 +56,6 @@ public class BlockPuzzleSolver {
             for (int i = 0; i < blockPositions.size(); i++) {
                 blockPositions.get(i).setPriority(i);
             }
-        }
-    }
-
-    private record BlockPositionComparator(BlockPuzzle blockPuzzle) implements Comparator<BlockPosition> {
-
-        @Override
-        public int compare(BlockPosition arg0, BlockPosition arg1) {
-            int compareIntersectScore = Integer.compare(arg0.getIntersectScore(blockPuzzle), arg1.getIntersectScore(blockPuzzle));
-            if (compareIntersectScore != 0) {
-                return compareIntersectScore;
-            }
-            return Integer.compare(arg0.id, arg1.id);
         }
     }
 
@@ -134,7 +122,7 @@ public class BlockPuzzleSolver {
             }
         }
         BoardFillState cloneBoardFillState = this.boardFillState.copy();
-        List<PossiblePositions> remainingBlockPossiblePositions = getRemainingBlocksPossiblePositions(cloneBoardFillState, remainingBlocks, this.blockPossiblePosition);
+        List<PossiblePositions> remainingBlockPossiblePositions = getRemainingBlocksPossiblePositions(remainingBlocks, this.blockPossiblePosition);
         return isRemainingBlockPositionsSolvable(cloneBoardFillState, remainingBlockPossiblePositions);
     }
 
@@ -196,7 +184,7 @@ public class BlockPuzzleSolver {
         return true;
     }
 
-    private List<PossiblePositions> getRemainingBlocksPossiblePositions(BoardFillState cloneBoardFillState, List<Block> remainingBlocks, BlockPossiblePosition cloneBlockPossiblePosition) {
+    private List<PossiblePositions> getRemainingBlocksPossiblePositions(List<Block> remainingBlocks, BlockPossiblePosition cloneBlockPossiblePosition) {
         List<PossiblePositions> remainingBlocksPossiblePositions = new ArrayList<>();
 
         boolean[] isBlocksSkippable = new boolean[blocks.size()];
@@ -224,7 +212,6 @@ public class BlockPuzzleSolver {
         BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block);
 
         blockPossiblePosition.placeBlockPosition(nextPossiblePosition)
-                .stream()
                 .forEach(boardFillState::removeCanFillBlockPosition);
         boardFillState.placeBlockPosition(nextPossiblePosition);
         solution.push(nextPossiblePosition);
@@ -234,7 +221,6 @@ public class BlockPuzzleSolver {
         BlockPosition lastBlockPosition = solution.poll();
 
         blockPossiblePosition.takeBlockPosition(lastBlockPosition)
-                .stream()
                 .forEach(boardFillState::addCanFillBlockPosition);
         boardFillState.takeBlockPosition(lastBlockPosition);
     }
@@ -248,7 +234,7 @@ public class BlockPuzzleSolver {
     }
 
     private void setAllBlockPositionsTried(Block block) {
-        this.blockPossiblePosition.resetAddedPositionPriority(block);
+        this.blockPossiblePosition.resetPlacedPositionPriority(block);
     }
 
 }
