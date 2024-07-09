@@ -129,6 +129,7 @@ public class BlockPuzzleSolver {
     private boolean isRemainingBlockPositionsSolvable(BoardFillState cloneBoardFillState,
                                                       List<PossiblePositions> remainingBlocksPossiblePositions) {
 
+        long weight1BlockCount = getRemainingBlocks().stream().filter(b -> b.getWeight() == 1).count();
         boolean hasChange;
         do {
             hasChange = false;
@@ -153,6 +154,9 @@ public class BlockPuzzleSolver {
                     if (cloneBoardFillState.existCannotFillPoint()) {
                         return false;
                     }
+                    if (cloneBoardFillState.countPointCanOnlyFillByWeight1Block() > weight1BlockCount) {
+                        return false;
+                    }
                 }
             }
 
@@ -175,6 +179,9 @@ public class BlockPuzzleSolver {
                         return false;
                     }
                     if (cloneBoardFillState.existCannotFillPoint()) {
+                        return false;
+                    }
+                    if (cloneBoardFillState.countPointCanOnlyFillByWeight1Block() > weight1BlockCount) {
                         return false;
                     }
                 }

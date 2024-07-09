@@ -79,12 +79,8 @@ public class BlockPossiblePosition {
         return possiblePositionCountOfBlocks[block.id];
     }
 
-    private int[] getIntersectionCountOfBlockPositions() {
-        return intersectionCountOfBlockPositions;
-    }
-
     int getIntersectionCount(BlockPosition blockPosition) {
-        return getIntersectionCountOfBlockPositions()[blockPosition.id];
+        return intersectionCountOfBlockPositions[blockPosition.id];
     }
 
     private boolean isPossible(BlockPosition blockPosition) {
@@ -126,7 +122,7 @@ public class BlockPossiblePosition {
             boolean wasPossible = isPossible(intersectBlockPosition);
             this.incrementIntersectionCount(intersectBlockPosition);
             // from possible to not possible
-            if (wasPossible && !isPlaced(intersectBlockPosition.getBlock())) {
+            if (wasPossible && isNotPlaced(intersectBlockPosition.getBlock())) {
                 builder.add(intersectBlockPosition);
             }
         }
@@ -141,15 +137,15 @@ public class BlockPossiblePosition {
             BlockPosition intersectBlockPosition = blockPuzzle.getBlockPositionById(intersectPositionId);
             this.decrementIntersectionCount(intersectBlockPosition);
             boolean nowPossible = isPossible(intersectBlockPosition);
-            if (nowPossible && !isPlaced(intersectBlockPosition.getBlock())) {
+            if (nowPossible && isNotPlaced(intersectBlockPosition.getBlock())) {
                 builder.add(intersectBlockPosition);
             }
         }
         return Stream.concat(builder.build(), blockPosition.getBlock().getBlockPositions().stream().filter(this::isPossible));
     }
 
-    private boolean isPlaced(Block block) {
-        return this.placedBlockIds.contains(block.id);
+    private boolean isNotPlaced(Block block) {
+        return !this.placedBlockIds.contains(block.id);
     }
 
     // check which position is added

@@ -45,6 +45,7 @@ public class BoardFillState {
         return emptyPoints.stream().anyMatch(emptyPoint -> !emptyPoint.canFill());
     }
 
+    // TODO cache this instead of loop through
     public long countPointCanOnlyFillByWeight1Block() {
         return getEmptyPoints().stream().filter(PointFillState::canOnlyFillByWeight1Block).count();
     }

@@ -63,7 +63,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "11,11,01", "01,011,111,111"
 
         });
-        assertPuzzleSolvable(blockPuzzle, 2367);
+        assertPuzzleSolvable(blockPuzzle, 2325);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,001", "1,111", "01,111", "001,111", "11,011", "011,11", "1,11,1", "01,11,01", "01,11,1",
                 "1,11,01", "11111", "1,1,1,1,1", "1111,1", "1111,01", "1111,001", "111,101"
         });
-        assertPuzzleSolvable(blockPuzzle, 1875);
+        assertPuzzleSolvable(blockPuzzle, 1843);
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solved
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - iterate Count: 1875
 //        2023-05-21 17:28:43 INFO  BlockPuzzleSolver - Solution:
@@ -217,7 +217,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "01,111,01,01,111,001,001,111,1"
 
         });
-        assertPuzzleSolvable(blockPuzzle, 622474);
+        assertPuzzleSolvable(blockPuzzle, 619230);
     }
 
     @Test
@@ -262,7 +262,7 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
                 "01,111,01,01,111,001,001,111,1"
         });
-        assertPuzzleSolvable(blockPuzzle, 6875);
+        assertPuzzleSolvable(blockPuzzle, 6873);
     }
 
 
@@ -316,10 +316,10 @@ public class BlockPuzzleSolverIntegrationTest {
                 "111,111,111,111,111,0111", "011,111,1,11111,111,111", "111,001,001,111", "01,1111,111111",
                 "1111111", "1111111", "1,1,1,1,1,1,1", "1,1,1,1,1,1", "01,111,01,01,111,001,001,111,1"
         });
-        assertPuzzleSolvable(blockPuzzle, 34701447);
-//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solved
-//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - iterate Count: 34701447
-//        2023-05-21 21:39:46 INFO  BlockPuzzleSolver - Solution:
+        assertPuzzleSolvable(blockPuzzle, 34649267);
+//        2024-07-09 22:38:20 INFO  BlockPuzzleSolver - Solved
+//        2024-07-09 22:38:20 INFO  BlockPuzzleSolver - iterate Count: 34649267
+//        2024-07-09 22:38:20 INFO  BlockPuzzleSolver - Solution:
 //        cccccccddddddd
 //        b222333333jjje
 //        b22234444oajee
@@ -334,9 +334,9 @@ public class BlockPuzzleSolverIntegrationTest {
 //        f111115hhh7770
 //        f111m555577000
 //        f111m5555550nn
-//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 170ms
-//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Solve complete time: 1893456ms
-//        2023-05-21 21:39:46 INFO  PerformanceRecorder - Step Print solution time: 1ms
+//        2024-07-09 22:38:20 INFO  PerformanceRecorder - Step Complete initialize block puzzle time: 94ms
+//        2024-07-09 22:38:20 INFO  PerformanceRecorder - Step Solve complete time: 2154276ms
+//        2024-07-09 22:38:20 INFO  PerformanceRecorder - Step Print solution time: 4ms
     }
 
     @Test
