@@ -11,8 +11,8 @@ public class BlockPossiblePosition {
     private final BlockPuzzle blockPuzzle;
     private final int[] possiblePositionCountOfBlocks;
     private final int[] intersectionCountOfBlockPositions;
+    // TODO extract this
     private final int[] placedPositionOfBlocks;
-    private Set<Integer> placedBlockIds = new HashSet<>();
     // TODO add BlockCommonIntersection
 
     public BlockPossiblePosition(BlockPuzzle blockPuzzle) {
@@ -114,7 +114,6 @@ public class BlockPossiblePosition {
     }
 
     public Stream<BlockPosition> placeBlockPosition(BlockPosition blockPosition) {
-        placedBlockIds.add(blockPosition.getBlock().id);
         List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
         Stream.Builder<BlockPosition> builder = Stream.builder();
         for (Integer intersectPositionId : intersectPositionIds) {
@@ -130,7 +129,6 @@ public class BlockPossiblePosition {
     }
 
     public Stream<BlockPosition> takeBlockPosition(BlockPosition blockPosition) {
-        placedBlockIds.remove(blockPosition.getBlock().id);
         List<Integer> intersectPositionIds = blockPosition.getIntersectPositionIds();
         Stream.Builder<BlockPosition> builder = Stream.builder();
         for (Integer intersectPositionId : intersectPositionIds) {
@@ -141,11 +139,12 @@ public class BlockPossiblePosition {
                 builder.add(intersectBlockPosition);
             }
         }
+
         return Stream.concat(builder.build(), blockPosition.getBlock().getBlockPositions().stream().filter(this::isPossible));
     }
 
     private boolean isNotPlaced(Block block) {
-        return !this.placedBlockIds.contains(block.id);
+        return getPlacedPosition(block) == -1;
     }
 
     // check which position is added

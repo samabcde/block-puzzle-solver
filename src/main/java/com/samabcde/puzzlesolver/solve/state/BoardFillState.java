@@ -6,16 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BoardFillState {
     private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
     private final LinkedList<PointFillState> emptyPoints;
-    private final boolean[] isCanFillPositionRemoved;
     private final List<PointFillState> pointFillStatesOrderByPosition;
     private final BlockPuzzle blockPuzzle;
+    private int canNotFillPointCount = 0;
 
     public BoardFillState(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
@@ -25,7 +24,6 @@ public class BoardFillState {
             pointFillStatesOrderByPosition.add(new PointFillState(blockPuzzle, i));
         }
         this.emptyPoints = new LinkedList<>(pointFillStatesOrderByPosition);
-        this.isCanFillPositionRemoved = new boolean[blockPuzzle.getPositionCount()];
     }
 
     private BoardFillState(BoardFillState boardFillState) {
@@ -33,7 +31,7 @@ public class BoardFillState {
         this.pointFillStatesOrderByPosition = boardFillState.pointFillStatesOrderByPosition.stream().map(PointFillState::copy).toList();
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
         this.emptyPoints.replaceAll(pointFillState -> this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
-        this.isCanFillPositionRemoved = Arrays.copyOf(boardFillState.isCanFillPositionRemoved, boardFillState.isCanFillPositionRemoved.length);
+        this.canNotFillPointCount = boardFillState.canNotFillPointCount;
     }
 
     public BoardFillState copy() {
@@ -41,8 +39,7 @@ public class BoardFillState {
     }
 
     public boolean existCannotFillPoint() {
-        List<PointFillState> emptyPoints = getEmptyPoints();
-        return emptyPoints.stream().anyMatch(emptyPoint -> !emptyPoint.canFill());
+        return canNotFillPointCount > 0;
     }
 
     // TODO cache this instead of loop through
@@ -61,35 +58,41 @@ public class BoardFillState {
 
     public void placeBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(true);
+            PointFillState pointFillState = pointFillStatesOrderByPosition.get(canFillPoint);
+            pointFillState.setIsFilled(true);
+            if (!pointFillState.canFill()) {
+                canNotFillPointCount--;
+            }
             emptyPoints.removeFirstOccurrence(pointFillStatesOrderByPosition.get(canFillPoint));
         }
     }
 
     public void removeCanFillBlockPosition(BlockPosition blockPosition) {
-        if (isCanFillPositionRemoved[blockPosition.id]) {
-            throw new IllegalStateException("should not remove same position again");
-        }
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
+            boolean isNewCanNotFill = pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
+            if (isNewCanNotFill) {
+                canNotFillPointCount++;
+            }
         }
-        isCanFillPositionRemoved[blockPosition.id] = true;
     }
 
     public void takeBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            pointFillStatesOrderByPosition.get(canFillPoint).setIsFilled(false);
+            PointFillState pointFillState = pointFillStatesOrderByPosition.get(canFillPoint);
+            pointFillState.setIsFilled(false);
+            if (!pointFillState.canFill()) {
+                canNotFillPointCount++;
+            }
             emptyPoints.addFirst(pointFillStatesOrderByPosition.get(canFillPoint));
         }
     }
 
     public void addCanFillBlockPosition(BlockPosition blockPosition) {
-        if (!isCanFillPositionRemoved[blockPosition.id]) {
-            throw new IllegalStateException("should not add same position again");
-        }
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            pointFillStatesOrderByPosition.get(canFillPoint).addCanFillBlockPosition(blockPosition);
+            boolean isNewCallFill = pointFillStatesOrderByPosition.get(canFillPoint).addCanFillBlockPosition(blockPosition);
+            if (isNewCallFill) {
+                canNotFillPointCount--;
+            }
         }
-        isCanFillPositionRemoved[blockPosition.id] = false;
     }
 }

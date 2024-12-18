@@ -89,7 +89,8 @@ public class PointFillState {
         this.isFilled = isFilled;
     }
 
-    public void addCanFillBlockPosition(BlockPosition canFillBlockPosition) {
+    public boolean addCanFillBlockPosition(BlockPosition canFillBlockPosition) {
+        boolean originalCallFill = canFill();
         if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 0) {
             canFillBlockCount++;
             canFillBlockWeight += canFillBlockPosition.getBlock().getWeight();
@@ -100,9 +101,11 @@ public class PointFillState {
             canFillPositionCountGt1BlockCount++;
         }
         canFillBlockPositionCount++;
+        return !this.isFilled && !originalCallFill && canFill();
     }
 
-    public void removeCanFillBlockPosition(BlockPosition canFillBlockPosition) {
+    public boolean removeCanFillBlockPosition(BlockPosition canFillBlockPosition) {
+        boolean originalCallFill = canFill();
         if (canFillPositionCountOfBlocks[canFillBlockPosition.getBlock().id] == 1) {
             canFillBlockCount--;
             canFillBlockWeight -= canFillBlockPosition.getBlock().getWeight();
@@ -113,6 +116,7 @@ public class PointFillState {
             canFillPositionCountGt1BlockCount--;
         }
         canFillBlockPositionCount--;
+        return !this.isFilled && originalCallFill && !canFill();
     }
 
     @Override

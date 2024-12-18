@@ -131,6 +131,7 @@ public class BlockPuzzleSolver {
 
         long weight1BlockCount = getRemainingBlocks().stream().filter(b -> b.getWeight() == 1).count();
         boolean hasChange;
+
         do {
             hasChange = false;
 
@@ -186,7 +187,6 @@ public class BlockPuzzleSolver {
                     }
                 }
             }
-
         } while (hasChange);
         return true;
     }
@@ -218,18 +218,18 @@ public class BlockPuzzleSolver {
     private void placeNextBlockPosition(Block block) {
         BlockPosition nextPossiblePosition = blockPossiblePosition.pollNextPossiblePosition(block);
 
+        boardFillState.placeBlockPosition(nextPossiblePosition);
         blockPossiblePosition.placeBlockPosition(nextPossiblePosition)
                 .forEach(boardFillState::removeCanFillBlockPosition);
-        boardFillState.placeBlockPosition(nextPossiblePosition);
         solution.push(nextPossiblePosition);
     }
 
     private void takeLastBlockPosition() {
         BlockPosition lastBlockPosition = solution.poll();
 
+        boardFillState.takeBlockPosition(lastBlockPosition);
         blockPossiblePosition.takeBlockPosition(lastBlockPosition)
                 .forEach(boardFillState::addCanFillBlockPosition);
-        boardFillState.takeBlockPosition(lastBlockPosition);
     }
 
     private boolean isSolved() {
