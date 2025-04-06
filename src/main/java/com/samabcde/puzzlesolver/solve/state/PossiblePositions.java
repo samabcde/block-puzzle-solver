@@ -14,7 +14,7 @@ public class PossiblePositions {
     private final List<BlockPosition> blockPositions;
 
     public PossiblePositions(List<BlockPosition> blockPositions) {
-        isCommonIntersectBitSet = new BitSet(blockPositions.get(0).getIsPositionIdIntersectBitSet().size());
+        isCommonIntersectBitSet = new BitSet(blockPositions.getFirst().getIsPositionIdIntersectBitSet().size());
         this.isCommonIntersectBitSet.set(0, isCommonIntersectBitSet.size(), true);
         setCommonIntersect(isCommonIntersectBitSet, blockPositions);
         this.blockPositions = blockPositions;
@@ -85,6 +85,6 @@ public class PossiblePositions {
         if (this.blockPositions.isEmpty()) {
             return false;
         }
-        return this.blockPositions.get(0).getBlock() != block;
+        return this.blockPositions.getFirst().getBlock() != block;
     }
 }

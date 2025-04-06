@@ -67,7 +67,6 @@ public class BlockPuzzleSolver {
         getRemainingBlocks().sort(new BlockPriorityComparator(blockPossiblePosition, boardFillState));
     }
 
-
     public Solution solve() {
         long iterateCount = 0;
         while (!isSolved()) {
@@ -84,7 +83,7 @@ public class BlockPuzzleSolver {
                 resetAddedPosition(block);
                 takeLastBlockPosition();
             }
-            if (iterateCount % 200000 == 0) {
+            if (iterateCount % 10000 == 0) {
                 logger.info("iterate{}", iterateCount);
                 solution.print();
             }

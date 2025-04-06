@@ -11,7 +11,7 @@ public class BlockPuzzle {
     private int positionCount = 0;
     private final Dimension puzzleDimension;
     private final Map<Integer, List<BlockPosition>> blockIdToBlockPositionsMap = new HashMap<>();
-    private Block[] blocksById;
+    private final Block[] blocksById;
     private final Map<Shape, List<Block>> shapeToBlocksMap;
     private final BlockPosition[] blockPositionsById;
     private final List<Block> blocks;

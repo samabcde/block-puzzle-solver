@@ -71,9 +71,9 @@ public class Solution implements Iterable<BlockPosition> {
         int step = cubeRoot > 1 ? 255 / (cubeRoot - 1) : 255;
 
         int count = 0;
-        for (int r = 0; r <= 255 && count < n; r += step) {
+        for (int b = 0; b <= 255 && count < n; b += step) {
             for (int g = 0; g <= 255 && count < n; g += step) {
-                for (int b = 0; b <= 255 && count < n; b += step) {
+                for (int r = 0; r <= 255 && count < n; r += step) {
                     colors[count] = new Color(r, g, b);
                     count++;
                 }
