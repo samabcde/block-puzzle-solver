@@ -1,26 +1,26 @@
 package com.samabcde.puzzlesolver.solve;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Position;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.*;
 import java.util.*;
 import java.util.function.Consumer;
-
-import static org.fusesource.jansi.Ansi.ansi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Solution implements Iterable<BlockPosition> {
-    private static final String display = "0123456789" +
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-            "`~!@#$%^&*()-_=+[]{}\\|:;'\"<>,./?" +
-            "€‚ƒ„…†‡ˆ‰Š‹ŒŽ" +
-            "‘’“”•–—˜" +
-            "™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿" +
-            "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
+    private static final String display =
+            "0123456789"
+                    + "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    + "`~!@#$%^&*()-_=+[]{}\\|:;'\"<>,./?"
+                    + "€‚ƒ„…†‡ˆ‰Š‹ŒŽ"
+                    + "‘’“”•–—˜"
+                    + "™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿"
+                    + "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
     private static final Logger logger = LoggerFactory.getLogger(Solution.class);
     private final BlockPuzzle blockPuzzle;
     private final Deque<BlockPosition> positionSolutions = new LinkedList<>();
@@ -36,20 +36,24 @@ public class Solution implements Iterable<BlockPosition> {
 
     private char[] getDisplay(int count) {
         if (count > display.length()) {
-            throw new IllegalArgumentException("Not enough display, count:%d, available:%d".formatted(count, display.length()));
+            throw new IllegalArgumentException(
+                    "Not enough display, count:%d, available:%d"
+                            .formatted(count, display.length()));
         }
         return display.toCharArray();
     }
 
     void print() {
-        String[][] solutionView = new String[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
+        String[][] solutionView =
+                new String[this.blockPuzzle.getPuzzleHeight()][this.blockPuzzle.getPuzzleWidth()];
         for (BlockPosition blockPosition : positionSolutions) {
             Position position = blockPosition.getPosition();
             Block block = blockPosition.getBlock();
             for (int rowIndex = 0; rowIndex < block.getHeight(); rowIndex++) {
                 for (int colIndex = 0; colIndex < block.getWidth(); colIndex++) {
                     if (block.get(rowIndex, colIndex)) {
-                        solutionView[rowIndex + position.y()][colIndex + position.x()] = styledPoint(block.getPriority());
+                        solutionView[rowIndex + position.y()][colIndex + position.x()] =
+                                styledPoint(block.getPriority());
                     }
                 }
             }
@@ -86,7 +90,10 @@ public class Solution implements Iterable<BlockPosition> {
     private String styledPoint(int priority) {
         char[] visible = getDisplay(this.blockPuzzle.blockCount);
         Color color = this.colors[priority];
-        return ansi().bgRgb(color.getRed(), color.getGreen(), color.getBlue()).a(visible[priority]).reset().toString();
+        return ansi().bgRgb(color.getRed(), color.getGreen(), color.getBlue())
+                .a(visible[priority])
+                .reset()
+                .toString();
     }
 
     public BlockPosition poll() {

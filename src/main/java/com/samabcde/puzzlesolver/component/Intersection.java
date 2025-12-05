@@ -30,5 +30,4 @@ public class Intersection {
     int getIntersectCount() {
         return intersectCount;
     }
-
 }

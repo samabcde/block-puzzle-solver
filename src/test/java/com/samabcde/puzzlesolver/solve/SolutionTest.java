@@ -1,21 +1,20 @@
 package com.samabcde.puzzlesolver.solve;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
 import com.samabcde.puzzlesolver.component.Dimension;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.NoSuchElementException;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class SolutionTest {
     @Nested
     public class Given_EmptySolution {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[] {"1"});
         Solution solution = new Solution(blockPuzzle);
 
         @Test
@@ -30,8 +29,7 @@ class SolutionTest {
 
         @Test
         public void itDoesNotContainsBlock() {
-            blockPuzzle.getBlocks().forEach(block ->
-                    assertFalse(solution.containsBlock(block)));
+            blockPuzzle.getBlocks().forEach(block -> assertFalse(solution.containsBlock(block)));
         }
 
         @Test
@@ -42,7 +40,7 @@ class SolutionTest {
 
     @Nested
     public class AddOnePosition {
-        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[]{"1"});
+        BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(1, 1), new String[] {"1"});
         Solution solution = new Solution(blockPuzzle);
         Block block = blockPuzzle.getBlocks().getFirst();
         BlockPosition blockPosition = block.getBlockPositions().getFirst();

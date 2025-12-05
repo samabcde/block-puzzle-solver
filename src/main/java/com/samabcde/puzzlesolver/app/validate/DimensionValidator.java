@@ -5,7 +5,8 @@ public class DimensionValidator {
         boolean isWidthPositive = width > 0;
         boolean isHeightPositive = height > 0;
         if (!isWidthPositive && !isHeightPositive) {
-            throw new IllegalArgumentException("width:%d and height:%s must be positive".formatted(width, height));
+            throw new IllegalArgumentException(
+                    "width:%d and height:%s must be positive".formatted(width, height));
         }
         if (!isWidthPositive) {
             throw new IllegalArgumentException("width:%d must be positive".formatted(width));

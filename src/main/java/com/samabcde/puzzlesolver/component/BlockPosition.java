@@ -1,7 +1,6 @@
 package com.samabcde.puzzlesolver.component;
 
 import com.samabcde.puzzlesolver.solve.state.PointFillState;
-
 import java.util.*;
 
 public class BlockPosition implements Comparable<BlockPosition> {
@@ -51,7 +50,11 @@ public class BlockPosition implements Comparable<BlockPosition> {
             if (blockPosition.block.priority < this.block.priority) {
                 positionExtraScoreFactor = Math.pow(10, 2 / (1 + blockPosition.priority));
             }
-            int score = (int) Math.ceil(Math.pow(blockPriorityScore, blockExtraScoreFactor) * positionExtraScoreFactor);
+            int score =
+                    (int)
+                            Math.ceil(
+                                    Math.pow(blockPriorityScore, blockExtraScoreFactor)
+                                            * positionExtraScoreFactor);
             intersectScore += score;
         }
         return intersectScore;
@@ -68,10 +71,15 @@ public class BlockPosition implements Comparable<BlockPosition> {
         this.position = position;
         this.canFillPoints = new int[block.weight];
         int pointIndex = 0;
-        for (int rowIndex = this.position.y(); rowIndex < this.position.y() + this.block.getHeight(); rowIndex++) {
-            for (int columnIndex = this.position.x(); columnIndex < this.position.x() + this.block.getWidth(); columnIndex++) {
+        for (int rowIndex = this.position.y();
+                rowIndex < this.position.y() + this.block.getHeight();
+                rowIndex++) {
+            for (int columnIndex = this.position.x();
+                    columnIndex < this.position.x() + this.block.getWidth();
+                    columnIndex++) {
                 if (this.get(rowIndex, columnIndex)) {
-                    this.canFillPoints[pointIndex] = puzzleDimension.width() * rowIndex + columnIndex;
+                    this.canFillPoints[pointIndex] =
+                            puzzleDimension.width() * rowIndex + columnIndex;
                     pointIndex++;
                 }
             }
@@ -81,8 +89,14 @@ public class BlockPosition implements Comparable<BlockPosition> {
     boolean isIntersect(BlockPosition other) {
         int startRow = Math.max(this.position.y(), other.position.y());
         int startCol = Math.max(this.position.x(), other.position.x());
-        int endRow = Math.min(this.position.y() + this.block.getHeight(), other.position.y() + other.block.getHeight());
-        int endCol = Math.min(this.position.x() + this.block.getWidth(), other.position.x() + other.block.getWidth());
+        int endRow =
+                Math.min(
+                        this.position.y() + this.block.getHeight(),
+                        other.position.y() + other.block.getHeight());
+        int endCol =
+                Math.min(
+                        this.position.x() + this.block.getWidth(),
+                        other.position.x() + other.block.getWidth());
         for (int i = startRow; i < endRow; i++) {
             for (int j = startCol; j < endCol; j++) {
                 if (this.get(i, j) && other.get(i, j)) {
@@ -113,7 +127,6 @@ public class BlockPosition implements Comparable<BlockPosition> {
         return block.get(row - position.y(), col - position.x());
     }
 
-
     void addIntersectPosition(BlockPosition intersect) {
         this.intersection.add(intersect);
     }
@@ -126,8 +139,10 @@ public class BlockPosition implements Comparable<BlockPosition> {
     @Override
     public String toString() {
         return """
-                position: %s, block:
-                %s""".formatted(position, block);
+        position: %s, block:
+        %s\
+        """
+                .formatted(position, block);
     }
 
     @Override
@@ -149,5 +164,4 @@ public class BlockPosition implements Comparable<BlockPosition> {
     public int compareTo(BlockPosition arg0) {
         return this.id - arg0.id;
     }
-
 }

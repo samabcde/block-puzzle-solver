@@ -67,7 +67,8 @@ public class BlockPuzzle {
             block.setBlockPositions(blockIdToBlockPositionsMap.get(block.id));
         }
         setCoverableBlocks();
-        this.shapeToBlocksMap = this.blocks.stream().collect(Collectors.groupingBy(Block::getShape));
+        this.shapeToBlocksMap =
+                this.blocks.stream().collect(Collectors.groupingBy(Block::getShape));
     }
 
     public Block getBlockById(int id) {
@@ -116,12 +117,16 @@ public class BlockPuzzle {
 
     private List<BlockPosition> generateBlockPositions(Block block) {
         block.positionIdFrom = positionCount;
-        int noOfPosition = (getPuzzleWidth() - block.getWidth() + 1) * (getPuzzleHeight() - block.getHeight() + 1);
+        int noOfPosition =
+                (getPuzzleWidth() - block.getWidth() + 1)
+                        * (getPuzzleHeight() - block.getHeight() + 1);
         List<BlockPosition> blockPositions = new ArrayList<>(noOfPosition);
         block.positionIdTo = block.positionIdFrom + noOfPosition - 1;
         for (int i = 0; i < getPuzzleWidth() - block.getWidth() + 1; i++) {
             for (int j = 0; j < getPuzzleHeight() - block.getHeight() + 1; j++) {
-                blockPositions.add(new BlockPosition(this.puzzleDimension, block, new Position(i, j), positionCount));
+                blockPositions.add(
+                        new BlockPosition(
+                                this.puzzleDimension, block, new Position(i, j), positionCount));
                 positionCount++;
             }
         }
@@ -129,8 +134,13 @@ public class BlockPuzzle {
     }
 
     public void assertValid() {
-        if (blocks.stream().mapToInt(Block::getWeight).sum() < this.getPuzzleHeight() * this.getPuzzleWidth()) {
-            throw new IllegalStateException("Block weight:%d does not match Puzzle size:%d".formatted(blocks.stream().mapToInt(Block::getWeight).sum(), this.getPuzzleHeight() * this.getPuzzleWidth()));
+        if (blocks.stream().mapToInt(Block::getWeight).sum()
+                < this.getPuzzleHeight() * this.getPuzzleWidth()) {
+            throw new IllegalStateException(
+                    "Block weight:%d does not match Puzzle size:%d"
+                            .formatted(
+                                    blocks.stream().mapToInt(Block::getWeight).sum(),
+                                    this.getPuzzleHeight() * this.getPuzzleWidth()));
         }
     }
 }

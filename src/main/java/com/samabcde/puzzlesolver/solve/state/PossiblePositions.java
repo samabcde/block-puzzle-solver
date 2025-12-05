@@ -2,7 +2,6 @@ package com.samabcde.puzzlesolver.solve.state;
 
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
-
 import java.util.BitSet;
 import java.util.Iterator;
 import java.util.List;
@@ -14,13 +13,15 @@ public class PossiblePositions {
     private final List<BlockPosition> blockPositions;
 
     public PossiblePositions(List<BlockPosition> blockPositions) {
-        isCommonIntersectBitSet = new BitSet(blockPositions.getFirst().getIsPositionIdIntersectBitSet().size());
+        isCommonIntersectBitSet =
+                new BitSet(blockPositions.getFirst().getIsPositionIdIntersectBitSet().size());
         this.isCommonIntersectBitSet.set(0, isCommonIntersectBitSet.size(), true);
         setCommonIntersect(isCommonIntersectBitSet, blockPositions);
         this.blockPositions = blockPositions;
     }
 
-    private static void setCommonIntersect(BitSet isCommonIntersectBitSet, List<BlockPosition> blockPositions) {
+    private static void setCommonIntersect(
+            BitSet isCommonIntersectBitSet, List<BlockPosition> blockPositions) {
         for (BlockPosition blockPosition : blockPositions) {
             isCommonIntersectBitSet.and(blockPosition.getIsPositionIdIntersectBitSet());
             if (isCommonIntersectBitSet.cardinality() == 0) {
@@ -54,7 +55,8 @@ public class PossiblePositions {
         return hasChange;
     }
 
-    public boolean removeCannotFillOneBlockEmptyPoint(BoardFillState boardFillState, PointFillState remainOneBlockEmptyPoint) {
+    public boolean removeCannotFillOneBlockEmptyPoint(
+            BoardFillState boardFillState, PointFillState remainOneBlockEmptyPoint) {
         boolean hasChange = false;
         Iterator<BlockPosition> iterator = this.blockPositions.iterator();
         while (iterator.hasNext()) {

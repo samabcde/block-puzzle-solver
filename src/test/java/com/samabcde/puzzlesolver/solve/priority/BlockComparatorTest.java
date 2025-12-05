@@ -2,6 +2,7 @@ package com.samabcde.puzzlesolver.solve.priority;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+
 import com.samabcde.puzzlesolver.component.Block;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -14,10 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BlockComparatorTest {
-    @Mock
-    private Block left;
-    @Mock
-    private Block right;
+    @Mock private Block left;
+    @Mock private Block right;
 
     BlockComparator blockComparator = new BlockComparator();
 

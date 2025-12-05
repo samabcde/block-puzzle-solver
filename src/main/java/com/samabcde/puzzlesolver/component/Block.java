@@ -49,11 +49,22 @@ public class Block {
     }
 
     private static String[] trimColumn(String[] rows) {
-        int minStart = Arrays.stream(rows)
-                .mapToInt(s -> s.indexOf('1')).filter(i -> i != -1).min().orElse(0);
-        int maxEnd = Arrays.stream(rows)
-                .mapToInt(s -> s.lastIndexOf('1')).filter(i -> i != -1).map(i -> i + 1).max().orElse(0);
-        return Arrays.stream(rows).map(s -> s.substring(minStart, Math.min(s.length(), maxEnd))).toArray(String[]::new);
+        int minStart =
+                Arrays.stream(rows)
+                        .mapToInt(s -> s.indexOf('1'))
+                        .filter(i -> i != -1)
+                        .min()
+                        .orElse(0);
+        int maxEnd =
+                Arrays.stream(rows)
+                        .mapToInt(s -> s.lastIndexOf('1'))
+                        .filter(i -> i != -1)
+                        .map(i -> i + 1)
+                        .max()
+                        .orElse(0);
+        return Arrays.stream(rows)
+                .map(s -> s.substring(minStart, Math.min(s.length(), maxEnd)))
+                .toArray(String[]::new);
     }
 
     public int getPositionIdFrom() {
@@ -69,7 +80,9 @@ public class Block {
     }
 
     public boolean isCoverable(Block block) {
-        return (this.height >= block.height && this.width >= block.width && this.weight >= block.weight);
+        return (this.height >= block.height
+                && this.width >= block.width
+                && this.weight >= block.weight);
     }
 
     public int getAverageIntersectCount() {
@@ -102,7 +115,11 @@ public class Block {
 
     void setBlockPositions(List<BlockPosition> blockPositions) {
         this.blockPositions = blockPositions;
-        this.totalIntersectCount = blockPositions.stream().map(BlockPosition::getIntersectCount).reduce(Integer::sum).orElse(0);
+        this.totalIntersectCount =
+                blockPositions.stream()
+                        .map(BlockPosition::getIntersectCount)
+                        .reduce(Integer::sum)
+                        .orElse(0);
     }
 
     public List<BlockPosition> getBlockPositions() {

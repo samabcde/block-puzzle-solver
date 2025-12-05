@@ -2,12 +2,11 @@ package com.samabcde.puzzlesolver.solve.state;
 
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BoardFillState {
     private static final Logger logger = LoggerFactory.getLogger(BoardFillState.class);
@@ -28,9 +27,14 @@ public class BoardFillState {
 
     private BoardFillState(BoardFillState boardFillState) {
         this.blockPuzzle = boardFillState.blockPuzzle;
-        this.pointFillStatesOrderByPosition = boardFillState.pointFillStatesOrderByPosition.stream().map(PointFillState::copy).toList();
+        this.pointFillStatesOrderByPosition =
+                boardFillState.pointFillStatesOrderByPosition.stream()
+                        .map(PointFillState::copy)
+                        .toList();
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
-        this.emptyPoints.replaceAll(pointFillState -> this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
+        this.emptyPoints.replaceAll(
+                pointFillState ->
+                        this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
         this.canNotFillPointCount = boardFillState.canNotFillPointCount;
     }
 
@@ -52,8 +56,7 @@ public class BoardFillState {
     }
 
     public List<PointFillState> getOneBlockCanFillEmptyPoints() {
-        return emptyPoints.stream()
-                .filter(PointFillState::canFillByOnlyOneBlock).toList();
+        return emptyPoints.stream().filter(PointFillState::canFillByOnlyOneBlock).toList();
     }
 
     public void placeBlockPosition(BlockPosition blockPosition) {
@@ -69,7 +72,10 @@ public class BoardFillState {
 
     public void removeCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            boolean isNewCanNotFill = pointFillStatesOrderByPosition.get(canFillPoint).removeCanFillBlockPosition(blockPosition);
+            boolean isNewCanNotFill =
+                    pointFillStatesOrderByPosition
+                            .get(canFillPoint)
+                            .removeCanFillBlockPosition(blockPosition);
             if (isNewCanNotFill) {
                 canNotFillPointCount++;
             }
@@ -89,7 +95,10 @@ public class BoardFillState {
 
     public void addCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            boolean isNewCallFill = pointFillStatesOrderByPosition.get(canFillPoint).addCanFillBlockPosition(blockPosition);
+            boolean isNewCallFill =
+                    pointFillStatesOrderByPosition
+                            .get(canFillPoint)
+                            .addCanFillBlockPosition(blockPosition);
             if (isNewCallFill) {
                 canNotFillPointCount--;
             }

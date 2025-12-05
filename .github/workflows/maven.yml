@@ -16,13 +16,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 24
+    - name: Set up JDK 25
       uses: actions/setup-java@v2
       with:
-        java-version: '24'
+        java-version: '25'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B spotless:check package --file pom.xml
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3

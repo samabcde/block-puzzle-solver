@@ -3,7 +3,6 @@ package com.samabcde.puzzlesolver.solve.state;
 import com.samabcde.puzzlesolver.component.Block;
 import com.samabcde.puzzlesolver.component.BlockPosition;
 import com.samabcde.puzzlesolver.component.BlockPuzzle;
-
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -20,8 +19,10 @@ public class PointFillState {
     private PointFillState(PointFillState pointFillState) {
         this.canFillBlockCount = pointFillState.canFillBlockCount;
         this.canFillBlockPositionCount = pointFillState.canFillBlockPositionCount;
-        this.canFillPositionCountOfBlocks = Arrays.copyOf(pointFillState.canFillPositionCountOfBlocks,
-                pointFillState.canFillPositionCountOfBlocks.length);
+        this.canFillPositionCountOfBlocks =
+                Arrays.copyOf(
+                        pointFillState.canFillPositionCountOfBlocks,
+                        pointFillState.canFillPositionCountOfBlocks.length);
         this.canFillBlockWeight = pointFillState.canFillBlockWeight;
         this.isFilled = pointFillState.isFilled;
         this.position = pointFillState.position;
@@ -129,22 +130,24 @@ public class PointFillState {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         PointFillState other = (PointFillState) obj;
-        if (position != other.position)
-            return false;
+        if (position != other.position) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "filled:" + this.isFilled + " position: " + this.position + " canFillBlockCount: "
-                + this.canFillBlockCount + " weight " + canFillBlockWeight
+        return "filled:"
+                + this.isFilled
+                + " position: "
+                + this.position
+                + " canFillBlockCount: "
+                + this.canFillBlockCount
+                + " weight "
+                + canFillBlockWeight
                 + Arrays.toString(this.canFillPositionCountOfBlocks);
     }
 }
