@@ -14,7 +14,7 @@
         <junit.version>6.0.1</junit.version>
         <jansi.version>2.4.2</jansi.version>
         <picocli.version>4.7.7</picocli.version>
-        <log4j.version>2.25.2</log4j.version>
+        <log4j.version>2.25.3</log4j.version>
     </properties>
     <dependencies>
         <dependency>
