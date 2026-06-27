@@ -23,11 +23,9 @@ public class PerformanceRecorder {
         List<Map.Entry<String, Long>> executeTimes = executeTime.entrySet().stream().toList();
         for (int i = 0; i < executeTimes.size() - 1; i++) {
             logger.info(
-                    "Step "
-                            + executeTimes.get(i + 1).getKey()
-                            + " time: "
-                            + (executeTimes.get(i + 1).getValue() - executeTimes.get(i).getValue())
-                            + "ms");
+                    "Step {} time: {}ms",
+                    executeTimes.get(i + 1).getKey(),
+                    executeTimes.get(i + 1).getValue() - executeTimes.get(i).getValue());
         }
     }
 }

@@ -34,7 +34,7 @@ class BlockTest {
             delimiter = '|')
     public void id(int id, int expected) {
         Block block = new Block("1", id);
-        assertEquals(block.id, expected);
+        assertEquals(expected, block.id);
     }
 
     @ParameterizedTest
@@ -49,7 +49,7 @@ class BlockTest {
             delimiter = '|')
     public void width(String value, int expected) {
         Block block = new Block(value, 1);
-        assertEquals(block.getWidth(), expected);
+        assertEquals(expected, block.getWidth());
     }
 
     @ParameterizedTest
@@ -64,7 +64,7 @@ class BlockTest {
             delimiter = '|')
     public void height(String value, int expected) {
         Block block = new Block(value, 1);
-        assertEquals(block.getHeight(), expected);
+        assertEquals(expected, block.getHeight());
     }
 
     @ParameterizedTest
@@ -79,7 +79,7 @@ class BlockTest {
             delimiter = '|')
     public void weight(String value, int expected) {
         Block block = new Block(value, 1);
-        assertEquals(block.getWeight(), expected);
+        assertEquals(expected, block.getWeight());
     }
 
     @ParameterizedTest

@@ -91,12 +91,12 @@ public class BlockPuzzleSolver {
         performanceRecorder.addExecution("Solve complete");
         if (isSolved()) {
             logger.info("Solved");
-            logger.info("iterate Count: " + iterateCount);
+            logger.info("iterate Count: {}", iterateCount);
             logger.info("Solution: ");
             solution.print();
         } else {
             logger.info("Cannot solve");
-            logger.info("iterate Count: " + iterateCount);
+            logger.info("iterate Count: {}", iterateCount);
         }
         performanceRecorder.addExecution("Print solution");
         performanceRecorder.print();

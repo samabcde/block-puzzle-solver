@@ -15,7 +15,7 @@ import picocli.CommandLine.Option;
 
 @Command(name = "solve", mixinStandardHelpOptions = true, version = "0.0.1")
 public class SolverApplication implements Callable<Integer> {
-    private static final Logger logger = LoggerFactory.getLogger(BlockPuzzleSolver.class);
+    private static final Logger logger = LoggerFactory.getLogger(SolverApplication.class);
 
     @Option(
             names = {"-pw", "--puzzle-width"},
@@ -39,15 +39,14 @@ public class SolverApplication implements Callable<Integer> {
             required = true)
     private String[] blocks;
 
-    public static void main(String... args) {
+    static void main(String... args) {
         int exitCode = new CommandLine(new SolverApplication()).execute(args);
         System.exit(exitCode);
     }
 
     @Override
     public Integer call() {
-        logger.info(
-                "width:" + width + ", height:" + height + ", blocks:" + Arrays.toString(blocks));
+        logger.info("width:{}, height:{}, blocks:{}", width, height, Arrays.toString(blocks));
         new DimensionValidator().validate(width, height);
         new BlocksValidator(width, height).validate(blocks);
         BlockPuzzle blockPuzzle = new BlockPuzzle(new Dimension(width, height), blocks);
