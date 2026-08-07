@@ -4,6 +4,7 @@ import com.samabcde.puzzlesolver.solve.state.PointFillState;
 import java.util.*;
 
 public class BlockPosition implements Comparable<BlockPosition> {
+
     public final int id;
     private final Block block;
     private final Position position;
@@ -45,10 +46,11 @@ public class BlockPosition implements Comparable<BlockPosition> {
             }
             BlockPosition blockPosition = blockPuzzle.getBlockPositionById(i);
             double blockPriorityScore = 10;
-            double blockExtraScoreFactor = 3 / (2 + blockPosition.block.priority);
+            double blockExtraScoreFactor = Math.divideExact(3, (2 + blockPosition.block.priority));
             double positionExtraScoreFactor = 1;
             if (blockPosition.block.priority < this.block.priority) {
-                positionExtraScoreFactor = Math.pow(10, 2 / (1 + blockPosition.priority));
+                positionExtraScoreFactor =
+                        Math.pow(10, Math.divideExact(2, (1 + blockPosition.priority)));
             }
             int score =
                     (int)
