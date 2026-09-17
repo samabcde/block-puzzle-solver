@@ -13,7 +13,7 @@ public class BoardFillState {
     private final LinkedList<PointFillState> emptyPoints;
     private final List<PointFillState> pointFillStatesOrderByPosition;
     private final BlockPuzzle blockPuzzle;
-    private int canNotFillPointCount = 0;
+    private int cannotFillPointCount = 0;
 
     public BoardFillState(BlockPuzzle blockPuzzle) {
         this.blockPuzzle = blockPuzzle;
@@ -35,7 +35,7 @@ public class BoardFillState {
         this.emptyPoints.replaceAll(
                 pointFillState ->
                         this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
-        this.canNotFillPointCount = boardFillState.canNotFillPointCount;
+        this.cannotFillPointCount = boardFillState.cannotFillPointCount;
     }
 
     public BoardFillState copy() {
@@ -43,7 +43,7 @@ public class BoardFillState {
     }
 
     public boolean existCannotFillPoint() {
-        return canNotFillPointCount > 0;
+        return cannotFillPointCount > 0;
     }
 
     // TODO cache this instead of loop through
@@ -64,7 +64,7 @@ public class BoardFillState {
             PointFillState pointFillState = pointFillStatesOrderByPosition.get(canFillPoint);
             pointFillState.setIsFilled(true);
             if (!pointFillState.canFill()) {
-                canNotFillPointCount--;
+                cannotFillPointCount--;
             }
             emptyPoints.removeFirstOccurrence(pointFillStatesOrderByPosition.get(canFillPoint));
         }
@@ -72,12 +72,12 @@ public class BoardFillState {
 
     public void removeCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            boolean isNewCanNotFill =
+            boolean isNewCannotFill =
                     pointFillStatesOrderByPosition
                             .get(canFillPoint)
                             .removeCanFillBlockPosition(blockPosition);
-            if (isNewCanNotFill) {
-                canNotFillPointCount++;
+            if (isNewCannotFill) {
+                cannotFillPointCount++;
             }
         }
     }
@@ -87,7 +87,7 @@ public class BoardFillState {
             PointFillState pointFillState = pointFillStatesOrderByPosition.get(canFillPoint);
             pointFillState.setIsFilled(false);
             if (!pointFillState.canFill()) {
-                canNotFillPointCount++;
+                cannotFillPointCount++;
             }
             emptyPoints.addFirst(pointFillStatesOrderByPosition.get(canFillPoint));
         }
@@ -95,12 +95,12 @@ public class BoardFillState {
 
     public void addCanFillBlockPosition(BlockPosition blockPosition) {
         for (int canFillPoint : blockPosition.getCanFillPoints()) {
-            boolean isNewCallFill =
+            boolean isNewCannotFill =
                     pointFillStatesOrderByPosition
                             .get(canFillPoint)
                             .addCanFillBlockPosition(blockPosition);
-            if (isNewCallFill) {
-                canNotFillPointCount--;
+            if (isNewCannotFill) {
+                cannotFillPointCount--;
             }
         }
     }
