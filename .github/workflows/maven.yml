@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 25
+    - name: Set up JDK 27
       uses: actions/setup-java@v2
       with:
-        java-version: '25'
+        java-version: '27'
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B spotless:check package --file pom.xml
