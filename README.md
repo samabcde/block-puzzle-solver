@@ -1,6 +1,6 @@
 [![GitHub Actions Status](https://github.com/samabcde/block-puzzle-solver/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/samabcde/block-puzzle-solver)
 [![Coverage Status](https://codecov.io/github/samabcde/block-puzzle-solver/branch/master/graph/badge.svg)](https://app.codecov.io/github/samabcde/block-puzzle-solver)
-
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/samabcde)
 # Block Puzzle Solver
 
 ![](image/block_puzzle.webp)
