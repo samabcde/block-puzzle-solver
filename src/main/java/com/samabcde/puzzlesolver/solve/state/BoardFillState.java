@@ -32,9 +32,8 @@ public class BoardFillState {
                         .map(PointFillState::copy)
                         .toList();
         this.emptyPoints = new LinkedList<>(boardFillState.emptyPoints);
-        this.emptyPoints.replaceAll(
-                pointFillState ->
-                        this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
+        this.emptyPoints.replaceAll(pointFillState ->
+                this.pointFillStatesOrderByPosition.get(pointFillState.getPosition()));
         this.cannotFillPointCount = boardFillState.cannotFillPointCount;
     }
 
